@@ -1,135 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hashir MV | Full-Stack Developer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hashir MV — Full-Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #0d1117; --bg2: #161b22; --bg3: #21262d;
-      --border: #30363d; --accent: #58a6ff; --accent2: #3fb950;
-      --accent3: #f78166; --accent4: #d2a8ff;
+      --bg: #0d1117; --bg2: #161b22; --bg3: #21262d; --border: #30363d;
+      --accent: #58a6ff; --accent2: #3fb950; --accent3: #f78166; --accent4: #d2a8ff;
       --text: #e6edf3; --text2: #8b949e; --text3: #c9d1d9;
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; cursor: none; }
 
-    nav {
-      position: fixed; top: 0; width: 100%; z-index: 100;
-      background: rgba(13,17,23,0.95); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px;
-    }
-    .nav-logo { font-family: 'Fira Code', monospace; color: var(--accent); font-size: 1.1rem; font-weight: 500; text-decoration: none; }
+    /* ── CUSTOM CURSOR ── */
+    #cursor { position: fixed; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%) scale(1); transition: width 0.2s, height 0.2s, transform 0.2s; mix-blend-mode: screen; will-change: left, top, transform; }
+    #cursor-ring { position: fixed; width: 38px; height: 38px; border: 1.5px solid rgba(88,166,255,0.45); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease; will-change: left, top; }
+
+    /* ── PARTICLES ── */
+    #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.3; will-change: transform; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1); will-change: opacity, transform; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-32px); transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1); will-change: opacity, transform; }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(32px); transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1); will-change: opacity, transform; }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(13,17,23,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; transition: box-shadow 0.3s; }
+    nav.scrolled { box-shadow: 0 4px 30px rgba(88,166,255,0.08); }
+    .nav-logo { font-family: 'Fira Code', monospace; color: var(--accent); font-size: 1.1rem; font-weight: 500; text-decoration: none; position: relative; }
+    .nav-logo::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: var(--accent); transition: width 0.3s; border-radius: 2px; }
+    .nav-logo:hover::after { width: 100%; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { color: var(--text2); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a { color: var(--text2); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1.5px; background: var(--accent); transition: width 0.25s; border-radius: 2px; }
     .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { width: 100%; }
 
-    .hero {
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      padding: 80px 2rem 2rem; text-align: center;
-      background: radial-gradient(ellipse at 50% 0%, rgba(88,166,255,0.1) 0%, transparent 65%);
-    }
+    /* ── HERO ── */
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 2rem 2rem; text-align: center; background: radial-gradient(ellipse at 50% 0%, rgba(88,166,255,0.12) 0%, transparent 65%); position: relative; z-index: 1; }
     .hero-inner { max-width: 720px; }
-    .hero-badge { display: inline-block; background: rgba(88,166,255,0.1); border: 1px solid rgba(88,166,255,0.35); color: var(--accent); padding: 0.35rem 1.1rem; border-radius: 20px; font-size: 0.8rem; font-family: 'Fira Code', monospace; margin-bottom: 1.5rem; }
-    .hero h1 { font-size: clamp(2.5rem,6vw,4rem); font-weight: 800; line-height: 1.1; margin-bottom: 0.5rem; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(88,166,255,0.1); border: 1px solid rgba(88,166,255,0.35); color: var(--accent); padding: 0.35rem 1.1rem; border-radius: 20px; font-size: 0.8rem; font-family: 'Fira Code', monospace; margin-bottom: 1.5rem; animation: pulse-badge 2.5s ease-in-out infinite; }
+    @keyframes pulse-badge { 0%,100% { box-shadow: 0 0 0 0 rgba(88,166,255,0.3); } 50% { box-shadow: 0 0 0 8px rgba(88,166,255,0); } }
+    .badge-dot { width: 7px; height: 7px; background: var(--accent2); border-radius: 50%; animation: blink 1.4s ease-in-out infinite; flex-shrink: 0; }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 0.5rem; animation: fadeInUp 0.8s 0.2s both; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     .hero h1 span { color: var(--accent); }
-    .hero-role { font-size: 1.2rem; color: var(--text2); margin-bottom: 1.5rem; font-family: 'Fira Code', monospace; }
+    .hero-role { font-size: 1.2rem; color: var(--text2); margin-bottom: 1.5rem; font-family: 'Fira Code', monospace; animation: fadeInUp 0.8s 0.4s both; min-height: 1.8rem; }
     .hero-role span { color: var(--accent2); }
-    .hero-desc { font-size: 1rem; color: var(--text3); max-width: 560px; margin: 0 auto 2.5rem; }
-    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .btn { padding: 0.7rem 1.6rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; border: none; }
+    .hero-desc { font-size: 1rem; color: var(--text3); max-width: 560px; margin: 0 auto 2.5rem; animation: fadeInUp 0.8s 0.6s both; }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: fadeInUp 0.8s 0.8s both; }
+    .btn { padding: 0.7rem 1.6rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: all 0.25s cubic-bezier(0.22,1,0.36,1); display: inline-flex; align-items: center; gap: 0.5rem; cursor: none; border: none; position: relative; overflow: hidden; }
     .btn-primary { background: var(--accent); color: #0d1117; }
-    .btn-primary:hover { background: #79b8ff; transform: translateY(-2px); }
+    .btn-primary:hover { background: #79b8ff; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(88,166,255,0.35); }
     .btn-outline { border: 1px solid var(--border); color: var(--text3); background: transparent; }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(88,166,255,0.15); }
     .btn-resume { border: 1px solid var(--accent2); color: var(--accent2); background: rgba(63,185,80,0.08); }
-    .btn-resume:hover { background: rgba(63,185,80,0.18); transform: translateY(-2px); }
-    .hero-stats { display: flex; gap: 3rem; justify-content: center; margin-top: 4rem; flex-wrap: wrap; }
+    .btn-resume:hover { background: rgba(63,185,80,0.18); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(63,185,80,0.2); }
+    .hero-stats { display: flex; gap: 3rem; justify-content: center; margin-top: 4rem; flex-wrap: wrap; animation: fadeInUp 0.8s 1s both; }
     .stat { text-align: center; }
     .stat-num { font-size: 2rem; font-weight: 800; color: var(--accent); }
     .stat-label { font-size: 0.8rem; color: var(--text2); margin-top: 0.2rem; }
 
-    section { padding: 5rem 2rem; }
+    /* ── SCROLL INDICATOR ── */
+    .scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.4rem; color: var(--text2); font-size: 0.75rem; animation: fadeInUp 1s 1.4s both; }
+    .scroll-mouse { width: 22px; height: 36px; border: 2px solid rgba(88,166,255,0.4); border-radius: 12px; display: flex; justify-content: center; padding-top: 6px; }
+    .scroll-wheel { width: 3px; height: 7px; background: var(--accent); border-radius: 2px; animation: scroll-down 1.8s cubic-bezier(0.45,0,0.55,1) infinite; }
+    @keyframes scroll-down { 0% { transform: translateY(0); opacity: 1; } 75% { transform: translateY(11px); opacity: 0; } 100% { transform: translateY(0); opacity: 0; } }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; position: relative; z-index: 1; }
     .container { max-width: 1100px; margin: 0 auto; }
     .section-header { text-align: center; margin-bottom: 3.5rem; }
-    .section-tag { font-family: 'Fira Code', monospace; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.5rem; }
-    .section-title { font-size: clamp(1.8rem,4vw,2.5rem); font-weight: 700; }
+    .section-tag { font-family: 'Fira Code', monospace; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.5rem; display: inline-block; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; }
     .section-sub { color: var(--text2); margin-top: 0.5rem; font-size: 0.95rem; }
 
-    /* ====== SKILLS ====== */
+    /* ── SKILLS ── */
     #skills { background: var(--bg2); }
     .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
-    .skill-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem 1.6rem; transition: border-color 0.2s, transform 0.2s; }
-    .skill-card:hover { border-color: rgba(88,166,255,0.45); transform: translateY(-2px); }
+    .skill-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem 1.6rem; transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease; will-change: transform; }
+    .skill-card:hover { border-color: rgba(88,166,255,0.5); transform: translateY(-4px); box-shadow: 0 12px 35px rgba(88,166,255,0.1); }
     .skill-card-title { display: flex; align-items: center; gap: 0.55rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 700; margin-bottom: 1.1rem; }
     .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .skill-tag { background: rgba(88,166,255,0.08); border: 1px solid rgba(88,166,255,0.2); color: var(--text3); padding: 0.3rem 0.75rem; border-radius: 6px; font-size: 0.82rem; font-family: 'Fira Code', monospace; display: inline-flex; align-items: center; gap: 0.4rem; transition: border-color 0.2s, color 0.2s; }
-    .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+    .skill-tag { background: rgba(88,166,255,0.08); border: 1px solid rgba(88,166,255,0.2); color: var(--text3); padding: 0.3rem 0.75rem; border-radius: 6px; font-size: 0.82rem; font-family: 'Fira Code', monospace; display: inline-flex; align-items: center; gap: 0.4rem; transition: all 0.2s ease; }
+    .skill-tag:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.05); }
     .skill-tag i { font-size: 1rem; line-height: 1; }
     .skill-tag img { width: 15px; height: 15px; object-fit: contain; }
 
-    /* ====== PROJECTS ====== */
+    /* ── PROJECTS ── */
     #projects { background: var(--bg); }
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
-    .project-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
-    .project-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 8px 30px rgba(88,166,255,0.08); }
-
-    /* --- IMAGE SLIDER --- */
-    .slider {
-      position: relative; width: 100%; height: 210px;
-      overflow: hidden; border-bottom: 1px solid var(--border);
-      background: var(--bg3); flex-shrink: 0;
-    }
-    .slider-track {
-      display: flex; height: 100%;
-      transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
-    }
-    .slider-track img {
-      min-width: 100%; width: 100%; height: 100%;
-      object-fit: cover; object-position: top;
-      display: block; flex-shrink: 0;
-    }
-    .slider-btn {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      background: rgba(13,17,23,0.75); border: 1px solid var(--border);
-      color: var(--text3); width: 30px; height: 30px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; font-size: 0.7rem; transition: background 0.2s, color 0.2s;
-      z-index: 5; user-select: none; backdrop-filter: blur(4px);
-    }
+    .project-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease; will-change: transform; }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-6px); box-shadow: 0 18px 48px rgba(88,166,255,0.13); }
+    .slider { position: relative; width: 100%; height: 210px; overflow: hidden; border-bottom: 1px solid var(--border); background: var(--bg3); flex-shrink: 0; }
+    .slider-track { display: flex; height: 100%; transition: transform 0.48s cubic-bezier(0.4,0,0.2,1); }
+    .slider-track img { min-width: 100%; width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; flex-shrink: 0; }
+    .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(13,17,23,0.75); border: 1px solid var(--border); color: var(--text3); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: none; font-size: 0.7rem; transition: all 0.2s ease; z-index: 5; user-select: none; backdrop-filter: blur(4px); }
     .slider-btn:hover { background: var(--accent); color: #0d1117; border-color: var(--accent); }
     .slider-btn.prev { left: 8px; }
     .slider-btn.next { right: 8px; }
-    .slider-dots {
-      position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
-      display: flex; gap: 5px; z-index: 5;
-    }
-    .slider-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: rgba(255,255,255,0.35); cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
-    }
+    .slider-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; z-index: 5; }
+    .slider-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.35); cursor: none; transition: background 0.2s, transform 0.2s; }
     .slider-dot.active { background: var(--accent); transform: scale(1.3); }
-    .slider-counter {
-      position: absolute; top: 8px; right: 10px;
-      font-family: 'Fira Code', monospace; font-size: 0.65rem;
-      background: rgba(13,17,23,0.7); color: var(--text2);
-      padding: 2px 7px; border-radius: 10px; z-index: 5;
-      backdrop-filter: blur(4px);
-    }
-    /* static placeholder (for ZWebCart / Circuitil) */
-    .project-img-placeholder {
-      width: 100%; height: 210px;
-      display: flex; align-items: center; justify-content: center;
-      border-bottom: 1px solid var(--border);
-    }
-
+    .slider-counter { position: absolute; top: 8px; right: 10px; font-family: 'Fira Code', monospace; font-size: 0.65rem; background: rgba(13,17,23,0.7); color: var(--text2); padding: 2px 7px; border-radius: 10px; z-index: 5; backdrop-filter: blur(4px); }
+    .project-img-placeholder { width: 100%; height: 210px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border); }
     .project-body { padding: 1.3rem 1.4rem; display: flex; flex-direction: column; flex: 1; }
     .project-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.5rem; }
     .project-icon { font-size: 1.4rem; }
@@ -144,24 +128,27 @@
     .tech-badge.api { background: rgba(210,168,255,0.1); border-color: rgba(210,168,255,0.25); color: var(--accent4); }
     .tech-badge.orange { background: rgba(247,129,102,0.1); border-color: rgba(247,129,102,0.25); color: var(--accent3); }
 
-    /* ====== INTEGRATIONS ====== */
+    /* ── INTEGRATIONS ── */
     #integrations { background: var(--bg2); }
-    .integrations-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px,1fr)); gap: 1rem; }
-    .integration-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem 0.8rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.55rem; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
-    .integration-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 6px 20px rgba(88,166,255,0.1); }
-    .int-icon-wrap { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--bg2); border: 1px solid var(--border); overflow: hidden; }
+    .integrations-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 1rem; }
+    .integration-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem 0.8rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.55rem; transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease; position: relative; overflow: hidden; will-change: transform; }
+    .integration-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, rgba(88,166,255,0.09), transparent 70%); opacity: 0; transition: opacity 0.35s ease; }
+    .integration-card:hover::before { opacity: 1; }
+    .integration-card:hover { border-color: var(--accent); transform: translateY(-6px); box-shadow: 0 12px 32px rgba(88,166,255,0.13); }
+    .int-icon-wrap { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--bg2); border: 1px solid var(--border); overflow: hidden; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1); }
+    .integration-card:hover .int-icon-wrap { transform: scale(1.12) rotate(-4deg); }
     .int-icon-wrap img { width: 32px; height: 32px; object-fit: contain; }
     .integration-name { font-size: 0.82rem; font-weight: 700; color: var(--text3); }
     .integration-desc { font-size: 0.7rem; color: var(--text2); line-height: 1.4; }
 
-    /* ====== EXPERIENCE ====== */
+    /* ── EXPERIENCE ── */
     #experience { background: var(--bg); }
     .exp-grid { display: flex; flex-direction: column; gap: 1.5rem; }
-    .exp-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: 220px 1fr; transition: border-color 0.2s, transform 0.2s; }
-    .exp-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .exp-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: 220px 1fr; transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease; will-change: transform; }
+    .exp-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 35px rgba(88,166,255,0.1); }
     .exp-sidebar { padding: 1.8rem 1.4rem; background: var(--bg3); border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.5rem; }
     .exp-period { font-family: 'Fira Code', monospace; font-size: 0.73rem; color: var(--accent); display: flex; align-items: center; gap: 0.4rem; }
-    .exp-period::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; flex-shrink: 0; }
+    .exp-period::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; flex-shrink: 0; animation: pulse-badge 2s infinite; }
     .exp-role { font-size: 1rem; font-weight: 700; margin: 0.3rem 0 0.1rem; color: var(--text); }
     .exp-company { color: var(--accent2); font-size: 0.85rem; font-weight: 600; }
     .exp-badge { display: inline-block; font-size: 0.67rem; font-family: 'Fira Code', monospace; padding: 0.2rem 0.7rem; border-radius: 20px; font-weight: 500; margin-top: 0.5rem; }
@@ -170,690 +157,670 @@
     .exp-content { padding: 1.8rem; }
     .exp-points { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
     .exp-points li { color: var(--text3); font-size: 0.875rem; padding-left: 1.2rem; position: relative; line-height: 1.6; }
-    .exp-points li::before { content: '\25B8'; position: absolute; left: 0; color: var(--accent2); font-size: 0.75rem; top: 0.2rem; }
+    .exp-points li::before { content: '▸'; position: absolute; left: 0; color: var(--accent2); font-size: 0.75rem; top: 0.2rem; }
     .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
     .exp-tag { background: rgba(88,166,255,0.07); border: 1px solid rgba(88,166,255,0.15); color: var(--text2); padding: 0.15rem 0.55rem; border-radius: 4px; font-size: 0.7rem; font-family: 'Fira Code', monospace; }
 
-    /* ====== CONTACT ====== */
+    /* ── CONTACT ── */
     #contact { background: var(--bg2); }
-    .contact-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 20px; padding: 3rem; text-align: center; max-width: 620px; margin: 0 auto; }
+    .contact-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 20px; padding: 3rem; text-align: center; max-width: 620px; margin: 0 auto; position: relative; overflow: hidden; }
+    .contact-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(from 0deg, transparent 0deg, rgba(88,166,255,0.06) 60deg, transparent 120deg); animation: rotate-glow 8s linear infinite; }
+    @keyframes rotate-glow { to { transform: rotate(360deg); } }
+    .contact-card > * { position: relative; z-index: 1; }
     .contact-card h3 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem; }
     .contact-card p { color: var(--text2); margin-bottom: 2rem; font-size: 0.95rem; }
     .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .contact-link { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.4rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 500; border: 1px solid var(--border); color: var(--text3); transition: all 0.2s; }
-    .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .contact-link { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.4rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 500; border: 1px solid var(--border); color: var(--text3); transition: all 0.25s cubic-bezier(0.22,1,0.36,1); }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(88,166,255,0.2); }
     .contact-link.email { background: var(--accent); color: #0d1117; border-color: var(--accent); font-weight: 600; }
-    .contact-link.email:hover { background: #79b8ff; color: #0d1117; }
+    .contact-link.email:hover { background: #79b8ff; box-shadow: 0 8px 25px rgba(88,166,255,0.4); }
 
-    footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--text2); font-size: 0.85rem; }
+    /* ── TYPED CURSOR ── */
+    .typed-cursor { display: inline-block; width: 2px; height: 1em; background: var(--accent2); margin-left: 2px; animation: blink 0.9s step-end infinite; vertical-align: text-bottom; }
+
+    /* ── FOOTER ── */
+    footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--text2); font-size: 0.85rem; position: relative; z-index: 1; }
     footer span { color: var(--accent3); }
 
+    /* ── RESPONSIVE ── */
     @media (max-width: 900px) { .exp-card { grid-template-columns: 1fr; } .exp-sidebar { border-right: none; border-bottom: 1px solid var(--border); } }
-    @media (max-width: 768px) { .nav-links { display: none; } .hero-stats { gap: 2rem; } .contact-card { padding: 2rem 1.5rem; } .projects-grid { grid-template-columns: 1fr; } .skills-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .nav-links { display: none; } .hero-stats { gap: 2rem; } .contact-card { padding: 2rem 1.5rem; } .projects-grid { grid-template-columns: 1fr; } .skills-grid { grid-template-columns: 1fr; } body { cursor: auto; } #cursor, #cursor-ring { display: none; } }
   </style>
 </head>
 <body>
 
-  <nav>
-    <a class="nav-logo" href="#">&lt;hashir.mv /&gt;</a>
-    <ul class="nav-links">
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#integrations">Integrations</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="particles-canvas"></canvas>
 
-  <section class="hero">
-    <div class="hero-inner">
-      <div class="hero-badge">&#x1F4CD; Available for opportunities</div>
-      <h1>Hi, I'm <span>Hashir MV</span></h1>
-      <p class="hero-role">Full-Stack Developer &nbsp;<span>3.5+ years</span></p>
-      <p class="hero-desc">Experienced in building scalable web applications &mdash; from e-commerce platforms and CRM systems to RESTful APIs and HRM software. Passionate about clean code and seamless integrations.</p>
-      <div class="hero-btns">
-        <a href="#projects" class="btn btn-primary"><i class="fas fa-code"></i> View Projects</a>
-        <a href="https://github.com/Hashirhash001" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> GitHub</a>
-        <a href="mailto:hashirmv299@gmail.com" class="btn btn-outline"><i class="fas fa-envelope"></i> Contact</a>
-        <a href="Hashir MV's CV.pdf" target="_blank" class="btn btn-resume"><i class="fas fa-download"></i> Resume</a>
+<nav id="navbar">
+  <a href="#" class="nav-logo">&lt;hashir.mv /&gt;</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#integrations">Integrations</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="badge-dot"></span> Available for opportunities</div>
+    <h1>Hi, I'm <span>Hashir MV</span></h1>
+    <p class="hero-role">Full-Stack Developer &nbsp;<span id="typed-text"></span><span class="typed-cursor"></span></p>
+    <p class="hero-desc">Experienced in building scalable web applications &mdash; from e-commerce platforms and CRM systems to RESTful APIs and HRM software. Passionate about clean code and seamless integrations.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary"><i class="fas fa-code"></i> View Projects</a>
+      <a href="https://github.com/Hashirhash001" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> GitHub</a>
+      <a href="mailto:hashirmv299@gmail.com" class="btn btn-outline"><i class="fas fa-envelope"></i> Contact</a>
+      <a href="Hashir MVs CV.pdf" target="_blank" class="btn btn-resume"><i class="fas fa-download"></i> Resume</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num" data-target="4">0</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat"><div class="stat-num" data-target="20">0</div><div class="stat-label">Projects Built</div></div>
+      <div class="stat"><div class="stat-num" data-target="4">0</div><div class="stat-label">Companies</div></div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">// expertise</div>
+      <h2 class="section-title">Skills &amp; Technologies</h2>
+      <p class="section-sub">Tools and technologies I work with daily</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-card-title"><i class="fas fa-server"></i> Backend</div>
+        <div class="skill-tags">
+          <span class="skill-tag"><i class="devicon-php-plain colored"></i> PHP</span>
+          <span class="skill-tag"><i class="devicon-laravel-plain colored"></i> Laravel</span>
+          <span class="skill-tag"><i class="devicon-codeigniter-plain colored"></i> CodeIgniter</span>
+          <span class="skill-tag"><i class="devicon-nestjs-plain colored"></i> NestJS</span>
+          <span class="skill-tag"><i class="fas fa-project-diagram" style="color:var(--accent)"></i> REST APIs</span>
+        </div>
       </div>
-      <div class="hero-stats">
-        <div class="stat"><div class="stat-num">3.5+</div><div class="stat-label">Years Experience</div></div>
-        <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Projects Built</div></div>
-        <div class="stat"><div class="stat-num">4</div><div class="stat-label">Companies</div></div>
+      <div class="skill-card reveal">
+        <div class="skill-card-title"><i class="fas fa-palette"></i> Frontend</div>
+        <div class="skill-tags">
+          <span class="skill-tag"><i class="devicon-html5-plain colored"></i> HTML5</span>
+          <span class="skill-tag"><i class="devicon-css3-plain colored"></i> CSS3</span>
+          <span class="skill-tag"><i class="devicon-javascript-plain colored"></i> JavaScript</span>
+          <span class="skill-tag"><i class="devicon-jquery-plain colored"></i> jQuery</span>
+          <span class="skill-tag"><i class="devicon-tailwindcss-plain colored"></i> Tailwind CSS</span>
+          <span class="skill-tag"><i class="devicon-bootstrap-plain colored"></i> Bootstrap</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-title"><i class="fas fa-database"></i> Database &amp; ORM</div>
+        <div class="skill-tags">
+          <span class="skill-tag"><i class="devicon-mysql-plain colored"></i> MySQL</span>
+          <span class="skill-tag"><i class="devicon-postgresql-plain colored"></i> PostgreSQL</span>
+          <span class="skill-tag"><i class="fas fa-layer-group" style="color:#5a67d8"></i> Prisma</span>
+          <span class="skill-tag"><i class="fas fa-table" style="color:var(--accent2)"></i> Eloquent ORM</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-title"><i class="fas fa-plug"></i> Integrations</div>
+        <div class="skill-tags">
+          <span class="skill-tag"><i class="devicon-stripe-original colored"></i> Stripe</span>
+          <span class="skill-tag"><i class="fas fa-rupee-sign" style="color:#3395ff"></i> Razorpay</span>
+          <span class="skill-tag"><i class="fas fa-truck" style="color:var(--accent2)"></i> Shiprocket</span>
+          <span class="skill-tag"><i class="fas fa-chart-bar" style="color:#e8a84c"></i> Zoho CRM</span>
+          <span class="skill-tag"><i class="fas fa-book" style="color:#e8a84c"></i> Zoho Books</span>
+          <span class="skill-tag"><i class="fab fa-whatsapp" style="color:#25d366"></i> WhatsApp API</span>
+          <span class="skill-tag"><i class="fas fa-bolt" style="color:#7c4dff"></i> Pusher</span>
+          <span class="skill-tag"><i class="devicon-firebase-plain colored"></i> Firebase</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-title"><i class="fas fa-tools"></i> Tools &amp; DevOps</div>
+        <div class="skill-tags">
+          <span class="skill-tag"><i class="devicon-git-plain colored"></i> Git</span>
+          <span class="skill-tag"><i class="devicon-github-original" style="color:#e6edf3"></i> GitHub</span>
+          <span class="skill-tag"><i class="devicon-azure-plain colored"></i> Azure DevOps</span>
+          <span class="skill-tag"><i class="fas fa-paper-plane" style="color:#ef5b25"></i> Postman</span>
+          <span class="skill-tag"><i class="fab fa-aws" style="color:#ff9900"></i> AWS</span>
+          <span class="skill-tag"><i class="devicon-wordpress-plain" style="color:#21759b"></i> WordPress</span>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SKILLS -->
-  <section id="skills">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-tag">// expertise</div>
-        <h2 class="section-title">Skills &amp; Technologies</h2>
-        <p class="section-sub">Tools and technologies I work with daily</p>
-      </div>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <div class="skill-card-title"><i class="fas fa-server"></i> Backend</div>
-          <div class="skill-tags">
-            <span class="skill-tag"><i class="devicon-php-plain colored"></i> PHP</span>
-            <span class="skill-tag"><i class="devicon-laravel-plain colored"></i> Laravel</span>
-            <span class="skill-tag"><i class="devicon-codeigniter-plain colored"></i> CodeIgniter</span>
-            <span class="skill-tag"><i class="devicon-nestjs-plain colored"></i> NestJS</span>
-            <span class="skill-tag"><i class="fas fa-project-diagram" style="color:var(--accent)"></i> REST APIs</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-card-title"><i class="fas fa-palette"></i> Frontend</div>
-          <div class="skill-tags">
-            <span class="skill-tag"><i class="devicon-html5-plain colored"></i> HTML5</span>
-            <span class="skill-tag"><i class="devicon-css3-plain colored"></i> CSS3</span>
-            <span class="skill-tag"><i class="devicon-javascript-plain colored"></i> JavaScript</span>
-            <span class="skill-tag"><i class="devicon-jquery-plain colored"></i> jQuery</span>
-            <span class="skill-tag"><i class="devicon-tailwindcss-plain colored"></i> Tailwind CSS</span>
-            <span class="skill-tag"><i class="devicon-bootstrap-plain colored"></i> Bootstrap</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-card-title"><i class="fas fa-database"></i> Database &amp; ORM</div>
-          <div class="skill-tags">
-            <span class="skill-tag"><i class="devicon-mysql-plain colored"></i> MySQL</span>
-            <span class="skill-tag"><i class="devicon-postgresql-plain colored"></i> PostgreSQL</span>
-            <span class="skill-tag"><i class="fas fa-layer-group" style="color:#5a67d8"></i> Prisma</span>
-            <span class="skill-tag"><i class="fas fa-table" style="color:var(--accent2)"></i> Eloquent ORM</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-card-title"><i class="fas fa-plug"></i> Integrations</div>
-          <div class="skill-tags">
-            <span class="skill-tag"><i class="devicon-stripe-original colored"></i> Stripe</span>
-            <span class="skill-tag"><i class="fas fa-rupee-sign" style="color:#3395ff"></i> Razorpay</span>
-            <span class="skill-tag"><i class="fas fa-truck" style="color:var(--accent2)"></i> Shiprocket</span>
-            <span class="skill-tag"><i class="fas fa-chart-bar" style="color:#e8a84c"></i> Zoho CRM</span>
-            <span class="skill-tag"><i class="fas fa-book" style="color:#e8a84c"></i> Zoho Books</span>
-            <span class="skill-tag"><i class="fab fa-whatsapp" style="color:#25d366"></i> WhatsApp API</span>
-            <span class="skill-tag"><i class="fas fa-bolt" style="color:#7c4dff"></i> Pusher</span>
-            <span class="skill-tag"><i class="devicon-firebase-plain colored"></i> Firebase</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-card-title"><i class="fas fa-tools"></i> Tools &amp; DevOps</div>
-          <div class="skill-tags">
-            <span class="skill-tag"><i class="devicon-git-plain colored"></i> Git</span>
-            <span class="skill-tag"><i class="devicon-github-original" style="color:#e6edf3"></i> GitHub</span>
-            <span class="skill-tag"><i class="devicon-azure-plain colored"></i> Azure DevOps</span>
-            <span class="skill-tag"><i class="fas fa-paper-plane" style="color:#ef5b25"></i> Postman</span>
-            <span class="skill-tag"><i class="fab fa-aws" style="color:#ff9900"></i> AWS</span>
-            <span class="skill-tag"><i class="devicon-wordpress-plain" style="color:#21759b"></i> WordPress</span>
-          </div>
-        </div>
-      </div>
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">// portfolio</div>
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-sub">Real-world applications built and deployed in production</p>
     </div>
-  </section>
+    <div class="projects-grid">
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-tag">// portfolio</div>
-        <h2 class="section-title">Featured Projects</h2>
-        <p class="section-sub">Real-world applications built and deployed in production</p>
+      <!-- Celestea -->
+      <div class="project-card reveal">
+        <div class="slider" id="slider-celestea">
+          <div class="slider-track" id="track-celestea">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen1.webp" alt="Celestea 1" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen2.webp" alt="Celestea 2" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen3.webp" alt="Celestea 3" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen4.webp" alt="Celestea 4" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen5.webp" alt="Celestea 5" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen6.webp" alt="Celestea 6" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen7.webp" alt="Celestea 7" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen8.webp" alt="Celestea 8" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen9.webp" alt="Celestea 9" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen10.webp" alt="Celestea 10" loading="lazy">
+          </div>
+          <button class="slider-btn prev" onclick="slide('celestea',-1)"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-btn next" onclick="slide('celestea',1)"><i class="fas fa-chevron-right"></i></button>
+          <div class="slider-dots" id="dots-celestea"></div>
+          <div class="slider-counter" id="counter-celestea">1 / 10</div>
+        </div>
+        <div class="project-body">
+          <div class="project-header"><span class="project-icon">✨</span><div class="project-links"><a href="https://github.com/Hashirhash001/celestea" target="_blank"><i class="fab fa-github"></i></a></div></div>
+          <div class="project-title">Celestea &mdash; eCommerce Platform</div>
+          <div class="project-type">Full-Stack Web App</div>
+          <div class="project-desc">Full-featured e-commerce platform with product listing, cart &amp; checkout, wishlist, referral system, Razorpay payment gateway, Shiprocket delivery integration, and a comprehensive admin panel.</div>
+          <div class="project-tech"><span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span><span class="tech-badge orange">Razorpay</span><span class="tech-badge">Shiprocket</span><span class="tech-badge">Bootstrap</span></div>
+        </div>
       </div>
-      <div class="projects-grid">
 
-        <!-- Celestea -->
-        <div class="project-card">
-          <div class="slider" id="slider-celestea">
-            <div class="slider-track" id="track-celestea">
-              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen1.webp" alt="Celestea 1" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen2.webp" alt="Celestea 2" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen3.webp" alt="Celestea 3" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen4.webp" alt="Celestea 4" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen5.webp" alt="Celestea 5" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen6.webp" alt="Celestea 6" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen7.webp" alt="Celestea 7" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen8.webp" alt="Celestea 8" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen9.webp" alt="Celestea 9" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen10.webp" alt="Celestea 10" loading="lazy" />
-            </div>
-            <button class="slider-btn prev" onclick="slide('celestea',-1)"><i class="fas fa-chevron-left"></i></button>
-            <button class="slider-btn next" onclick="slide('celestea',1)"><i class="fas fa-chevron-right"></i></button>
-            <div class="slider-dots" id="dots-celestea"></div>
-            <div class="slider-counter" id="counter-celestea">1 / 10</div>
+      <!-- Unique Foods -->
+      <div class="project-card reveal">
+        <div class="slider" id="slider-uniquefoods">
+          <div class="slider-track" id="track-uniquefoods">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/shop.webp" alt="Shop" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/cart.webp" alt="Cart" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/checkout.webp" alt="Checkout" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/dashboard.webp" alt="Admin Dashboard" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/offers1201.webp" alt="Offers" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/offers2.webp" alt="Offers 2" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/categories.webp" alt="Categories" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/orders.webp" alt="Orders" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/customers.webp" alt="Customers" loading="lazy">
           </div>
-          <div class="project-body">
-            <div class="project-header">
-              <span class="project-icon">&#x2728;</span>
-              <div class="project-links"><a href="https://github.com/Hashirhash001/celestea" target="_blank"><i class="fab fa-github"></i></a></div>
-            </div>
-            <div class="project-title">Celestea &mdash; eCommerce Platform</div>
-            <div class="project-type">// Full-Stack Web App</div>
-            <div class="project-desc">Full-featured e-commerce platform with product listing, cart &amp; checkout, wishlist, referral system, Razorpay payment gateway, Shiprocket delivery integration, and a comprehensive admin panel for orders, users, and transactions.</div>
-            <div class="project-tech">
-              <span class="tech-badge">Laravel</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge orange">Razorpay</span>
-              <span class="tech-badge">Shiprocket</span>
-              <span class="tech-badge">Bootstrap</span>
-            </div>
-          </div>
+          <button class="slider-btn prev" onclick="slide('uniquefoods',-1)"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-btn next" onclick="slide('uniquefoods',1)"><i class="fas fa-chevron-right"></i></button>
+          <div class="slider-dots" id="dots-uniquefoods"></div>
+          <div class="slider-counter" id="counter-uniquefoods">1 / 9</div>
         </div>
-
-        <!-- Unique Foods -->
-        <div class="project-card">
-          <div class="slider" id="slider-uniquefoods">
-            <div class="slider-track" id="track-uniquefoods">
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/shop.webp" alt="Shop" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/cart.webp" alt="Cart" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/checkout.webp" alt="Checkout" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/dashboard.webp" alt="Admin Dashboard" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/offers1%20(1).webp" alt="Offers" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/offers2.webp" alt="Offers 2" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/categories.webp" alt="Categories" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/orders.webp" alt="Orders" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/customers.webp" alt="Customers" loading="lazy" />
-            </div>
-            <button class="slider-btn prev" onclick="slide('uniquefoods',-1)"><i class="fas fa-chevron-left"></i></button>
-            <button class="slider-btn next" onclick="slide('uniquefoods',1)"><i class="fas fa-chevron-right"></i></button>
-            <div class="slider-dots" id="dots-uniquefoods"></div>
-            <div class="slider-counter" id="counter-uniquefoods">1 / 9</div>
-          </div>
-          <div class="project-body">
-            <div class="project-header">
-              <span class="project-icon">&#x1F6D2;</span>
-              <div class="project-links"><a href="https://github.com/Hashirhash001/Uniquefoods" target="_blank"><i class="fab fa-github"></i></a></div>
-            </div>
-            <div class="project-title">Unique Foods &mdash; eCommerce Platform</div>
-            <div class="project-type">// Full-Stack Web App</div>
-            <div class="project-desc">Full-featured food e-commerce platform with product catalog, cart/checkout, order management, admin panel, customer groups with exclusive pricing, time-limited offers, and Shiprocket delivery integration.</div>
-            <div class="project-tech">
-              <span class="tech-badge">Laravel</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">Stripe</span>
-              <span class="tech-badge">Shiprocket</span>
-              <span class="tech-badge">Tailwind CSS</span>
-            </div>
-          </div>
+        <div class="project-body">
+          <div class="project-header"><span class="project-icon">🛒</span><div class="project-links"><a href="https://github.com/Hashirhash001/Uniquefoods" target="_blank"><i class="fab fa-github"></i></a></div></div>
+          <div class="project-title">Unique Foods &mdash; eCommerce Platform</div>
+          <div class="project-type">Full-Stack Web App</div>
+          <div class="project-desc">Full-featured food e-commerce platform with product catalog, cart/checkout, order management, admin panel, customer groups with exclusive pricing, time-limited offers, and Shiprocket delivery integration.</div>
+          <div class="project-tech"><span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span><span class="tech-badge">Stripe</span><span class="tech-badge">Shiprocket</span><span class="tech-badge">Tailwind CSS</span></div>
         </div>
-
-        <!-- CRM Cleaning Company -->
-        <div class="project-card">
-          <div class="slider" id="slider-crm">
-            <div class="slider-track" id="track-crm">
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen1.webp" alt="CRM 1" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen2.webp" alt="CRM 2" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen3.webp" alt="CRM 3" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen4.webp" alt="CRM 4" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen5.webp" alt="CRM 5" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen6.webp" alt="CRM 6" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen7.webp" alt="CRM 7" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen8.webp" alt="CRM 8" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen9.webp" alt="CRM 9" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen10.webp" alt="CRM 10" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen11.webp" alt="CRM 11" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen12.webp" alt="CRM 12" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen13.webp" alt="CRM 13" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen14.webp" alt="CRM 14" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen15.webp" alt="CRM 15" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen16.webp" alt="CRM 16" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen17.webp" alt="CRM 17" loading="lazy" />
-            </div>
-            <button class="slider-btn prev" onclick="slide('crm',-1)"><i class="fas fa-chevron-left"></i></button>
-            <button class="slider-btn next" onclick="slide('crm',1)"><i class="fas fa-chevron-right"></i></button>
-            <div class="slider-dots" id="dots-crm"></div>
-            <div class="slider-counter" id="counter-crm">1 / 17</div>
-          </div>
-          <div class="project-body">
-            <div class="project-header">
-              <span class="project-icon">&#x1F9F9;</span>
-              <div class="project-links"><a href="https://github.com/Hashirhash001/crm-cleaning-company" target="_blank"><i class="fab fa-github"></i></a></div>
-            </div>
-            <div class="project-title">CRM &mdash; Cleaning Company</div>
-            <div class="project-type">// CRM System</div>
-            <div class="project-desc">CRM with lead-to-job conversion workflows, bulk lead import with validation, role-based access (super admin, lead manager, telecaller), lead tracking, and WhatsApp/Google Ads lead filters.</div>
-            <div class="project-tech">
-              <span class="tech-badge">Laravel</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">WhatsApp API</span>
-              <span class="tech-badge">Blade</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Voltronix HRM -->
-        <div class="project-card">
-          <div class="slider" id="slider-voltronix">
-            <div class="slider-track" id="track-voltronix">
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen1.webp" alt="Voltronix 1" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen2.webp" alt="Voltronix 2" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen3.webp" alt="Voltronix 3" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen4.webp" alt="Voltronix 4" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen5.webp" alt="Voltronix 5" loading="lazy" />
-            </div>
-            <button class="slider-btn prev" onclick="slide('voltronix',-1)"><i class="fas fa-chevron-left"></i></button>
-            <button class="slider-btn next" onclick="slide('voltronix',1)"><i class="fas fa-chevron-right"></i></button>
-            <div class="slider-dots" id="dots-voltronix"></div>
-            <div class="slider-counter" id="counter-voltronix">1 / 5</div>
-          </div>
-          <div class="project-body">
-            <div class="project-header">
-              <span class="project-icon">&#x1F465;</span>
-              <div class="project-links"><a href="https://github.com/Hashirhash001/voltronix" target="_blank"><i class="fab fa-github"></i></a></div>
-            </div>
-            <div class="project-title">Workforce &amp; Attendance Manager</div>
-            <div class="project-type">// HRM System</div>
-            <div class="project-desc">Role-based HRM system with employee management, attendance tracking, leave request workflows, project management modules, and activity logging with pagination and filters.</div>
-            <div class="project-tech">
-              <span class="tech-badge">Laravel</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">PDF Export</span>
-              <span class="tech-badge">Blade</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- StaffOps HRM -->
-        <div class="project-card">
-          <div class="slider" id="slider-staffops">
-            <div class="slider-track" id="track-staffops">
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen1.webp" alt="StaffOps 1" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen2.webp" alt="StaffOps 2" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen3.webp" alt="StaffOps 3" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen4.webp" alt="StaffOps 4" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen5.webp" alt="StaffOps 5" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen6.webp" alt="StaffOps 6" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen7.webp" alt="StaffOps 7" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen8.webp" alt="StaffOps 8" loading="lazy" />
-              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen9.webp" alt="StaffOps 9" loading="lazy" />
-            </div>
-            <button class="slider-btn prev" onclick="slide('staffops',-1)"><i class="fas fa-chevron-left"></i></button>
-            <button class="slider-btn next" onclick="slide('staffops',1)"><i class="fas fa-chevron-right"></i></button>
-            <div class="slider-dots" id="dots-staffops"></div>
-            <div class="slider-counter" id="counter-staffops">1 / 9</div>
-          </div>
-          <div class="project-body">
-            <div class="project-header">
-              <span class="project-icon">&#x1F4CA;</span>
-              <div class="project-links"><a href="https://github.com/Hashirhash001/Voltronix-hrm" target="_blank"><i class="fab fa-github"></i></a></div>
-            </div>
-            <div class="project-title">StaffOps &mdash; HR &amp; Fleet Manager</div>
-            <div class="project-type">// HRM + Fleet System</div>
-            <div class="project-desc">HRM application with attendance, overtime tracking, document expiry alerts, vehicle management, report generation, and employee profile management with role-based access control.</div>
-            <div class="project-tech">
-              <span class="tech-badge">Laravel</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">JavaScript</span>
-              <span class="tech-badge">Blade</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- ZWebCart — custom SVG (no real screenshots) -->
-        <div class="project-card">
-          <div class="project-img-placeholder" style="display:flex; background:linear-gradient(135deg,#061528 0%,#0d1117 100%);">
-            <svg width="110" height="110" viewBox="0 0 110 110" fill="none">
-              <rect x="10" y="18" width="90" height="62" rx="8" stroke="#58a6ff" stroke-width="2" fill="rgba(88,166,255,0.04)"/>
-              <circle cx="22" cy="28" r="3" fill="#f78166"/><circle cx="32" cy="28" r="3" fill="#e3b341"/><circle cx="42" cy="28" r="3" fill="#3fb950"/>
-              <rect x="50" y="23" width="44" height="10" rx="3" fill="rgba(88,166,255,0.1)" stroke="rgba(88,166,255,0.3)" stroke-width="1"/>
-              <line x1="10" y1="36" x2="100" y2="36" stroke="#30363d" stroke-width="1"/>
-              <rect x="16" y="42" width="20" height="3" rx="1.5" fill="rgba(88,166,255,0.5)"/>
-              <rect x="16" y="49" width="16" height="3" rx="1.5" fill="rgba(88,166,255,0.25)"/>
-              <rect x="16" y="56" width="18" height="3" rx="1.5" fill="rgba(88,166,255,0.25)"/>
-              <rect x="44" y="42" width="50" height="28" rx="4" fill="rgba(88,166,255,0.07)" stroke="rgba(88,166,255,0.2)" stroke-width="1"/>
-              <rect x="49" y="47" width="28" height="4" rx="2" fill="rgba(63,185,80,0.6)"/>
-              <rect x="49" y="55" width="36" height="3" rx="1.5" fill="rgba(139,148,158,0.4)"/>
-              <rect x="28" y="86" width="54" height="18" rx="9" fill="rgba(88,166,255,0.12)" stroke="#58a6ff" stroke-width="1.5"/>
-              <text x="55" y="99" text-anchor="middle" font-family="monospace" font-size="9" fill="#58a6ff" font-weight="bold">REST API</text>
-            </svg>
-          </div>
-          <div class="project-body">
-            <div class="project-header">
-              <span class="project-icon">&#x1F310;</span>
-              <div class="project-links"><a href="https://github.com/Hashirhash001/ZWebCart" target="_blank"><i class="fab fa-github"></i></a></div>
-            </div>
-            <div class="project-title">ZWebCart &mdash; No-Code Website Builder</div>
-            <div class="project-type">// REST API &middot; NestJS</div>
-            <div class="project-desc">RESTful APIs for a multi-store no-code platform with dynamic theme customization, multi-theme/pages/sections support, JWT-based auth with encrypted store DB URL resolution, and role-based guards.</div>
-            <div class="project-tech">
-              <span class="tech-badge api">NestJS</span>
-              <span class="tech-badge api">TypeScript</span>
-              <span class="tech-badge api">PostgreSQL</span>
-              <span class="tech-badge api">Prisma</span>
-              <span class="tech-badge api">JWT</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Circuitil — custom SVG (no real screenshots) -->
-        <div class="project-card">
-          <div class="project-img-placeholder" style="display:flex; background:linear-gradient(135deg,#12082a 0%,#0d1117 100%);">
-            <svg width="110" height="110" viewBox="0 0 110 110" fill="none">
-              <circle cx="55" cy="42" r="16" stroke="#d2a8ff" stroke-width="2" fill="rgba(210,168,255,0.08)"/>
-              <circle cx="55" cy="42" r="7" fill="rgba(210,168,255,0.3)" stroke="#d2a8ff" stroke-width="1.5"/>
-              <circle cx="22" cy="74" r="11" stroke="#3fb950" stroke-width="1.8" fill="rgba(63,185,80,0.08)"/>
-              <circle cx="22" cy="74" r="4" fill="#3fb950" opacity="0.6"/>
-              <circle cx="88" cy="74" r="11" stroke="#58a6ff" stroke-width="1.8" fill="rgba(88,166,255,0.08)"/>
-              <circle cx="88" cy="74" r="4" fill="#58a6ff" opacity="0.6"/>
-              <path d="M44 54 L30 65" stroke="#d2a8ff" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
-              <path d="M66 54 L80 65" stroke="#d2a8ff" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
-              <text x="22" y="92" text-anchor="middle" font-family="monospace" font-size="7" fill="#3fb950">Influencer</text>
-              <text x="88" y="92" text-anchor="middle" font-family="monospace" font-size="7" fill="#58a6ff">Brand</text>
-              <rect x="28" y="6" width="54" height="16" rx="8" fill="rgba(210,168,255,0.12)" stroke="#d2a8ff" stroke-width="1.5"/>
-              <text x="55" y="18" text-anchor="middle" font-family="monospace" font-size="8" fill="#d2a8ff" font-weight="bold">REST API</text>
-            </svg>
-          </div>
-          <div class="project-body">
-            <div class="project-header">
-              <span class="project-icon">&#x1F4F1;</span>
-              <div class="project-links"><a href="https://github.com/Hashirhash001/Circuitil" target="_blank"><i class="fab fa-github"></i></a></div>
-            </div>
-            <div class="project-title">Circuitil &mdash; Influencer &amp; Brand Platform</div>
-            <div class="project-type">// REST API &middot; Laravel</div>
-            <div class="project-desc">REST API for Android app connecting influencers and brands with collaboration discovery, real-time chat (Pusher), Firebase push notifications, Google/Instagram OAuth, OTP auth, and automated matching via Laravel Observers.</div>
-            <div class="project-tech">
-              <span class="tech-badge">Laravel</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">Pusher</span>
-              <span class="tech-badge">Firebase</span>
-              <span class="tech-badge">OAuth</span>
-            </div>
-          </div>
-        </div>
-
       </div>
+
+      <!-- CRM Cleaning Company -->
+      <div class="project-card reveal">
+        <div class="slider" id="slider-crm">
+          <div class="slider-track" id="track-crm">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen1.webp" alt="CRM 1" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen2.webp" alt="CRM 2" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen3.webp" alt="CRM 3" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen4.webp" alt="CRM 4" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen5.webp" alt="CRM 5" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen6.webp" alt="CRM 6" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen7.webp" alt="CRM 7" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen8.webp" alt="CRM 8" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen9.webp" alt="CRM 9" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen10.webp" alt="CRM 10" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen11.webp" alt="CRM 11" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen12.webp" alt="CRM 12" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen13.webp" alt="CRM 13" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen14.webp" alt="CRM 14" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen15.webp" alt="CRM 15" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen16.webp" alt="CRM 16" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen17.webp" alt="CRM 17" loading="lazy">
+          </div>
+          <button class="slider-btn prev" onclick="slide('crm',-1)"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-btn next" onclick="slide('crm',1)"><i class="fas fa-chevron-right"></i></button>
+          <div class="slider-dots" id="dots-crm"></div>
+          <div class="slider-counter" id="counter-crm">1 / 17</div>
+        </div>
+        <div class="project-body">
+          <div class="project-header"><span class="project-icon">🧹</span><div class="project-links"><a href="https://github.com/Hashirhash001/crm-cleaning-company" target="_blank"><i class="fab fa-github"></i></a></div></div>
+          <div class="project-title">CRM &mdash; Cleaning Company</div>
+          <div class="project-type">CRM System</div>
+          <div class="project-desc">CRM with lead-to-job conversion workflows, bulk lead import with validation, role-based access (super admin, lead manager, telecaller), lead tracking, and WhatsApp/Google Ads lead filters.</div>
+          <div class="project-tech"><span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span><span class="tech-badge">WhatsApp API</span><span class="tech-badge">Blade</span></div>
+        </div>
+      </div>
+
+      <!-- Voltronix -->
+      <div class="project-card reveal">
+        <div class="slider" id="slider-voltronix">
+          <div class="slider-track" id="track-voltronix">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/zenerom_hrm/master/docs/screens/screen1.webp" alt="Voltronix 1" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/zenerom_hrm/master/docs/screens/screen2.webp" alt="Voltronix 2" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/zenerom_hrm/master/docs/screens/screen3.webp" alt="Voltronix 3" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/zenerom_hrm/master/docs/screens/screen4.webp" alt="Voltronix 4" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/zenerom_hrm/master/docs/screens/screen5.webp" alt="Voltronix 5" loading="lazy">
+          </div>
+          <button class="slider-btn prev" onclick="slide('voltronix',-1)"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-btn next" onclick="slide('voltronix',1)"><i class="fas fa-chevron-right"></i></button>
+          <div class="slider-dots" id="dots-voltronix"></div>
+          <div class="slider-counter" id="counter-voltronix">1 / 5</div>
+        </div>
+        <div class="project-body">
+          <div class="project-header"><span class="project-icon">👥</span><div class="project-links"><a href="https://github.com/Hashirhash001/voltronix" target="_blank"><i class="fab fa-github"></i></a></div></div>
+          <div class="project-title">Workforce &amp; Attendance Manager</div>
+          <div class="project-type">HRM System</div>
+          <div class="project-desc">Role-based HRM system with employee management, attendance tracking, leave request workflows, project management modules, and activity logging with pagination and filters.</div>
+          <div class="project-tech"><span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span><span class="tech-badge">PDF Export</span><span class="tech-badge">Blade</span></div>
+        </div>
+      </div>
+
+      <!-- StaffOps -->
+      <div class="project-card reveal">
+        <div class="slider" id="slider-staffops">
+          <div class="slider-track" id="track-staffops">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen1.webp" alt="StaffOps 1" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen2.webp" alt="StaffOps 2" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen3.webp" alt="StaffOps 3" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen4.webp" alt="StaffOps 4" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen5.webp" alt="StaffOps 5" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen6.webp" alt="StaffOps 6" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen7.webp" alt="StaffOps 7" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen8.webp" alt="StaffOps 8" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen9.webp" alt="StaffOps 9" loading="lazy">
+          </div>
+          <button class="slider-btn prev" onclick="slide('staffops',-1)"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-btn next" onclick="slide('staffops',1)"><i class="fas fa-chevron-right"></i></button>
+          <div class="slider-dots" id="dots-staffops"></div>
+          <div class="slider-counter" id="counter-staffops">1 / 9</div>
+        </div>
+        <div class="project-body">
+          <div class="project-header"><span class="project-icon">📊</span><div class="project-links"><a href="https://github.com/Hashirhash001/Voltronix-hrm" target="_blank"><i class="fab fa-github"></i></a></div></div>
+          <div class="project-title">StaffOps &mdash; HR &amp; Fleet Manager</div>
+          <div class="project-type">HRM / Fleet System</div>
+          <div class="project-desc">HRM application with attendance, overtime tracking, document expiry alerts, vehicle management, report generation, and employee profile management with role-based access control.</div>
+          <div class="project-tech"><span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span><span class="tech-badge">JavaScript</span><span class="tech-badge">Blade</span></div>
+        </div>
+      </div>
+
+      <!-- ZWebCart -->
+      <div class="project-card reveal">
+        <div class="project-img-placeholder" style="background:linear-gradient(135deg,#061528 0%,#0d1117 100%)">
+          <svg width="110" height="110" viewBox="0 0 110 110" fill="none"><rect x="10" y="18" width="90" height="62" rx="8" stroke="#58a6ff" stroke-width="2" fill="rgba(88,166,255,0.04)"/><circle cx="22" cy="28" r="3" fill="#f78166"/><circle cx="32" cy="28" r="3" fill="#e3b341"/><circle cx="42" cy="28" r="3" fill="#3fb950"/><rect x="50" y="23" width="44" height="10" rx="3" fill="rgba(88,166,255,0.1)" stroke="rgba(88,166,255,0.3)" stroke-width="1"/><rect x="16" y="42" width="20" height="3" rx="1.5" fill="rgba(88,166,255,0.5)"/><rect x="16" y="49" width="16" height="3" rx="1.5" fill="rgba(88,166,255,0.25)"/><rect x="16" y="56" width="18" height="3" rx="1.5" fill="rgba(88,166,255,0.25)"/><rect x="44" y="42" width="50" height="28" rx="4" fill="rgba(88,166,255,0.07)" stroke="rgba(88,166,255,0.2)" stroke-width="1"/><rect x="49" y="47" width="28" height="4" rx="2" fill="rgba(63,185,80,0.6)"/><rect x="49" y="55" width="36" height="3" rx="1.5" fill="rgba(139,148,158,0.4)"/><rect x="28" y="86" width="54" height="18" rx="9" fill="rgba(88,166,255,0.12)" stroke="#58a6ff" stroke-width="1.5"/><text x="55" y="99" text-anchor="middle" font-family="monospace" font-size="9" fill="#58a6ff" font-weight="bold">REST API</text></svg>
+        </div>
+        <div class="project-body">
+          <div class="project-header"><span class="project-icon">🌐</span><div class="project-links"><a href="https://github.com/Hashirhash001/ZWebCart" target="_blank"><i class="fab fa-github"></i></a></div></div>
+          <div class="project-title">ZWebCart &mdash; No-Code Website Builder</div>
+          <div class="project-type">REST API &middot; NestJS</div>
+          <div class="project-desc">RESTful APIs for a multi-store no-code platform with dynamic theme customization, multi-theme/pages/sections support, JWT-based auth with encrypted store DB URL resolution, and role-based guards.</div>
+          <div class="project-tech"><span class="tech-badge api">NestJS</span><span class="tech-badge api">TypeScript</span><span class="tech-badge api">PostgreSQL</span><span class="tech-badge api">Prisma</span><span class="tech-badge api">JWT</span></div>
+        </div>
+      </div>
+
+      <!-- Circuitil -->
+      <div class="project-card reveal">
+        <div class="project-img-placeholder" style="background:linear-gradient(135deg,#12082a 0%,#0d1117 100%)">
+          <svg width="110" height="110" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="42" r="16" stroke="#d2a8ff" stroke-width="2" fill="rgba(210,168,255,0.08)"/><circle cx="55" cy="42" r="7" fill="rgba(210,168,255,0.3)" stroke="#d2a8ff" stroke-width="1.5"/><circle cx="22" cy="74" r="11" stroke="#3fb950" stroke-width="1.8" fill="rgba(63,185,80,0.08)"/><circle cx="22" cy="74" r="4" fill="#3fb950" opacity="0.6"/><circle cx="88" cy="74" r="11" stroke="#58a6ff" stroke-width="1.8" fill="rgba(88,166,255,0.08)"/><circle cx="88" cy="74" r="4" fill="#58a6ff" opacity="0.6"/><path d="M44 54 L30 65" stroke="#d2a8ff" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/><path d="M66 54 L80 65" stroke="#d2a8ff" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/><text x="22" y="92" text-anchor="middle" font-family="monospace" font-size="7" fill="#3fb950">Influencer</text><text x="88" y="92" text-anchor="middle" font-family="monospace" font-size="7" fill="#58a6ff">Brand</text><rect x="28" y="6" width="54" height="16" rx="8" fill="rgba(210,168,255,0.12)" stroke="#d2a8ff" stroke-width="1.5"/><text x="55" y="18" text-anchor="middle" font-family="monospace" font-size="8" fill="#d2a8ff" font-weight="bold">REST API</text></svg>
+        </div>
+        <div class="project-body">
+          <div class="project-header"><span class="project-icon">📱</span><div class="project-links"><a href="https://github.com/Hashirhash001/Circuitil" target="_blank"><i class="fab fa-github"></i></a></div></div>
+          <div class="project-title">Circuitil &mdash; Influencer &amp; Brand Platform</div>
+          <div class="project-type">REST API &middot; Laravel</div>
+          <div class="project-desc">REST API for Android app connecting influencers and brands with collaboration discovery, real-time chat (Pusher), Firebase push notifications, Google/Instagram OAuth, OTP auth, and automated matching via Laravel Observers.</div>
+          <div class="project-tech"><span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span><span class="tech-badge">Pusher</span><span class="tech-badge">Firebase</span><span class="tech-badge">OAuth</span></div>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- INTEGRATIONS -->
-  <section id="integrations">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-tag">// third-party</div>
-        <h2 class="section-title">Integrations</h2>
-        <p class="section-sub">Third-party services and APIs integrated in production projects</p>
-      </div>
-      <div class="integrations-grid">
-
-        <!-- Stripe -->
-        <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#0a2540;border-color:#1a3a5c;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" alt="Stripe" style="width:44px;height:auto;" />
-          </div>
-          <div class="integration-name">Stripe</div>
-          <div class="integration-desc">Card payments, webhooks &amp; order confirmation</div>
-        </div>
-
-        <!-- Razorpay -->
-        <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#fff;border-color:#ddd;">
-            <img src="https://razorpay.com/favicon.png" alt="Razorpay" style="width:32px;height:32px;" />
-          </div>
-          <div class="integration-name">Razorpay</div>
-          <div class="integration-desc">UPI, cards &amp; netbanking gateway</div>
-        </div>
-
-        <!-- Zoho CRM -->
-        <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#fff;border-color:#ddd;">
-            <img src="https://www.zoho.com/branding/images/zoho-logo-512px.png" alt="Zoho CRM" style="width:32px;height:32px;object-fit:contain;" />
-          </div>
-          <div class="integration-name">Zoho CRM</div>
-          <div class="integration-desc">Lead sync, contact &amp; deal automation</div>
-        </div>
-
-        <!-- Zoho Books -->
-        <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#fff;border-color:#ddd;">
-            <img src="https://www.zoho.com/branding/images/zoho-logo-512px.png" alt="Zoho Books" style="width:32px;height:32px;object-fit:contain;" />
-          </div>
-          <div class="integration-name">Zoho Books</div>
-          <div class="integration-desc">Invoice, payment &amp; accounting automation</div>
-        </div>
-
-        <!-- Shiprocket -->
-        <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#fff;border-color:#ddd;">
-            <img src="https://www.shiprocket.in/wp-content/uploads/2021/07/sr-logo.svg" alt="Shiprocket" style="width:36px;height:auto;" />
-          </div>
-          <div class="integration-name">Shiprocket</div>
-          <div class="integration-desc">Shipment creation, AWB &amp; live tracking</div>
-        </div>
-
-        <!-- WhatsApp -->
-        <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#075e54;border-color:#128c7e;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width:30px;height:30px;" />
-          </div>
-          <div class="integration-name">WhatsApp API</div>
-          <div class="integration-desc">Lead notifications &amp; automated messaging</div>
-        </div>
-
-        <!-- Firebase -->
-        <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#1a1200;border-color:#ffca28;">
-            <img src="https://www.gstatic.com/devrel-devsite/prod/v0e0f589edd85502a40d78d7d0825db8ea5ef3b99ab4070381ee86977c9168730/firebase/images/touchicon-180.png" alt="Firebase" style="width:30px;height:30px;" />
-          </div>
-          <div class="integration-name">Firebase</div>
-          <div class="integration-desc">Push notifications &amp; real-time data</div>
-        </div>
-
-        <!-- Pusher -->
-        <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#300d4f;border-color:#7c4dff;">
-            <img src="https://pusher.com/static/favicon/favicon-32x32.png" alt="Pusher" style="width:28px;height:28px;" />
-          </div>
-          <div class="integration-name">Pusher</div>
-          <div class="integration-desc">Real-time chat &amp; event broadcasting</div>
-        </div>
-
-        <!-- Google OAuth -->
-        <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#fff;border-color:#ddd;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google OAuth" style="width:28px;height:28px;" />
-          </div>
-          <div class="integration-name">Google OAuth</div>
-          <div class="integration-desc">Social sign-in &amp; authentication</div>
-        </div>
-
-        <!-- Instagram OAuth -->
-        <div class="integration-card">
-          <div class="int-icon-wrap" style="background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);border-color:#e1306c;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width:28px;height:28px;" />
-          </div>
-          <div class="integration-name">Instagram OAuth</div>
-          <div class="integration-desc">Influencer social login &amp; profile data</div>
-        </div>
-
-        <!-- AWS S3 -->
-        <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#1a0a00;border-color:#ff9900;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/AWS_Simple_Icons_Storage_Amazon_S3.svg" alt="AWS S3" style="width:30px;height:30px;" />
-          </div>
-          <div class="integration-name">AWS S3</div>
-          <div class="integration-desc">Cloud file &amp; media storage</div>
-        </div>
-
-      </div>
+<!-- INTEGRATIONS -->
+<section id="integrations">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">// third-party</div>
+      <h2 class="section-title">Integrations</h2>
+      <p class="section-sub">Third-party services and APIs integrated in production projects</p>
     </div>
-  </section>
+    <div class="integrations-grid">
 
-  <!-- EXPERIENCE -->
-  <section id="experience">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-tag">// career</div>
-        <h2 class="section-title">Experience</h2>
-        <p class="section-sub">My professional journey across companies</p>
+      <div class="integration-card reveal">
+        <div class="int-icon-wrap" style="background:#0a2540;border-color:#1a3a5c">
+          <img src="https://images.stripeassets.com/fzn2n1nzq965/1hgcBNd12BfT9VLgbId7By/01d91920114b124fb4cf6d448f9f06eb/favicon.svg" alt="Stripe" style="width:44px;height:auto">
+        </div>
+        <div class="integration-name">Stripe</div>
+        <div class="integration-desc">Card payments, webhooks &amp; order confirmation</div>
       </div>
-      <div class="exp-grid">
-        <div class="exp-card">
-          <div class="exp-sidebar">
-            <div>
-              <div class="exp-period">08/2024 &mdash; Present</div>
-              <div class="exp-role">Full-Stack Developer</div>
-              <div class="exp-company">Zenerom Creative Lab</div>
-              <span class="exp-badge current">&#x25CF; Current</span>
-            </div>
-          </div>
-          <div class="exp-content">
-            <ul class="exp-points">
-              <li>Designed and developed custom CRM &amp; HRM systems using PHP Laravel</li>
-              <li>Developed Job Management Software integrated with Zoho CRM (CodeIgniter)</li>
-              <li>Built and deployed eCommerce platforms using PHP Laravel</li>
-              <li>Customized Zoho CRM &amp; Zoho Books workflows for clients</li>
-              <li>Built RESTful APIs for a no-code website builder platform using NestJS &amp; PostgreSQL</li>
-            </ul>
-            <div class="exp-tags">
-              <span class="exp-tag">Laravel</span><span class="exp-tag">CodeIgniter</span>
-              <span class="exp-tag">NestJS</span><span class="exp-tag">MySQL</span>
-              <span class="exp-tag">Zoho CRM</span><span class="exp-tag">Zoho Books</span>
-              <span class="exp-tag">PostgreSQL</span><span class="exp-tag">REST APIs</span>
-            </div>
+
+      <div class="integration-card reveal">
+        <div class="int-icon-wrap" style="background:#fff;border-color:#ddd">
+          <img src="https://razorpay.com/favicon.png" alt="Razorpay" style="width:32px;height:32px">
+        </div>
+        <div class="integration-name">Razorpay</div>
+        <div class="integration-desc">UPI, cards &amp; netbanking gateway</div>
+      </div>
+
+      <div class="integration-card reveal">
+        <div class="int-icon-wrap" style="background:#fff;border-color:#e0e0e0">
+          <img src="https://images.g2crowd.com/uploads/product/image/d9d3ff178178a1f790a9d6114e104471/zoho-crm.png" alt="Zoho CRM" style="width:34px;height:auto;object-fit:contain">
+        </div>
+        <div class="integration-name">Zoho CRM</div>
+        <div class="integration-desc">Lead sync, contact &amp; deal automation</div>
+      </div>
+
+      <div class="integration-card reveal">
+        <div class="int-icon-wrap" style="background:#fff;border-color:#e0e0e0">
+          <img src="https://scontent.fcok4-1.fna.fbcdn.net/v/t39.30808-1/268628616_106823365192576_3985522445306918648_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=106&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=ZICrW-EyKJ0Q7kNvwFPA7NT&_nc_oc=AdqljUMifLs7wLNYhmNNJFO7SQp-5YrqMHLyenQLm-8A4ud26Zs70I2w2pTukO4VBcY&_nc_zt=24&_nc_ht=scontent.fcok4-1.fna&_nc_gid=oKN-Jlsvj2W-e99QoTQV5Q&_nc_ss=7a30f&oh=00_AfweT61HJk19bgkFR1vF5VqxMcgBjsKfHj93rtY-0MkAUA&oe=69CDF2B5" alt="Zoho Books" style="width:34px;height:auto;object-fit:contain">
+        </div>
+        <div class="integration-name">Zoho Books</div>
+        <div class="integration-desc">Invoice, payment &amp; accounting automation</div>
+      </div>
+
+      <div class="integration-card reveal">
+        <div class="int-icon-wrap" style="background:#fff;border-color:#ddd">
+          <img src="https://cdn.shopify.com/app-store/listing_images/fc14b70f3ba850c4411e17ab2a8833d4/icon/CPKSnv2c5f0CEAE=.png" alt="Shiprocket" style="width:38px;height:auto">
+        </div>
+        <div class="integration-name">Shiprocket</div>
+        <div class="integration-desc">Shipment creation, AWB &amp; live tracking</div>
+      </div>
+
+      <div class="integration-card reveal">
+        <div class="int-icon-wrap" style="background:#075e54;border-color:#128c7e">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width:30px;height:30px">
+        </div>
+        <div class="integration-name">WhatsApp API</div>
+        <div class="integration-desc">Lead notifications &amp; automated messaging</div>
+      </div>
+
+      <div class="integration-card reveal">
+        <div class="int-icon-wrap" style="background:#1a1200;border-color:#ffca28">
+          <img src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png" alt="Firebase" style="width:28px;height:28px">
+        </div>
+        <div class="integration-name">Firebase</div>
+        <div class="integration-desc">Push notifications &amp; real-time data</div>
+      </div>
+
+      <div class="integration-card reveal">
+        <div class="int-icon-wrap" style="background:#1a0a2e;border-color:#7c4dff;padding:6px">
+          <img src="https://pusher.com/favicon-196x196.png" alt="Pusher" style="width:52px;height:auto;object-fit:contain">
+        </div>
+        <div class="integration-name">Pusher</div>
+        <div class="integration-desc">Real-time chat &amp; event broadcasting</div>
+      </div>
+
+      <div class="integration-card reveal">
+        <div class="int-icon-wrap" style="background:#fff;border-color:#ddd">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google OAuth" style="width:28px;height:28px">
+        </div>
+        <div class="integration-name">Google OAuth</div>
+        <div class="integration-desc">Social sign-in &amp; authentication</div>
+      </div>
+
+      <div class="integration-card reveal">
+        <div class="int-icon-wrap" style="background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);border-color:#e1306c">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width:28px;height:28px">
+        </div>
+        <div class="integration-name">Instagram OAuth</div>
+        <div class="integration-desc">Influencer social login &amp; profile data</div>
+      </div>
+
+      <div class="integration-card reveal">
+        <div class="int-icon-wrap" style="background:#1a0a00;border-color:#ff9900">
+          <img src="https://docs.aws.amazon.com/assets/r/images/aws_logo_dark.svg" alt="AWS S3" style="width:30px;height:30px">
+        </div>
+        <div class="integration-name">AWS S3</div>
+        <div class="integration-desc">Cloud file &amp; media storage</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">// career</div>
+      <h2 class="section-title">Experience</h2>
+      <p class="section-sub">My professional journey across companies</p>
+    </div>
+    <div class="exp-grid">
+      <div class="exp-card reveal-left">
+        <div class="exp-sidebar">
+          <div class="exp-period">08/2024 &mdash; Present</div>
+          <div class="exp-role">Full-Stack Developer</div>
+          <div class="exp-company">Zenerom Creative Lab</div>
+          <span class="exp-badge current">&#x25CF; Current</span>
+        </div>
+        <div class="exp-content">
+          <ul class="exp-points">
+            <li>Designed and developed custom CRM &amp; HRM systems using PHP Laravel</li>
+            <li>Developed Job Management Software integrated with Zoho CRM (CodeIgniter)</li>
+            <li>Built and deployed eCommerce platforms using PHP Laravel</li>
+            <li>Customized Zoho CRM &amp; Zoho Books workflows for clients</li>
+            <li>Built RESTful APIs for a no-code website builder platform using NestJS &amp; PostgreSQL</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Laravel</span><span class="exp-tag">CodeIgniter</span>
+            <span class="exp-tag">NestJS</span><span class="exp-tag">MySQL</span>
+            <span class="exp-tag">Zoho CRM</span><span class="exp-tag">Zoho Books</span>
+            <span class="exp-tag">PostgreSQL</span><span class="exp-tag">REST APIs</span>
           </div>
         </div>
-        <div class="exp-card">
-          <div class="exp-sidebar">
-            <div>
-              <div class="exp-period">05/2023 &mdash; 07/2024</div>
-              <div class="exp-role">Back-End Developer</div>
-              <div class="exp-company">Sysitco Technologies</div>
-              <span class="exp-badge past">Completed</span>
-            </div>
-          </div>
-          <div class="exp-content">
-            <ul class="exp-points">
-              <li>Developed and optimized RESTful APIs for a social commerce platform</li>
-              <li>Built real-time chat features with Pusher and Firebase push notifications</li>
-              <li>Created comprehensive Postman collections for API documentation</li>
-              <li>Collaborated with cross-location frontend teams via Agile sprints</li>
-            </ul>
-            <div class="exp-tags">
-              <span class="exp-tag">Laravel</span><span class="exp-tag">MySQL</span>
-              <span class="exp-tag">Pusher</span><span class="exp-tag">Firebase</span>
-              <span class="exp-tag">Postman</span><span class="exp-tag">REST APIs</span>
-            </div>
+      </div>
+
+      <div class="exp-card reveal-right">
+        <div class="exp-sidebar">
+          <div class="exp-period">05/2023 &mdash; 07/2024</div>
+          <div class="exp-role">Back-End Developer</div>
+          <div class="exp-company">Sysitco Technologies</div>
+          <span class="exp-badge past">Completed</span>
+        </div>
+        <div class="exp-content">
+          <ul class="exp-points">
+            <li>Developed and optimized RESTful APIs for a social commerce platform</li>
+            <li>Built real-time chat features with Pusher and Firebase push notifications</li>
+            <li>Created comprehensive Postman collections for API documentation</li>
+            <li>Collaborated with cross-location frontend teams via Agile sprints</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Laravel</span><span class="exp-tag">MySQL</span>
+            <span class="exp-tag">Pusher</span><span class="exp-tag">Firebase</span>
+            <span class="exp-tag">Postman</span><span class="exp-tag">REST APIs</span>
           </div>
         </div>
-        <div class="exp-card">
-          <div class="exp-sidebar">
-            <div>
-              <div class="exp-period">12/2022 &mdash; 04/2023</div>
-              <div class="exp-role">Full-Stack Developer</div>
-              <div class="exp-company">Saportika</div>
-              <span class="exp-badge past">Completed</span>
-            </div>
-          </div>
-          <div class="exp-content">
-            <ul class="exp-points">
-              <li>Developed dynamic websites with full CRUD-based admin panels (Core PHP)</li>
-              <li>Collaborated directly with clients to deliver tailored web solutions</li>
-              <li>Updated and maintained WordPress websites with custom plugins &amp; themes</li>
-            </ul>
-            <div class="exp-tags">
-              <span class="exp-tag">PHP</span><span class="exp-tag">MySQL</span>
-              <span class="exp-tag">WordPress</span><span class="exp-tag">JavaScript</span>
-              <span class="exp-tag">HTML/CSS</span>
-            </div>
+      </div>
+
+      <div class="exp-card reveal-left">
+        <div class="exp-sidebar">
+          <div class="exp-period">12/2022 &mdash; 04/2023</div>
+          <div class="exp-role">Full-Stack Developer</div>
+          <div class="exp-company">Saportika</div>
+          <span class="exp-badge past">Completed</span>
+        </div>
+        <div class="exp-content">
+          <ul class="exp-points">
+            <li>Developed dynamic websites with full CRUD-based admin panels (Core PHP)</li>
+            <li>Collaborated directly with clients to deliver tailored web solutions</li>
+            <li>Updated and maintained WordPress websites with custom plugins &amp; themes</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">PHP</span><span class="exp-tag">MySQL</span>
+            <span class="exp-tag">WordPress</span><span class="exp-tag">JavaScript</span>
+            <span class="exp-tag">HTML/CSS</span>
           </div>
         </div>
-        <div class="exp-card">
-          <div class="exp-sidebar">
-            <div>
-              <div class="exp-period">09/2022 &mdash; 11/2022</div>
-              <div class="exp-role">Full-Stack Developer</div>
-              <div class="exp-company">Tapclone</div>
-              <span class="exp-badge past">Completed</span>
-            </div>
-          </div>
-          <div class="exp-content">
-            <ul class="exp-points">
-              <li>Built user-friendly interfaces using HTML, CSS, and JavaScript</li>
-              <li>Created dynamic web applications using Core PHP</li>
-              <li>Implemented Razorpay payment gateway integration for online transactions</li>
-            </ul>
-            <div class="exp-tags">
-              <span class="exp-tag">PHP</span><span class="exp-tag">Razorpay</span>
-              <span class="exp-tag">JavaScript</span><span class="exp-tag">HTML/CSS</span>
-            </div>
+      </div>
+
+      <div class="exp-card reveal-right">
+        <div class="exp-sidebar">
+          <div class="exp-period">09/2022 &mdash; 11/2022</div>
+          <div class="exp-role">Full-Stack Developer</div>
+          <div class="exp-company">Tapclone</div>
+          <span class="exp-badge past">Completed</span>
+        </div>
+        <div class="exp-content">
+          <ul class="exp-points">
+            <li>Built user-friendly interfaces using HTML, CSS, and JavaScript</li>
+            <li>Created dynamic web applications using Core PHP</li>
+            <li>Implemented Razorpay payment gateway integration for online transactions</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">PHP</span><span class="exp-tag">Razorpay</span>
+            <span class="exp-tag">JavaScript</span><span class="exp-tag">HTML/CSS</span>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-tag">// reach out</div>
-        <h2 class="section-title">Contact</h2>
-      </div>
-      <div class="contact-card">
-        <h3>Let's work together</h3>
-        <p>Open to freelance projects, full-time roles, and collaborations. Feel free to reach out!</p>
-        <div class="contact-links">
-          <a href="mailto:hashirmv299@gmail.com" class="contact-link email"><i class="fas fa-envelope"></i> hashirmv299@gmail.com</a>
-          <a href="https://github.com/Hashirhash001" target="_blank" class="contact-link"><i class="fab fa-github"></i> GitHub</a>
-          <a href="tel:+918943168933" class="contact-link"><i class="fas fa-phone"></i> +91 8943168933</a>
-        </div>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">// reach out</div>
+      <h2 class="section-title">Contact</h2>
+    </div>
+    <div class="contact-card reveal">
+      <h3>Let's work together</h3>
+      <p>Open to freelance projects, full-time roles, and collaborations. Feel free to reach out!</p>
+      <div class="contact-links">
+        <a href="mailto:hashirmv299@gmail.com" class="contact-link email"><i class="fas fa-envelope"></i> hashirmv299@gmail.com</a>
+        <a href="https://github.com/Hashirhash001" target="_blank" class="contact-link"><i class="fab fa-github"></i> GitHub</a>
+        <a href="tel:+918943168933" class="contact-link"><i class="fas fa-phone"></i> +91 8943168933</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer>
-    <p>Built with <span>&#x2665;</span> by Hashir MV &mdash; &copy; 2026</p>
-  </footer>
+<footer>
+  <p>Built with <span>♥</span> by Hashir MV &mdash; &copy; 2026</p>
+</footer>
 
-  <script>
-    // ===== IMAGE SLIDER ENGINE =====
-    const sliders = {};
+<script>
+// ── CUSTOM CURSOR (RAF lerp — ultra smooth) ──
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = -100, my = -100, rx = -100, ry = -100;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function animateCursor() {
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animateCursor);
+})();
+document.querySelectorAll('a,button,.skill-tag,.integration-card,.project-card').forEach(el => {
+  el.addEventListener('mouseenter', () => { ring.style.width='52px'; ring.style.height='52px'; ring.style.borderColor='rgba(88,166,255,0.85)'; cursor.style.transform='translate(-50%,-50%) scale(1.6)'; });
+  el.addEventListener('mouseleave', () => { ring.style.width='38px'; ring.style.height='38px'; ring.style.borderColor='rgba(88,166,255,0.45)'; cursor.style.transform='translate(-50%,-50%) scale(1)'; });
+});
 
-    function initSlider(id, total) {
-      sliders[id] = { current: 0, total };
-      const dotsEl = document.getElementById('dots-' + id);
-      for (let i = 0; i < total; i++) {
-        const d = document.createElement('div');
-        d.className = 'slider-dot' + (i === 0 ? ' active' : '');
-        d.onclick = () => goTo(id, i);
-        dotsEl.appendChild(d);
-      }
-      // hide dots if too many (show counter instead)
-      if (total > 8) dotsEl.style.display = 'none';
+// ── PARTICLES ──
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resize(); window.addEventListener('resize', resize);
+for (let i = 0; i < 65; i++) {
+  particles.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.4+0.4, dx: (Math.random()-0.5)*0.35, dy: (Math.random()-0.5)*0.35, o: Math.random()*0.45+0.08 });
+}
+(function drawParticles() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p => {
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(88,166,255,${p.o})`; ctx.fill();
+    p.x += p.dx; p.y += p.dy;
+    if (p.x<0||p.x>canvas.width) p.dx*=-1;
+    if (p.y<0||p.y>canvas.height) p.dy*=-1;
+  });
+  requestAnimationFrame(drawParticles);
+})();
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+// ── SCROLL REVEAL ──
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 70);
+      revealObserver.unobserve(e.target);
     }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => revealObserver.observe(el));
 
-    function goTo(id, index) {
-      const s = sliders[id];
-      if (!s) return;
-      s.current = (index + s.total) % s.total;
-      document.getElementById('track-' + id).style.transform = 'translateX(-' + (s.current * 100) + '%)';
-      document.getElementById('counter-' + id).textContent = (s.current + 1) + ' / ' + s.total;
-      const dots = document.querySelectorAll('#dots-' + id + ' .slider-dot');
-      dots.forEach((d, i) => d.classList.toggle('active', i === s.current));
-    }
+// ── COUNTER (easeOutCubic) ──
+function animateCounter(el, target) {
+  const isFloat = target % 1 !== 0;
+  let start = null; const duration = 1400;
+  (function step(ts) {
+    if (!start) start = ts;
+    const p = Math.min((ts - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = isFloat ? (ease * target).toFixed(1) : Math.floor(ease * target);
+    if (p < 1) requestAnimationFrame(step);
+  })(performance.now());
+}
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { animateCounter(e.target, parseFloat(e.target.dataset.target)); counterObserver.unobserve(e.target); }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-num').forEach(el => counterObserver.observe(el));
 
-    function slide(id, dir) {
-      const s = sliders[id];
-      if (s) goTo(id, s.current + dir);
-    }
+// ── TYPED EFFECT ──
+const phrases = ['4 years exp', 'Laravel Expert', 'API Builder', 'Clean Coder'];
+let pi = 0, ci = 0, deleting = false;
+const typedEl = document.getElementById('typed-text');
+function type() {
+  const phrase = phrases[pi];
+  if (!deleting) { typedEl.textContent = phrase.substring(0, ++ci); if (ci === phrase.length) { deleting = true; setTimeout(type, 1800); return; } }
+  else { typedEl.textContent = phrase.substring(0, --ci); if (ci === 0) { deleting = false; pi = (pi+1) % phrases.length; } }
+  setTimeout(type, deleting ? 48 : 90);
+}
+setTimeout(type, 1200);
 
-    // Init all sliders on load
-    document.addEventListener('DOMContentLoaded', () => {
-      initSlider('celestea', 10);
-      initSlider('uniquefoods', 9);
-      initSlider('crm', 17);
-      initSlider('voltronix', 5);
-      initSlider('staffops', 9);
-    });
-
-    // Auto-advance sliders
-    setInterval(() => {
-      ['celestea','uniquefoods','crm','voltronix','staffops'].forEach(id => {
-        if (document.hidden) return;
-        slide(id, 1);
-      });
-    }, 4000);
-  </script>
-
+// ── SLIDER ──
+const sliders = {};
+function initSlider(id, total) {
+  sliders[id] = { current: 0, total };
+  const dotsEl = document.getElementById('dots-' + id);
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'slider-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(id, i);
+    dotsEl.appendChild(d);
+  }
+  if (total > 8) dotsEl.style.display = 'none';
+}
+function goTo(id, index) {
+  const s = sliders[id]; if (!s) return;
+  s.current = ((index % s.total) + s.total) % s.total;
+  document.getElementById('track-' + id).style.transform = `translateX(-${s.current * 100}%)`;
+  document.getElementById('counter-' + id).textContent = `${s.current + 1} / ${s.total}`;
+  document.querySelectorAll(`#dots-${id} .slider-dot`).forEach((d,i) => d.classList.toggle('active', i === s.current));
+}
+function slide(id, dir) { const s = sliders[id]; if (s) goTo(id, s.current + dir); }
+document.addEventListener('DOMContentLoaded', () => {
+  initSlider('celestea',10); initSlider('uniquefoods',9);
+  initSlider('crm',17); initSlider('voltronix',5); initSlider('staffops',9);
+});
+setInterval(() => {
+  if (document.hidden) return;
+  ['celestea','uniquefoods','crm','voltronix','staffops'].forEach(id => slide(id, 1));
+}, 4200);
+</script>
 </body>
 </html>
