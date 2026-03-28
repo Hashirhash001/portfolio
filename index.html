@@ -9,120 +9,51 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0d1117;
-      --bg2: #161b22;
-      --bg3: #21262d;
-      --border: #30363d;
-      --accent: #58a6ff;
-      --accent2: #3fb950;
-      --accent3: #f78166;
-      --text: #e6edf3;
-      --text2: #8b949e;
-      --text3: #c9d1d9;
+      --bg: #0d1117; --bg2: #161b22; --bg3: #21262d;
+      --border: #30363d; --accent: #58a6ff; --accent2: #3fb950;
+      --accent3: #f78166; --text: #e6edf3; --text2: #8b949e; --text3: #c9d1d9;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
 
     /* NAV */
     nav {
       position: fixed; top: 0; width: 100%; z-index: 100;
-      background: rgba(13, 17, 23, 0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(13,17,23,0.92); backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 60px;
+      padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px;
     }
-    .nav-logo {
-      font-family: 'Fira Code', monospace;
-      color: var(--accent);
-      font-size: 1.1rem;
-      font-weight: 500;
-      text-decoration: none;
-    }
+    .nav-logo { font-family: 'Fira Code', monospace; color: var(--accent); font-size: 1.1rem; font-weight: 500; text-decoration: none; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      color: var(--text2); text-decoration: none;
-      font-size: 0.9rem; font-weight: 500;
-      transition: color 0.2s;
-    }
+    .nav-links a { color: var(--text2); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
     .nav-links a:hover { color: var(--accent); }
 
     /* HERO */
     .hero {
-      min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      padding: 80px 2rem 2rem;
-      text-align: center;
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 80px 2rem 2rem; text-align: center;
       background: radial-gradient(ellipse at 50% 0%, rgba(88,166,255,0.08) 0%, transparent 60%);
     }
     .hero-inner { max-width: 700px; }
     .hero-badge {
-      display: inline-block;
-      background: rgba(88,166,255,0.1);
-      border: 1px solid rgba(88,166,255,0.3);
-      color: var(--accent);
-      padding: 0.3rem 1rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-family: 'Fira Code', monospace;
-      margin-bottom: 1.5rem;
+      display: inline-block; background: rgba(88,166,255,0.1);
+      border: 1px solid rgba(88,166,255,0.3); color: var(--accent);
+      padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem;
+      font-family: 'Fira Code', monospace; margin-bottom: 1.5rem;
     }
-    .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 0.5rem;
-    }
+    .hero h1 { font-size: clamp(2.5rem,6vw,4rem); font-weight: 800; line-height: 1.1; margin-bottom: 0.5rem; }
     .hero h1 span { color: var(--accent); }
-    .hero-role {
-      font-size: 1.2rem;
-      color: var(--text2);
-      margin-bottom: 1.5rem;
-      font-family: 'Fira Code', monospace;
-    }
+    .hero-role { font-size: 1.2rem; color: var(--text2); margin-bottom: 1.5rem; font-family: 'Fira Code', monospace; }
     .hero-role span { color: var(--accent2); }
-    .hero-desc {
-      font-size: 1rem;
-      color: var(--text3);
-      max-width: 560px;
-      margin: 0 auto 2.5rem;
-    }
+    .hero-desc { font-size: 1rem; color: var(--text3); max-width: 560px; margin: 0 auto 2.5rem; }
     .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .btn {
-      padding: 0.7rem 1.6rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s;
-      display: inline-flex; align-items: center; gap: 0.5rem;
-    }
-    .btn-primary {
-      background: var(--accent);
-      color: #0d1117;
-    }
+    .btn { padding: 0.7rem 1.6rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn-primary { background: var(--accent); color: #0d1117; }
     .btn-primary:hover { background: #79b8ff; transform: translateY(-2px); }
-    .btn-outline {
-      border: 1px solid var(--border);
-      color: var(--text3);
-      background: transparent;
-    }
+    .btn-outline { border: 1px solid var(--border); color: var(--text3); background: transparent; }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-    .hero-stats {
-      display: flex; gap: 3rem; justify-content: center;
-      margin-top: 4rem;
-      flex-wrap: wrap;
-    }
+    .hero-stats { display: flex; gap: 3rem; justify-content: center; margin-top: 4rem; flex-wrap: wrap; }
     .stat { text-align: center; }
     .stat-num { font-size: 2rem; font-weight: 800; color: var(--accent); }
     .stat-label { font-size: 0.8rem; color: var(--text2); margin-top: 0.2rem; }
@@ -131,174 +62,92 @@
     section { padding: 5rem 2rem; }
     .container { max-width: 1100px; margin: 0 auto; }
     .section-header { text-align: center; margin-bottom: 3.5rem; }
-    .section-tag {
-      font-family: 'Fira Code', monospace;
-      color: var(--accent);
-      font-size: 0.85rem;
-      margin-bottom: 0.5rem;
-    }
-    .section-title {
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      font-weight: 700;
-    }
+    .section-tag { font-family: 'Fira Code', monospace; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .section-title { font-size: clamp(1.8rem,4vw,2.5rem); font-weight: 700; }
     .section-sub { color: var(--text2); margin-top: 0.5rem; font-size: 0.95rem; }
 
     /* SKILLS */
     #skills { background: var(--bg2); }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-    }
-    .skill-card {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: border-color 0.2s;
-    }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1.5rem; }
+    .skill-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: border-color 0.2s; }
     .skill-card:hover { border-color: var(--accent); }
-    .skill-card-title {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 1rem;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
+    .skill-card-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
     .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .skill-tag {
-      background: rgba(88,166,255,0.08);
-      border: 1px solid rgba(88,166,255,0.2);
-      color: var(--text3);
-      padding: 0.3rem 0.7rem;
-      border-radius: 6px;
-      font-size: 0.82rem;
-      font-family: 'Fira Code', monospace;
-    }
+    .skill-tag { background: rgba(88,166,255,0.08); border: 1px solid rgba(88,166,255,0.2); color: var(--text3); padding: 0.3rem 0.7rem; border-radius: 6px; font-size: 0.82rem; font-family: 'Fira Code', monospace; }
 
     /* PROJECTS */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem;
-    }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap: 1.5rem; }
     .project-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      display: flex; flex-direction: column;
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; display: flex; flex-direction: column;
       transition: border-color 0.2s, transform 0.2s;
     }
     .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
-    .project-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.8rem; }
-    .project-icon { font-size: 1.5rem; }
+
+    /* IMAGE SLIDESHOW */
+    .project-slides { position: relative; width: 100%; height: 200px; overflow: hidden; background: var(--bg3); }
+    .project-slides img {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0; transition: opacity 0.6s ease;
+    }
+    .project-slides img.active { opacity: 1; }
+    .slide-dots {
+      position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 5px;
+    }
+    .slide-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.4); cursor: pointer; transition: background 0.2s;
+    }
+    .slide-dot.active { background: var(--accent); }
+    .slide-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(0,0,0,0.5); color: #fff; border: none;
+      width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
+      font-size: 0.7rem; display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .project-slides:hover .slide-btn { opacity: 1; }
+    .slide-btn.prev { left: 8px; }
+    .slide-btn.next { right: 8px; }
+
+    .project-body { padding: 1.2rem; display: flex; flex-direction: column; flex: 1; }
+    .project-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.6rem; }
+    .project-icon { font-size: 1.4rem; }
     .project-links { display: flex; gap: 0.5rem; }
-    .project-links a {
-      color: var(--text2);
-      font-size: 1rem;
-      transition: color 0.2s;
-      text-decoration: none;
-    }
+    .project-links a { color: var(--text2); font-size: 1rem; transition: color 0.2s; text-decoration: none; }
     .project-links a:hover { color: var(--accent); }
-    .project-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .project-desc { color: var(--text2); font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1rem; }
+    .project-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .project-desc { color: var(--text2); font-size: 0.87rem; line-height: 1.6; flex: 1; margin-bottom: 1rem; }
     .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .tech-badge {
-      background: rgba(63,185,80,0.1);
-      border: 1px solid rgba(63,185,80,0.2);
-      color: var(--accent2);
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-family: 'Fira Code', monospace;
-    }
+    .tech-badge { background: rgba(63,185,80,0.1); border: 1px solid rgba(63,185,80,0.2); color: var(--accent2); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-family: 'Fira Code', monospace; }
 
     /* EXPERIENCE */
     #experience { background: var(--bg2); }
     .timeline { position: relative; padding-left: 2rem; }
-    .timeline::before {
-      content: '';
-      position: absolute; left: 0; top: 0; bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-    }
-    .timeline-item {
-      position: relative;
-      margin-bottom: 2.5rem;
-      padding-left: 1.5rem;
-    }
-    .timeline-item::before {
-      content: '';
-      position: absolute; left: -2.4rem; top: 0.4rem;
-      width: 10px; height: 10px;
-      background: var(--accent);
-      border-radius: 50%;
-      border: 2px solid var(--bg2);
-    }
-    .timeline-period {
-      font-family: 'Fira Code', monospace;
-      font-size: 0.78rem;
-      color: var(--accent);
-      margin-bottom: 0.3rem;
-    }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), transparent); }
+    .timeline-item { position: relative; margin-bottom: 2.5rem; padding-left: 1.5rem; }
+    .timeline-item::before { content: ''; position: absolute; left: -2.4rem; top: 0.4rem; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; border: 2px solid var(--bg2); }
+    .timeline-period { font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--accent); margin-bottom: 0.3rem; }
     .timeline-role { font-size: 1.1rem; font-weight: 700; }
     .timeline-company { color: var(--text2); font-size: 0.9rem; margin-bottom: 0.8rem; }
     .timeline-points { list-style: none; }
-    .timeline-points li {
-      color: var(--text3);
-      font-size: 0.88rem;
-      padding: 0.3rem 0;
-      padding-left: 1rem;
-      position: relative;
-    }
-    .timeline-points li::before {
-      content: '▸';
-      position: absolute; left: 0;
-      color: var(--accent2);
-    }
+    .timeline-points li { color: var(--text3); font-size: 0.88rem; padding: 0.3rem 0; padding-left: 1rem; position: relative; }
+    .timeline-points li::before { content: '&#9656;'; position: absolute; left: 0; color: var(--accent2); }
 
     /* CONTACT */
-    .contact-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 3rem;
-      text-align: center;
-      max-width: 600px;
-      margin: 0 auto;
-    }
+    .contact-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 3rem; text-align: center; max-width: 600px; margin: 0 auto; }
     .contact-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
     .contact-card p { color: var(--text2); margin-bottom: 2rem; }
     .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .contact-link {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.7rem 1.4rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      border: 1px solid var(--border);
-      color: var(--text3);
-      transition: all 0.2s;
-    }
+    .contact-link { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.4rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 500; border: 1px solid var(--border); color: var(--text3); transition: all 0.2s; }
     .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
     .contact-link.email { background: var(--accent); color: #0d1117; border-color: var(--accent); }
     .contact-link.email:hover { background: #79b8ff; }
 
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid var(--border);
-      color: var(--text2);
-      font-size: 0.85rem;
-    }
+    footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--text2); font-size: 0.85rem; }
     footer span { color: var(--accent3); }
 
-    /* RESPONSIVE */
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hero-stats { gap: 2rem; }
@@ -308,7 +157,6 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <a class="nav-logo" href="#">&lt;hashir.mv /&gt;</a>
     <ul class="nav-links">
@@ -325,10 +173,7 @@
       <div class="hero-badge">&#x1F4CD; Available for opportunities</div>
       <h1>Hi, I'm <span>Hashir MV</span></h1>
       <p class="hero-role">Full-Stack Developer &nbsp;<span>// 3.5+ years</span></p>
-      <p class="hero-desc">
-        Experienced in building scalable web applications — from e-commerce platforms
-        and CRM systems to RESTful APIs and HRM software. Passionate about clean code and seamless integrations.
-      </p>
+      <p class="hero-desc">Experienced in building scalable web applications &mdash; from e-commerce platforms and CRM systems to RESTful APIs and HRM software. Passionate about clean code and seamless integrations.</p>
       <div class="hero-btns">
         <a href="#projects" class="btn btn-primary"><i class="fas fa-code"></i> View Projects</a>
         <a href="https://github.com/Hashirhash001" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> GitHub</a>
@@ -336,9 +181,9 @@
       </div>
       <div class="hero-stats">
         <div class="stat"><div class="stat-num">3.5+</div><div class="stat-label">Years Experience</div></div>
-        <div class="stat"><div class="stat-num">6+</div><div class="stat-label">Projects Built</div></div>
+        <div class="stat"><div class="stat-num">7</div><div class="stat-label">Projects Built</div></div>
         <div class="stat"><div class="stat-num">4</div><div class="stat-label">Companies</div></div>
-        <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Integrations</div></div>
+        <div class="stat"><div class="stat-num">8</div><div class="stat-label">Integrations</div></div>
       </div>
     </div>
   </section>
@@ -348,60 +193,47 @@
     <div class="container">
       <div class="section-header">
         <div class="section-tag">// tech-stack</div>
-        <h2 class="section-title">Skills & Technologies</h2>
+        <h2 class="section-title">Skills &amp; Technologies</h2>
         <p class="section-sub">Tools and technologies I work with on a daily basis</p>
       </div>
       <div class="skills-grid">
         <div class="skill-card">
           <div class="skill-card-title"><i class="fas fa-server"></i> Backend</div>
           <div class="skill-tags">
-            <span class="skill-tag">PHP</span>
-            <span class="skill-tag">Laravel</span>
-            <span class="skill-tag">CodeIgniter</span>
-            <span class="skill-tag">NestJS</span>
+            <span class="skill-tag">PHP</span><span class="skill-tag">Laravel</span>
+            <span class="skill-tag">CodeIgniter</span><span class="skill-tag">NestJS</span>
             <span class="skill-tag">REST APIs</span>
           </div>
         </div>
         <div class="skill-card">
           <div class="skill-card-title"><i class="fas fa-palette"></i> Frontend</div>
           <div class="skill-tags">
-            <span class="skill-tag">HTML5</span>
-            <span class="skill-tag">CSS3</span>
-            <span class="skill-tag">JavaScript</span>
-            <span class="skill-tag">jQuery</span>
-            <span class="skill-tag">Tailwind CSS</span>
-            <span class="skill-tag">Bootstrap</span>
+            <span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span>
+            <span class="skill-tag">JavaScript</span><span class="skill-tag">jQuery</span>
+            <span class="skill-tag">Tailwind CSS</span><span class="skill-tag">Bootstrap</span>
           </div>
         </div>
         <div class="skill-card">
-          <div class="skill-card-title"><i class="fas fa-database"></i> Database & ORM</div>
+          <div class="skill-card-title"><i class="fas fa-database"></i> Database &amp; ORM</div>
           <div class="skill-tags">
-            <span class="skill-tag">MySQL</span>
-            <span class="skill-tag">PostgreSQL</span>
-            <span class="skill-tag">Prisma</span>
-            <span class="skill-tag">Eloquent</span>
+            <span class="skill-tag">MySQL</span><span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">Prisma</span><span class="skill-tag">Eloquent</span>
           </div>
         </div>
         <div class="skill-card">
           <div class="skill-card-title"><i class="fas fa-plug"></i> Integrations</div>
           <div class="skill-tags">
-            <span class="skill-tag">Stripe</span>
-            <span class="skill-tag">Razorpay</span>
-            <span class="skill-tag">Shiprocket</span>
-            <span class="skill-tag">Zoho CRM</span>
-            <span class="skill-tag">Zoho Books</span>
-            <span class="skill-tag">WhatsApp API</span>
-            <span class="skill-tag">Pusher</span>
-            <span class="skill-tag">Firebase</span>
+            <span class="skill-tag">Stripe</span><span class="skill-tag">Razorpay</span>
+            <span class="skill-tag">Shiprocket</span><span class="skill-tag">Zoho CRM</span>
+            <span class="skill-tag">Zoho Books</span><span class="skill-tag">WhatsApp API</span>
+            <span class="skill-tag">Pusher</span><span class="skill-tag">Firebase</span>
           </div>
         </div>
         <div class="skill-card">
-          <div class="skill-card-title"><i class="fas fa-tools"></i> Tools & DevOps</div>
+          <div class="skill-card-title"><i class="fas fa-tools"></i> Tools &amp; DevOps</div>
           <div class="skill-tags">
-            <span class="skill-tag">Git</span>
-            <span class="skill-tag">Azure DevOps</span>
-            <span class="skill-tag">Postman</span>
-            <span class="skill-tag">AWS</span>
+            <span class="skill-tag">Git</span><span class="skill-tag">Azure DevOps</span>
+            <span class="skill-tag">Postman</span><span class="skill-tag">AWS</span>
             <span class="skill-tag">WordPress</span>
           </div>
         </div>
@@ -419,108 +251,167 @@
       </div>
       <div class="projects-grid">
 
+        <!-- Celestea -->
         <div class="project-card">
-          <div class="project-header">
-            <span class="project-icon">&#x1F6D2;</span>
-            <div class="project-links">
-              <a href="https://github.com/Hashirhash001/Uniquefoods" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <div class="project-slides" id="slides-celestea">
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen1.png" class="active" alt="Celestea screen 1" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen2.png" alt="Celestea screen 2" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen3.png" alt="Celestea screen 3" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen4.png" alt="Celestea screen 4" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen5.png" alt="Celestea screen 5" />
+            <button class="slide-btn prev" onclick="slideProject('celestea',-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="slide-btn next" onclick="slideProject('celestea',1)"><i class="fas fa-chevron-right"></i></button>
+            <div class="slide-dots" id="dots-celestea">
+              <div class="slide-dot active" onclick="goSlide('celestea',0)"></div>
+              <div class="slide-dot" onclick="goSlide('celestea',1)"></div>
+              <div class="slide-dot" onclick="goSlide('celestea',2)"></div>
+              <div class="slide-dot" onclick="goSlide('celestea',3)"></div>
+              <div class="slide-dot" onclick="goSlide('celestea',4)"></div>
             </div>
           </div>
-          <div class="project-title">Unique Foods — eCommerce Platform</div>
-          <div class="project-desc">Full-featured food e-commerce platform with product catalog, cart/checkout, order management, admin panel, referral system, and Shiprocket delivery integration.</div>
-          <div class="project-tech">
-            <span class="tech-badge">Laravel</span>
-            <span class="tech-badge">MySQL</span>
-            <span class="tech-badge">Stripe</span>
-            <span class="tech-badge">Shiprocket</span>
-            <span class="tech-badge">Blade</span>
+          <div class="project-body">
+            <div class="project-header">
+              <span class="project-icon">&#x1F6CD;&#xFE0F;</span>
+              <div class="project-links">
+                <a href="https://github.com/Hashirhash001/celestea" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+            <div class="project-title">Celestea &mdash; eCommerce Platform</div>
+            <div class="project-desc">Laravel-based eCommerce app with product listing, cart, checkout, wishlist, referral system, and a full admin panel for orders, users, transactions, and verification workflows.</div>
+            <div class="project-tech">
+              <span class="tech-badge">Laravel</span>
+              <span class="tech-badge">MySQL</span>
+              <span class="tech-badge">Razorpay</span>
+              <span class="tech-badge">Shiprocket</span>
+              <span class="tech-badge">Bootstrap</span>
+              <span class="tech-badge">jQuery</span>
+            </div>
           </div>
         </div>
 
+        <!-- Unique Foods -->
         <div class="project-card">
-          <div class="project-header">
-            <span class="project-icon">&#x1F4CB;</span>
-            <div class="project-links">
-              <a href="https://github.com/Hashirhash001/crm-cleaning-company" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <div class="project-body" style="padding:1.5rem">
+            <div class="project-header">
+              <span class="project-icon">&#x1F6D2;</span>
+              <div class="project-links">
+                <a href="https://github.com/Hashirhash001/Uniquefoods" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+              </div>
             </div>
-          </div>
-          <div class="project-title">CRM — Cleaning Company</div>
-          <div class="project-desc">CRM with lead-to-job conversion workflows, bulk lead import with validation, role-based access (super admin, lead manager, telecaller), lead tracking, and WhatsApp/Google Ads lead filters.</div>
-          <div class="project-tech">
-            <span class="tech-badge">Laravel</span>
-            <span class="tech-badge">MySQL</span>
-            <span class="tech-badge">WhatsApp API</span>
-            <span class="tech-badge">Blade</span>
+            <div class="project-title">Unique Foods &mdash; eCommerce Platform</div>
+            <div class="project-desc">Food e-commerce platform with product catalog, cart/checkout, order management, admin panel, referral system, and Stripe payment integration.</div>
+            <div class="project-tech">
+              <span class="tech-badge">Laravel</span>
+              <span class="tech-badge">MySQL</span>
+              <span class="tech-badge">Stripe</span>
+              <span class="tech-badge">Blade</span>
+              <span class="tech-badge">jQuery</span>
+            </div>
           </div>
         </div>
 
+        <!-- CRM -->
         <div class="project-card">
-          <div class="project-header">
-            <span class="project-icon">&#x1F465;</span>
-            <div class="project-links">
-              <a href="https://github.com/Hashirhash001/voltronix" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <div class="project-body" style="padding:1.5rem">
+            <div class="project-header">
+              <span class="project-icon">&#x1F4CB;</span>
+              <div class="project-links">
+                <a href="https://github.com/Hashirhash001/crm-cleaning-company" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+              </div>
             </div>
-          </div>
-          <div class="project-title">Voltronix — HRM Software 1</div>
-          <div class="project-desc">Role-based HRM system with employee management, attendance tracking, leave request workflows, project management modules, and activity logging with pagination and filters.</div>
-          <div class="project-tech">
-            <span class="tech-badge">Laravel</span>
-            <span class="tech-badge">MySQL</span>
-            <span class="tech-badge">PDF Export</span>
-            <span class="tech-badge">Blade</span>
+            <div class="project-title">CRM &mdash; Cleaning Company</div>
+            <div class="project-desc">CRM with lead-to-job conversion, bulk lead import, role-based access (super admin, lead manager, telecaller), call/notes/follow-up tracking, and WhatsApp/Google Ads lead filters.</div>
+            <div class="project-tech">
+              <span class="tech-badge">Laravel</span>
+              <span class="tech-badge">MySQL</span>
+              <span class="tech-badge">WhatsApp API</span>
+              <span class="tech-badge">Blade</span>
+              <span class="tech-badge">jQuery</span>
+            </div>
           </div>
         </div>
 
+        <!-- HRM 1 -->
         <div class="project-card">
-          <div class="project-header">
-            <span class="project-icon">&#x1F4CA;</span>
-            <div class="project-links">
-              <a href="https://github.com/Hashirhash001/Voltronix-hrm" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <div class="project-body" style="padding:1.5rem">
+            <div class="project-header">
+              <span class="project-icon">&#x1F465;</span>
+              <div class="project-links">
+                <a href="https://github.com/Hashirhash001/voltronix" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+              </div>
             </div>
-          </div>
-          <div class="project-title">HRM Software 2</div>
-          <div class="project-desc">HRM application with attendance, overtime tracking, document expiry alerts, vehicle management, PDF report generation, and employee profile management with role-based access control.</div>
-          <div class="project-tech">
-            <span class="tech-badge">Laravel</span>
-            <span class="tech-badge">MySQL</span>
-            <span class="tech-badge">PDF</span>
-            <span class="tech-badge">JavaScript</span>
+            <div class="project-title">HRM Software 1</div>
+            <div class="project-desc">Role-based HRM system with employee management, attendance tracking, leave request workflows, project management modules, and activity logging with pagination and filters.</div>
+            <div class="project-tech">
+              <span class="tech-badge">Laravel</span>
+              <span class="tech-badge">MySQL</span>
+              <span class="tech-badge">Blade</span>
+              <span class="tech-badge">jQuery</span>
+              <span class="tech-badge">PDF Export</span>
+            </div>
           </div>
         </div>
 
+        <!-- HRM 2 -->
         <div class="project-card">
-          <div class="project-header">
-            <span class="project-icon">&#x1F310;</span>
-            <div class="project-links">
-              <a href="https://github.com/Hashirhash001/ZWebCart" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <div class="project-body" style="padding:1.5rem">
+            <div class="project-header">
+              <span class="project-icon">&#x1F4CA;</span>
+              <div class="project-links">
+                <a href="https://github.com/Hashirhash001/Voltronix-hrm" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+              </div>
             </div>
-          </div>
-          <div class="project-title">ZWebCart — No-Code Website Builder</div>
-          <div class="project-desc">RESTful APIs for a multi-store no-code platform with dynamic theme customization (multi-theme, pages, sections), JWT-based authentication with encrypted store DB URL resolution, and role-based guards.</div>
-          <div class="project-tech">
-            <span class="tech-badge">NestJS</span>
-            <span class="tech-badge">PostgreSQL</span>
-            <span class="tech-badge">Prisma</span>
-            <span class="tech-badge">JWT</span>
-            <span class="tech-badge">TypeScript</span>
+            <div class="project-title">HRM Software 2</div>
+            <div class="project-desc">HRM application with attendance, overtime tracking, document expiry alerts, vehicle management, PDF report generation, and employee profile management with role-based access control.</div>
+            <div class="project-tech">
+              <span class="tech-badge">Laravel</span>
+              <span class="tech-badge">MySQL</span>
+              <span class="tech-badge">Blade</span>
+              <span class="tech-badge">JavaScript</span>
+              <span class="tech-badge">PDF</span>
+            </div>
           </div>
         </div>
 
+        <!-- ZWebCart -->
         <div class="project-card">
-          <div class="project-header">
-            <span class="project-icon">&#x1F4F1;</span>
-            <div class="project-links">
-              <a href="https://github.com/Hashirhash001/Circuitil" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <div class="project-body" style="padding:1.5rem">
+            <div class="project-header">
+              <span class="project-icon">&#x1F310;</span>
+              <div class="project-links">
+                <a href="https://github.com/Hashirhash001/ZWebCart" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+            <div class="project-title">ZWebCart &mdash; No-Code Website Builder</div>
+            <div class="project-desc">RESTful APIs for a multi-store no-code platform with dynamic theme customization, JWT authentication with encrypted store DB URL resolution, and role-based guards.</div>
+            <div class="project-tech">
+              <span class="tech-badge">NestJS</span>
+              <span class="tech-badge">PostgreSQL</span>
+              <span class="tech-badge">Prisma</span>
+              <span class="tech-badge">TypeScript</span>
+              <span class="tech-badge">JWT</span>
             </div>
           </div>
-          <div class="project-title">Circuitil — Influencer & Brand Platform</div>
-          <div class="project-desc">REST API for Android app connecting influencers and brands with collaboration discovery, real-time chat (Pusher), Firebase push notifications, Google/Instagram OAuth, OTP auth, and automated matching via Laravel Observers.</div>
-          <div class="project-tech">
-            <span class="tech-badge">Laravel</span>
-            <span class="tech-badge">MySQL</span>
-            <span class="tech-badge">Pusher</span>
-            <span class="tech-badge">Firebase</span>
-            <span class="tech-badge">OAuth</span>
+        </div>
+
+        <!-- Circuitil -->
+        <div class="project-card">
+          <div class="project-body" style="padding:1.5rem">
+            <div class="project-header">
+              <span class="project-icon">&#x1F4F1;</span>
+              <div class="project-links">
+                <a href="https://github.com/Hashirhash001/Circuitil" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+            <div class="project-title">Circuitil &mdash; Influencer &amp; Brand Platform</div>
+            <div class="project-desc">REST API for Android app connecting influencers and brands with real-time chat, Firebase notifications, Google/Instagram OAuth, OTP auth, and automated matching via Laravel Observers.</div>
+            <div class="project-tech">
+              <span class="tech-badge">Laravel</span>
+              <span class="tech-badge">MySQL</span>
+              <span class="tech-badge">Pusher</span>
+              <span class="tech-badge">Firebase</span>
+              <span class="tech-badge">OAuth</span>
+            </div>
           </div>
         </div>
 
@@ -537,20 +428,18 @@
         <p class="section-sub">My professional journey across companies</p>
       </div>
       <div class="timeline">
-
         <div class="timeline-item">
           <div class="timeline-period">08/2024 &mdash; Present</div>
           <div class="timeline-role">Full-Stack Developer</div>
           <div class="timeline-company">Zenerom Creative Lab</div>
           <ul class="timeline-points">
-            <li>Designed and developed custom CRM & HRM systems using PHP Laravel</li>
+            <li>Designed and developed custom CRM &amp; HRM systems using PHP Laravel</li>
             <li>Developed Job Management Software integrated with Zoho CRM (CodeIgniter)</li>
             <li>Built and deployed eCommerce platforms using PHP Laravel</li>
-            <li>Customized Zoho CRM & Zoho Books workflows for clients</li>
-            <li>Built RESTful APIs for a no-code website builder platform using NestJS & PostgreSQL</li>
+            <li>Customized Zoho CRM &amp; Zoho Books workflows for clients</li>
+            <li>Built RESTful APIs for a no-code website builder using NestJS &amp; PostgreSQL</li>
           </ul>
         </div>
-
         <div class="timeline-item">
           <div class="timeline-period">05/2023 &mdash; 07/2024</div>
           <div class="timeline-role">Back-End Developer</div>
@@ -561,7 +450,6 @@
             <li>Collaborated with cross-location frontend teams via Agile sprints</li>
           </ul>
         </div>
-
         <div class="timeline-item">
           <div class="timeline-period">12/2022 &mdash; 04/2023</div>
           <div class="timeline-role">Full-Stack Developer</div>
@@ -572,7 +460,6 @@
             <li>Updated and maintained WordPress websites</li>
           </ul>
         </div>
-
         <div class="timeline-item">
           <div class="timeline-period">09/2022 &mdash; 11/2022</div>
           <div class="timeline-role">Full-Stack Developer</div>
@@ -583,7 +470,6 @@
             <li>Implemented Razorpay payment gateway integration</li>
           </ul>
         </div>
-
       </div>
     </div>
   </section>
@@ -607,10 +493,35 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <p>Built with <span>&#x2665;</span> by Hashir MV &mdash; &copy; 2026</p>
   </footer>
+
+  <script>
+    const slideState = {};
+    function initSlide(id, total) {
+      slideState[id] = { current: 0, total };
+      setInterval(() => slideProject(id, 1), 3500);
+    }
+    function slideProject(id, dir) {
+      const s = slideState[id];
+      s.current = (s.current + dir + s.total) % s.total;
+      updateSlide(id);
+    }
+    function goSlide(id, idx) {
+      slideState[id].current = idx;
+      updateSlide(id);
+    }
+    function updateSlide(id) {
+      const s = slideState[id];
+      const container = document.getElementById('slides-' + id);
+      const imgs = container.querySelectorAll('img');
+      const dots = document.getElementById('dots-' + id);
+      imgs.forEach((img, i) => img.classList.toggle('active', i === s.current));
+      if (dots) dots.querySelectorAll('.slide-dot').forEach((d, i) => d.classList.toggle('active', i === s.current));
+    }
+    initSlide('celestea', 5);
+  </script>
 
 </body>
 </html>
