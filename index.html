@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -44,12 +45,34 @@
     .hero-role span { color: var(--accent2); }
     .hero-desc { font-size: 1rem; color: var(--text3); max-width: 560px; margin: 0 auto 2.5rem; }
     .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .btn { padding: 0.7rem 1.6rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
-    .btn-primary { background: var(--accent); color: #0d1117; }
+    .btn {
+      padding: 0.7rem 1.6rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0d1117;
+    }
     .btn-primary:hover { background: #79b8ff; transform: translateY(-2px); }
     .btn-outline { border: 1px solid var(--border); color: var(--text3); background: transparent; }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-    .hero-stats { display: flex; gap: 3rem; justify-content: center; margin-top: 4rem; flex-wrap: wrap; }
+    .btn-resume {
+      border: 1px solid var(--accent2);
+      color: var(--accent2);
+      background: rgba(63,185,80,0.08);
+    }
+    .btn-resume:hover { background: rgba(63,185,80,0.18); transform: translateY(-2px); }
+    .hero-stats {
+      display: flex; gap: 3rem; justify-content: center;
+      margin-top: 4rem;
+      flex-wrap: wrap;
+    }
     .stat { text-align: center; }
     .stat-num { font-size: 2rem; font-weight: 800; color: var(--accent); }
     .stat-label { font-size: 0.8rem; color: var(--text2); margin-top: 0.2rem; }
@@ -79,54 +102,76 @@
     .skill-items { display: flex; flex-wrap: wrap; gap: 0.75rem; }
     .skill-item {
       display: flex; align-items: center; gap: 0.5rem;
-      background: var(--bg); border: 1px solid var(--border);
-      border-radius: 8px; padding: 0.45rem 0.9rem;
-      font-size: 0.84rem; font-weight: 500; color: var(--text3);
-      transition: all 0.2s; cursor: default;
     }
-    .skill-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(88,166,255,0.12); }
-    .skill-item img { width: 18px; height: 18px; object-fit: contain; border-radius: 3px; }
-    .skill-item .si { font-size: 1.1rem; line-height: 1; }
-    /* color tints per category */
-    .skill-category-row.cat-backend .skill-cat-header { color: #79c0ff; }
-    .skill-category-row.cat-backend .skill-item:hover { border-color: #79c0ff; color: #79c0ff; box-shadow: 0 4px 12px rgba(121,192,255,0.12); }
-    .skill-category-row.cat-frontend .skill-cat-header { color: #f0883e; }
-    .skill-category-row.cat-frontend .skill-item:hover { border-color: #f0883e; color: #f0883e; box-shadow: 0 4px 12px rgba(240,136,62,0.12); }
-    .skill-category-row.cat-db .skill-cat-header { color: #56d364; }
-    .skill-category-row.cat-db .skill-item:hover { border-color: #56d364; color: #56d364; box-shadow: 0 4px 12px rgba(86,211,100,0.12); }
-    .skill-category-row.cat-tools .skill-cat-header { color: #d2a8ff; }
-    .skill-category-row.cat-tools .skill-item:hover { border-color: #d2a8ff; color: #d2a8ff; box-shadow: 0 4px 12px rgba(210,168,255,0.12); }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+    .skill-tag {
+      background: rgba(88,166,255,0.08);
+      border: 1px solid rgba(88,166,255,0.2);
+      color: var(--text3);
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-family: 'Fira Code', monospace;
+      display: inline-flex; align-items: center; gap: 0.35rem;
+    }
+    .skill-tag i { font-size: 1rem; }
+    .skill-tag img { width: 16px; height: 16px; object-fit: contain; vertical-align: middle; }
 
-    /* ===================== PROJECTS ===================== */
+    /* PROJECTS */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 1.5rem;
     }
     .project-card {
-      background: var(--bg2); border: 1px solid var(--border); border-radius: 14px;
-      overflow: hidden; display: flex; flex-direction: column;
-      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
     }
-    .project-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 8px 30px rgba(88,166,255,0.1); }
-
-    /* SLIDESHOW */
-    .project-slides { position: relative; width: 100%; height: 210px; overflow: hidden; background: var(--bg3); }
-    .project-slides img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease; }
-    .project-slides img.active { opacity: 1; }
-    .slide-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; z-index: 2; }
-    .slide-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: background 0.2s, transform 0.2s; }
-    .slide-dot.active { background: var(--accent); transform: scale(1.3); }
-    .slide-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: #fff; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 0.65rem; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; z-index: 2; }
-    .project-slides:hover .slide-btn { opacity: 1; }
-    .slide-btn.prev { left: 8px; }
-    .slide-btn.next { right: 8px; }
-    .slide-count { position: absolute; top: 8px; right: 10px; background: rgba(0,0,0,0.65); color: #fff; font-size: 0.68rem; padding: 2px 8px; border-radius: 10px; z-index: 2; font-family: 'Fira Code', monospace; }
-    /* No-screenshot placeholder */
-    .project-no-img {
-      height: 60px; display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(135deg, var(--bg3) 0%, rgba(88,166,255,0.05) 100%);
+    .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .project-screenshot {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      object-position: top;
+      display: block;
       border-bottom: 1px solid var(--border);
+      background: var(--bg3);
+    }
+    .project-screenshot-placeholder {
+      width: 100%;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+      font-size: 3rem;
+    }
+    .project-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+    .project-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.8rem; }
+    .project-icon { font-size: 1.5rem; }
+    .project-links { display: flex; gap: 0.5rem; }
+    .project-links a {
+      color: var(--text2);
+      font-size: 1rem;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    .project-links a:hover { color: var(--accent); }
+    .project-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .project-desc { color: var(--text2); font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1rem; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; }
+    .tech-badge {
+      background: rgba(63,185,80,0.1);
+      border: 1px solid rgba(63,185,80,0.2);
+      color: var(--accent2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: 'Fira Code', monospace;
     }
     .project-no-img-icon { font-size: 2rem; opacity: 0.4; }
 
@@ -195,10 +240,29 @@
     .contact-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
     .contact-card p { color: var(--text2); margin-bottom: 2rem; }
     .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .contact-link { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.4rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 500; border: 1px solid var(--border); color: var(--text3); transition: all 0.2s; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      color: var(--text3);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
     .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
     .contact-link.email { background: var(--accent); color: #0d1117; border-color: var(--accent); }
-    .contact-link.email:hover { background: #79b8ff; }
+    .contact-link.email:hover { background: #79b8ff; color: #0d1117; }
+
+    /* Zoho icon custom */
+    .zoho-icon-img {
+      width: 16px; height: 16px;
+      object-fit: contain;
+      vertical-align: middle;
+      border-radius: 2px;
+    }
 
     footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--text2); font-size: 0.85rem; }
     footer span { color: var(--accent3); }
@@ -212,8 +276,6 @@
       .hero-stats { gap: 2rem; }
       .contact-card { padding: 2rem 1.5rem; }
       .projects-grid { grid-template-columns: 1fr; }
-      .integrations-grid { grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); }
-      .skill-category-row { padding: 1.2rem; }
     }
   </style>
 </head>
@@ -235,12 +297,16 @@
     <div class="hero-inner">
       <div class="hero-badge">&#x1F4CD; Available for opportunities</div>
       <h1>Hi, I'm <span>Hashir MV</span></h1>
-      <p class="hero-role">Full-Stack Developer &nbsp;<span>// 3.5+ years</span></p>
-      <p class="hero-desc">Experienced in building scalable web applications &mdash; from e-commerce platforms and CRM systems to RESTful APIs and HRM software. Passionate about clean code and seamless integrations.</p>
+      <p class="hero-role">Full-Stack Developer &nbsp;<span>3.5+ years</span></p>
+      <p class="hero-desc">
+        Experienced in building scalable web applications — from e-commerce platforms
+        and CRM systems to RESTful APIs and HRM software. Passionate about clean code and seamless integrations.
+      </p>
       <div class="hero-btns">
         <a href="#projects" class="btn btn-primary"><i class="fas fa-code"></i> View Projects</a>
         <a href="https://github.com/Hashirhash001" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> GitHub</a>
         <a href="mailto:hashirmv299@gmail.com" class="btn btn-outline"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="https://drive.google.com/uc?export=download&id=YOUR_RESUME_FILE_ID" target="_blank" class="btn btn-resume"><i class="fas fa-download"></i> Resume</a>
       </div>
       <div class="hero-stats">
         <div class="stat"><div class="stat-num">3.5+</div><div class="stat-label">Years Experience</div></div>
@@ -254,61 +320,67 @@
   <section id="skills">
     <div class="container">
       <div class="section-header">
-        <div class="section-tag">// tech-stack</div>
         <h2 class="section-title">Skills &amp; Technologies</h2>
         <p class="section-sub">Tools and technologies I work with on a daily basis</p>
       </div>
-      <div class="skills-categories">
-
-        <!-- Backend -->
-        <div class="skill-category-row cat-backend">
-          <div class="skill-cat-header"><i class="fas fa-server"></i> Backend Development</div>
-          <div class="skill-items">
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-plain.svg" alt="PHP" />PHP</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg" alt="Laravel" />Laravel</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/codeigniter/codeigniter-plain.svg" alt="CodeIgniter" />CodeIgniter</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg" alt="NestJS" />NestJS</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" />TypeScript</div>
-            <div class="skill-item"><span class="si">&#x1F4E1;</span> REST APIs</div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-card-title"><i class="fas fa-server"></i> Backend</div>
+          <div class="skill-tags">
+            <span class="skill-tag"><i class="devicon-php-plain colored"></i> PHP</span>
+            <span class="skill-tag"><i class="devicon-laravel-plain colored"></i> Laravel</span>
+            <span class="skill-tag"><i class="devicon-codeigniter-plain colored"></i> CodeIgniter</span>
+            <span class="skill-tag"><i class="devicon-nestjs-plain colored"></i> NestJS</span>
+            <span class="skill-tag">REST APIs</span>
           </div>
         </div>
-
-        <!-- Frontend -->
-        <div class="skill-category-row cat-frontend">
-          <div class="skill-cat-header"><i class="fas fa-paint-brush"></i> Frontend Development</div>
-          <div class="skill-items">
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" />HTML5</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" />CSS3</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />JavaScript</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" alt="jQuery" />jQuery</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" />Tailwind CSS</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap" />Bootstrap</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="Vue.js" />Vue.js</div>
+        <div class="skill-card">
+          <div class="skill-card-title"><i class="fas fa-palette"></i> Frontend</div>
+          <div class="skill-tags">
+            <span class="skill-tag"><i class="devicon-html5-plain colored"></i> HTML5</span>
+            <span class="skill-tag"><i class="devicon-css3-plain colored"></i> CSS3</span>
+            <span class="skill-tag"><i class="devicon-javascript-plain colored"></i> JavaScript</span>
+            <span class="skill-tag"><i class="devicon-jquery-plain colored"></i> jQuery</span>
+            <span class="skill-tag"><i class="devicon-tailwindcss-plain colored"></i> Tailwind CSS</span>
+            <span class="skill-tag"><i class="devicon-bootstrap-plain colored"></i> Bootstrap</span>
           </div>
         </div>
-
-        <!-- Database & ORM -->
-        <div class="skill-category-row cat-db">
-          <div class="skill-cat-header"><i class="fas fa-database"></i> Database &amp; ORM</div>
-          <div class="skill-items">
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" />MySQL</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" />PostgreSQL</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg" alt="Prisma" />Prisma</div>
-            <div class="skill-item"><span class="si" style="font-size:0.95rem;font-family:'Fira Code',monospace;color:var(--accent2)">Eloquent</span></div>
+        <div class="skill-card">
+          <div class="skill-card-title"><i class="fas fa-database"></i> Database &amp; ORM</div>
+          <div class="skill-tags">
+            <span class="skill-tag"><i class="devicon-mysql-plain colored"></i> MySQL</span>
+            <span class="skill-tag"><i class="devicon-postgresql-plain colored"></i> PostgreSQL</span>
+            <span class="skill-tag"><i class="devicon-prisma-original colored"></i> Prisma</span>
+            <span class="skill-tag">Eloquent</span>
           </div>
         </div>
-
-        <!-- Tools & DevOps -->
-        <div class="skill-category-row cat-tools">
-          <div class="skill-cat-header"><i class="fas fa-tools"></i> Tools &amp; DevOps</div>
-          <div class="skill-items">
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" />Git</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="filter:invert(1) brightness(0.8)" />GitHub</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azuredevops/azuredevops-original.svg" alt="Azure DevOps" />Azure DevOps</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" alt="AWS" />AWS</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg" alt="WordPress" />WordPress</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" alt="Postman" />Postman</div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code" />VS Code</div>
+        <div class="skill-card">
+          <div class="skill-card-title"><i class="fas fa-plug"></i> Integrations</div>
+          <div class="skill-tags">
+            <span class="skill-tag"><i class="devicon-stripe-original colored"></i> Stripe</span>
+            <span class="skill-tag">Razorpay</span>
+            <span class="skill-tag">Shiprocket</span>
+            <span class="skill-tag">
+              <img src="https://www.zohowebstatic.com/sites/zweb/images/crm/crm-logo.svg" alt="Zoho CRM" class="zoho-icon-img" onerror="this.style.display='none'" />
+              Zoho CRM
+            </span>
+            <span class="skill-tag">
+              <img src="https://www.zohowebstatic.com/sites/zweb/images/books/books-logo.svg" alt="Zoho Books" class="zoho-icon-img" onerror="this.style.display='none'" />
+              Zoho Books
+            </span>
+            <span class="skill-tag">WhatsApp API</span>
+            <span class="skill-tag">Pusher</span>
+            <span class="skill-tag">Firebase</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-title"><i class="fas fa-tools"></i> Tools &amp; DevOps</div>
+          <div class="skill-tags">
+            <span class="skill-tag"><i class="devicon-git-plain colored"></i> Git</span>
+            <span class="skill-tag"><i class="devicon-azure-plain colored"></i> Azure DevOps</span>
+            <span class="skill-tag">Postman</span>
+            <span class="skill-tag"><i class="devicon-amazonwebservices-original colored"></i> AWS</span>
+            <span class="skill-tag"><i class="devicon-wordpress-plain colored"></i> WordPress</span>
           </div>
         </div>
 
@@ -320,209 +392,180 @@
   <section id="projects">
     <div class="container">
       <div class="section-header">
-        <div class="section-tag">// my-work</div>
         <h2 class="section-title">Featured Projects</h2>
         <p class="section-sub">Real-world applications built and deployed in production</p>
       </div>
       <div class="projects-grid">
 
-        <!-- 1. CRM Cleaning Company -->
+        <!-- Unique Foods -->
         <div class="project-card">
-          <div class="project-slides" id="slides-crm">
-            <span class="slide-count" id="count-crm">1 / 6</span>
-            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen1.png" class="active" alt="CRM" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen2.png" alt="CRM" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen3.png" alt="CRM" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen5.png" alt="CRM" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen9.png" alt="CRM" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen13.png" alt="CRM" />
-            <button class="slide-btn prev" onclick="slideProject('crm',-1)"><i class="fas fa-chevron-left"></i></button>
-            <button class="slide-btn next" onclick="slideProject('crm',1)"><i class="fas fa-chevron-right"></i></button>
-            <div class="slide-dots" id="dots-crm">
-              <div class="slide-dot active" onclick="goSlide('crm',0)"></div>
-              <div class="slide-dot" onclick="goSlide('crm',1)"></div>
-              <div class="slide-dot" onclick="goSlide('crm',2)"></div>
-              <div class="slide-dot" onclick="goSlide('crm',3)"></div>
-              <div class="slide-dot" onclick="goSlide('crm',4)"></div>
-              <div class="slide-dot" onclick="goSlide('crm',5)"></div>
-            </div>
-          </div>
-          <div class="project-body">
-            <div class="project-header">
-              <span class="project-icon">&#x1F4CB;</span>
-              <div class="project-links"><a href="https://github.com/Hashirhash001/crm-cleaning-company" target="_blank" title="GitHub"><i class="fab fa-github"></i></a></div>
-            </div>
-            <div class="project-title">CRM &mdash; Cleaning Company</div>
-            <div class="project-type">// Web Application &bull; Laravel</div>
-            <div class="project-desc">Lead-to-job CRM with bulk lead import, role-based access (super admin, lead manager, telecaller), call/notes/follow-up tracking, and WhatsApp &amp; Google Ads lead source filters.</div>
-            <div class="project-tech">
-              <span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span>
-              <span class="tech-badge">WhatsApp API</span><span class="tech-badge">Blade</span>
-              <span class="tech-badge">jQuery</span><span class="tech-badge">AJAX</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2. Workforce & Attendance Manager (HRM1) -->
-        <div class="project-card">
-          <div class="project-no-img"><span class="project-no-img-icon">&#x1F465;</span></div>
-          <div class="project-body">
-            <div class="project-header">
-              <span class="project-icon">&#x1F465;</span>
-              <div class="project-links"><a href="https://github.com/Hashirhash001/voltronix" target="_blank" title="GitHub"><i class="fab fa-github"></i></a></div>
-            </div>
-            <div class="project-title">Workforce &amp; Attendance Manager</div>
-            <div class="project-type">// Web Application &bull; CodeIgniter</div>
-            <div class="project-desc">Role-based workforce management with employee records, attendance tracking, leave request workflows, project task modules, and activity logging with filters and pagination.</div>
-            <div class="project-tech">
-              <span class="tech-badge">CodeIgniter</span><span class="tech-badge">MySQL</span>
-              <span class="tech-badge">Blade</span><span class="tech-badge">jQuery</span>
-              <span class="tech-badge">PDF Export</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. StaffOps — HR & Fleet Manager (HRM2) -->
-        <div class="project-card">
-          <div class="project-slides" id="slides-hrm2">
-            <span class="slide-count" id="count-hrm2">1 / 5</span>
-            <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen1.png" class="active" alt="HRM" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen2.png" alt="HRM" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen4.png" alt="HRM" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen6.png" alt="HRM" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen8.png" alt="HRM" />
-            <button class="slide-btn prev" onclick="slideProject('hrm2',-1)"><i class="fas fa-chevron-left"></i></button>
-            <button class="slide-btn next" onclick="slideProject('hrm2',1)"><i class="fas fa-chevron-right"></i></button>
-            <div class="slide-dots" id="dots-hrm2">
-              <div class="slide-dot active" onclick="goSlide('hrm2',0)"></div>
-              <div class="slide-dot" onclick="goSlide('hrm2',1)"></div>
-              <div class="slide-dot" onclick="goSlide('hrm2',2)"></div>
-              <div class="slide-dot" onclick="goSlide('hrm2',3)"></div>
-              <div class="slide-dot" onclick="goSlide('hrm2',4)"></div>
-            </div>
-          </div>
-          <div class="project-body">
-            <div class="project-header">
-              <span class="project-icon">&#x1F4CA;</span>
-              <div class="project-links"><a href="https://github.com/Hashirhash001/Voltronix-hrm" target="_blank" title="GitHub"><i class="fab fa-github"></i></a></div>
-            </div>
-            <div class="project-title">StaffOps &mdash; HR &amp; Fleet Manager</div>
-            <div class="project-type">// Web Application &bull; Laravel</div>
-            <div class="project-desc">Advanced HRM with overtime tracking, document expiry alerts, vehicle &amp; fleet management, PDF report generation, employee profiles, and role-based access control.</div>
-            <div class="project-tech">
-              <span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span>
-              <span class="tech-badge">Blade</span><span class="tech-badge">JavaScript</span>
-              <span class="tech-badge">PDF</span><span class="tech-badge">Tailwind CSS</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. Unique Foods -->
-        <div class="project-card">
-          <div class="project-slides" id="slides-uniquefoods">
-            <span class="slide-count" id="count-uniquefoods">1 / 6</span>
-            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/shop.png" class="active" alt="Shop" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/cart.png" alt="Cart" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/checkout.png" alt="Checkout" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/dashboard.png" alt="Admin Dashboard" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/orders.png" alt="Orders" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/offers2.png" alt="Offers" />
-            <button class="slide-btn prev" onclick="slideProject('uniquefoods',-1)"><i class="fas fa-chevron-left"></i></button>
-            <button class="slide-btn next" onclick="slideProject('uniquefoods',1)"><i class="fas fa-chevron-right"></i></button>
-            <div class="slide-dots" id="dots-uniquefoods">
-              <div class="slide-dot active" onclick="goSlide('uniquefoods',0)"></div>
-              <div class="slide-dot" onclick="goSlide('uniquefoods',1)"></div>
-              <div class="slide-dot" onclick="goSlide('uniquefoods',2)"></div>
-              <div class="slide-dot" onclick="goSlide('uniquefoods',3)"></div>
-              <div class="slide-dot" onclick="goSlide('uniquefoods',4)"></div>
-              <div class="slide-dot" onclick="goSlide('uniquefoods',5)"></div>
-            </div>
-          </div>
+          <img
+            src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/public/screenshots/screenshot.png"
+            alt="Unique Foods Screenshot"
+            class="project-screenshot"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="project-screenshot-placeholder" style="display:none; background: linear-gradient(135deg,#1a2a3a,#0d1117);">&#x1F6D2;</div>
           <div class="project-body">
             <div class="project-header">
               <span class="project-icon">&#x1F6D2;</span>
-              <div class="project-links"><a href="https://github.com/Hashirhash001/Uniquefoods" target="_blank" title="GitHub"><i class="fab fa-github"></i></a></div>
+              <div class="project-links">
+                <a href="https://github.com/Hashirhash001/Uniquefoods" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+              </div>
             </div>
-            <div class="project-title">Unique Foods &mdash; eCommerce Platform</div>
-            <div class="project-type">// Web Application &bull; Laravel</div>
-            <div class="project-desc">Food e-commerce with catalog, cart, checkout, customer groups with exclusive pricing, time-limited offers, discount management, and Stripe payment integration.</div>
+            <div class="project-title">Unique Foods — eCommerce Platform</div>
+            <div class="project-desc">Full-featured food e-commerce platform with product catalog, cart/checkout, order management, admin panel, referral system, and Shiprocket delivery integration.</div>
             <div class="project-tech">
-              <span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span>
-              <span class="tech-badge">Stripe</span><span class="tech-badge">Tailwind CSS</span>
-              <span class="tech-badge">jQuery</span><span class="tech-badge">AJAX</span>
+              <span class="tech-badge">Laravel</span>
+              <span class="tech-badge">MySQL</span>
+              <span class="tech-badge">Stripe</span>
+              <span class="tech-badge">Shiprocket</span>
+              <span class="tech-badge">Blade</span>
             </div>
           </div>
         </div>
 
-        <!-- 5. Celestea -->
+        <!-- CRM Cleaning Company -->
         <div class="project-card">
-          <div class="project-slides" id="slides-celestea">
-            <span class="slide-count" id="count-celestea">1 / 5</span>
-            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen1.png" class="active" alt="Celestea" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen2.png" alt="Celestea" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen3.png" alt="Celestea" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen4.png" alt="Celestea" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen5.png" alt="Celestea" />
-            <button class="slide-btn prev" onclick="slideProject('celestea',-1)"><i class="fas fa-chevron-left"></i></button>
-            <button class="slide-btn next" onclick="slideProject('celestea',1)"><i class="fas fa-chevron-right"></i></button>
-            <div class="slide-dots" id="dots-celestea">
-              <div class="slide-dot active" onclick="goSlide('celestea',0)"></div>
-              <div class="slide-dot" onclick="goSlide('celestea',1)"></div>
-              <div class="slide-dot" onclick="goSlide('celestea',2)"></div>
-              <div class="slide-dot" onclick="goSlide('celestea',3)"></div>
-              <div class="slide-dot" onclick="goSlide('celestea',4)"></div>
-            </div>
-          </div>
+          <img
+            src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/public/screenshots/screenshot.png"
+            alt="CRM Cleaning Company Screenshot"
+            class="project-screenshot"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="project-screenshot-placeholder" style="display:none; background: linear-gradient(135deg,#1a2e1a,#0d1117);">&#x1F9F9;</div>
           <div class="project-body">
             <div class="project-header">
-              <span class="project-icon">&#x1F6CD;&#xFE0F;</span>
-              <div class="project-links"><a href="https://github.com/Hashirhash001/celestea" target="_blank" title="GitHub"><i class="fab fa-github"></i></a></div>
+              <span class="project-icon">&#x1F4CB;</span>
+              <div class="project-links">
+                <a href="https://github.com/Hashirhash001/crm-cleaning-company" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+              </div>
             </div>
-            <div class="project-title">Celestea &mdash; eCommerce Platform</div>
-            <div class="project-type">// Web Application &bull; Laravel</div>
-            <div class="project-desc">Laravel eCommerce with product catalog, cart, checkout, wishlist, referral system, Razorpay payments, and a full admin panel for orders, users, and transactions.</div>
+            <div class="project-title">CRM — Cleaning Company</div>
+            <div class="project-desc">CRM with lead-to-job conversion workflows, bulk lead import with validation, role-based access (super admin, lead manager, telecaller), lead tracking, and WhatsApp/Google Ads lead filters.</div>
             <div class="project-tech">
-              <span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span>
-              <span class="tech-badge">Razorpay</span><span class="tech-badge">Shiprocket</span>
-              <span class="tech-badge">Bootstrap</span><span class="tech-badge">jQuery</span>
+              <span class="tech-badge">Laravel</span>
+              <span class="tech-badge">MySQL</span>
+              <span class="tech-badge">WhatsApp API</span>
+              <span class="tech-badge">Blade</span>
             </div>
           </div>
         </div>
 
-        <!-- 6. ZWebCart -->
+        <!-- Voltronix HRM 1 - Workforce & Attendance Manager -->
         <div class="project-card">
-          <div class="project-no-img"><span class="project-no-img-icon">&#x1F310;</span></div>
+          <img
+            src="https://raw.githubusercontent.com/Hashirhash001/voltronix/master/public/screenshots/screenshot.png"
+            alt="Workforce & Attendance Manager Screenshot"
+            class="project-screenshot"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="project-screenshot-placeholder" style="display:none; background: linear-gradient(135deg,#1a1a2e,#0d1117);">&#x1F465;</div>
+          <div class="project-body">
+            <div class="project-header">
+              <span class="project-icon">&#x1F465;</span>
+              <div class="project-links">
+                <a href="https://github.com/Hashirhash001/voltronix" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+            <div class="project-title">Workforce &amp; Attendance Manager</div>
+            <div class="project-desc">Role-based HRM system with employee management, attendance tracking, leave request workflows, project management modules, and activity logging with pagination and filters.</div>
+            <div class="project-tech">
+              <span class="tech-badge">Laravel</span>
+              <span class="tech-badge">MySQL</span>
+              <span class="tech-badge">PDF Export</span>
+              <span class="tech-badge">Blade</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- StaffOps HRM 2 -->
+        <div class="project-card">
+          <img
+            src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/public/screenshots/screenshot.png"
+            alt="StaffOps HR & Fleet Manager Screenshot"
+            class="project-screenshot"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="project-screenshot-placeholder" style="display:none; background: linear-gradient(135deg,#2a1a1a,#0d1117);">&#x1F4CA;</div>
+          <div class="project-body">
+            <div class="project-header">
+              <span class="project-icon">&#x1F4CA;</span>
+              <div class="project-links">
+                <a href="https://github.com/Hashirhash001/Voltronix-hrm" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+            <div class="project-title">StaffOps — HR &amp; Fleet Manager</div>
+            <div class="project-desc">HRM application with attendance, overtime tracking, document expiry alerts, vehicle management, report generation, and employee profile management with role-based access control.</div>
+            <div class="project-tech">
+              <span class="tech-badge">Laravel</span>
+              <span class="tech-badge">MySQL</span>
+              <span class="tech-badge">JavaScript</span>
+              <span class="tech-badge">Blade</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ZWebCart -->
+        <div class="project-card">
+          <div class="project-screenshot-placeholder" style="display:flex; background: linear-gradient(135deg,#0d2137,#0d1117);">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="16" width="64" height="44" rx="6" stroke="#58a6ff" stroke-width="2.5" fill="none"/>
+              <path d="M16 26h20M16 33h14M16 40h18" stroke="#3fb950" stroke-width="2" stroke-linecap="round"/>
+              <rect x="44" y="22" width="20" height="14" rx="3" fill="rgba(88,166,255,0.15)" stroke="#58a6ff" stroke-width="1.5"/>
+              <circle cx="49" cy="45" r="4" fill="rgba(63,185,80,0.2)" stroke="#3fb950" stroke-width="1.5"/>
+              <circle cx="59" cy="45" r="4" fill="rgba(63,185,80,0.2)" stroke="#3fb950" stroke-width="1.5"/>
+              <path d="M40 60v4M30 64h20" stroke="#58a6ff" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
           <div class="project-body">
             <div class="project-header">
               <span class="project-icon">&#x1F310;</span>
-              <div class="project-links"><a href="https://github.com/Hashirhash001/ZWebCart" target="_blank" title="GitHub"><i class="fab fa-github"></i></a></div>
+              <div class="project-links">
+                <a href="https://github.com/Hashirhash001/ZWebCart" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+              </div>
             </div>
-            <div class="project-title">ZWebCart &mdash; No-Code Website Builder</div>
-            <div class="project-type">// REST API &bull; NestJS &bull; Postman Collection</div>
-            <div class="project-desc">RESTful APIs for a multi-store no-code platform with dynamic theme customization, JWT authentication with encrypted store DB URL resolution, and role-based guards.</div>
+            <div class="project-title">ZWebCart — No-Code Website Builder</div>
+            <div class="project-desc">RESTful APIs for a multi-store no-code platform with dynamic theme customization (multi-theme, pages, sections), JWT-based authentication with encrypted store DB URL resolution, and role-based guards.</div>
             <div class="project-tech">
-              <span class="tech-badge api">NestJS</span><span class="tech-badge api">PostgreSQL</span>
-              <span class="tech-badge api">Prisma</span><span class="tech-badge api">TypeScript</span>
-              <span class="tech-badge api">JWT</span><span class="tech-badge api">Postman</span>
+              <span class="tech-badge">NestJS</span>
+              <span class="tech-badge">PostgreSQL</span>
+              <span class="tech-badge">Prisma</span>
+              <span class="tech-badge">JWT</span>
+              <span class="tech-badge">TypeScript</span>
             </div>
           </div>
         </div>
 
-        <!-- 7. Circuitil -->
+        <!-- Circuitil -->
         <div class="project-card">
-          <div class="project-no-img"><span class="project-no-img-icon">&#x1F4F1;</span></div>
+          <div class="project-screenshot-placeholder" style="display:flex; background: linear-gradient(135deg,#1a0d2e,#0d1117);">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="28" r="12" stroke="#58a6ff" stroke-width="2.5" fill="rgba(88,166,255,0.08)"/>
+              <circle cx="40" cy="28" r="5" fill="#58a6ff" opacity="0.7"/>
+              <circle cx="20" cy="54" r="8" stroke="#3fb950" stroke-width="2" fill="rgba(63,185,80,0.08)"/>
+              <circle cx="60" cy="54" r="8" stroke="#f78166" stroke-width="2" fill="rgba(247,129,102,0.08)"/>
+              <path d="M34 38l-8 10M46 38l8 10" stroke="#8b949e" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M28 54h24" stroke="#8b949e" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 2"/>
+              <circle cx="20" cy="54" r="3" fill="#3fb950" opacity="0.8"/>
+              <circle cx="60" cy="54" r="3" fill="#f78166" opacity="0.8"/>
+            </svg>
+          </div>
           <div class="project-body">
             <div class="project-header">
               <span class="project-icon">&#x1F4F1;</span>
-              <div class="project-links"><a href="https://github.com/Hashirhash001/Circuitil" target="_blank" title="GitHub"><i class="fab fa-github"></i></a></div>
+              <div class="project-links">
+                <a href="https://github.com/Hashirhash001/Circuitil" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+              </div>
             </div>
-            <div class="project-title">Circuitil &mdash; Influencer &amp; Brand Platform</div>
-            <div class="project-type">// REST API &bull; Laravel &bull; Postman Collection</div>
-            <div class="project-desc">API backend for Android app connecting influencers and brands with real-time chat (Pusher), Firebase push notifications, Google/Instagram OAuth, OTP auth, and automated matching via Laravel Observers.</div>
+            <div class="project-title">Circuitil — Influencer &amp; Brand Platform</div>
+            <div class="project-desc">REST API for Android app connecting influencers and brands with collaboration discovery, real-time chat (Pusher), Firebase push notifications, Google/Instagram OAuth, OTP auth, and automated matching via Laravel Observers.</div>
             <div class="project-tech">
-              <span class="tech-badge api">Laravel</span><span class="tech-badge api">MySQL</span>
-              <span class="tech-badge api">Pusher</span><span class="tech-badge api">Firebase</span>
-              <span class="tech-badge api">OAuth</span><span class="tech-badge api">Postman</span>
+              <span class="tech-badge">Laravel</span>
+              <span class="tech-badge">MySQL</span>
+              <span class="tech-badge">Pusher</span>
+              <span class="tech-badge">Firebase</span>
+              <span class="tech-badge">OAuth</span>
             </div>
           </div>
         </div>
@@ -615,36 +658,22 @@
   <section id="experience">
     <div class="container">
       <div class="section-header">
-        <div class="section-tag">// work-history</div>
         <h2 class="section-title">Experience</h2>
         <p class="section-sub">My professional journey across companies</p>
       </div>
-      <div class="exp-grid">
+      <div class="timeline">
 
-        <div class="exp-card">
-          <div class="exp-sidebar">
-            <div>
-              <div class="exp-period">08/2024 &mdash; Present</div>
-              <div class="exp-role">Full-Stack Developer</div>
-              <div class="exp-company">Zenerom Creative Lab</div>
-              <span class="exp-badge current">&#x25CF;&nbsp; Current</span>
-            </div>
-          </div>
-          <div class="exp-content">
-            <ul class="exp-points">
-              <li>Designed and developed custom CRM &amp; HRM systems using PHP Laravel</li>
-              <li>Built Job Management Software integrated with Zoho CRM (CodeIgniter)</li>
-              <li>Developed and deployed eCommerce platforms with Stripe &amp; Razorpay payments</li>
-              <li>Customized Zoho CRM &amp; Zoho Books workflows and automation for clients</li>
-              <li>Built RESTful APIs for a no-code website builder using NestJS &amp; PostgreSQL</li>
-            </ul>
-            <div class="exp-tags">
-              <span class="exp-tag">Laravel</span><span class="exp-tag">NestJS</span>
-              <span class="exp-tag">Zoho CRM</span><span class="exp-tag">Zoho Books</span>
-              <span class="exp-tag">CodeIgniter</span><span class="exp-tag">MySQL</span>
-              <span class="exp-tag">Stripe</span><span class="exp-tag">AWS</span>
-            </div>
-          </div>
+        <div class="timeline-item">
+          <div class="timeline-period">08/2024 &mdash; Present</div>
+          <div class="timeline-role">Full-Stack Developer</div>
+          <div class="timeline-company">Zenerom Creative Lab</div>
+          <ul class="timeline-points">
+            <li>Designed and developed custom CRM &amp; HRM systems using PHP Laravel</li>
+            <li>Developed Job Management Software integrated with Zoho CRM (CodeIgniter)</li>
+            <li>Built and deployed eCommerce platforms using PHP Laravel</li>
+            <li>Customized Zoho CRM &amp; Zoho Books workflows for clients</li>
+            <li>Built RESTful APIs for a no-code website builder platform using NestJS &amp; PostgreSQL</li>
+          </ul>
         </div>
 
         <div class="exp-card">
@@ -724,14 +753,13 @@
   <section id="contact">
     <div class="container">
       <div class="section-header">
-        <div class="section-tag">// get-in-touch</div>
         <h2 class="section-title">Contact</h2>
       </div>
       <div class="contact-card">
         <h3>Let's work together</h3>
         <p>Open to freelance projects, full-time roles, and collaborations. Feel free to reach out!</p>
         <div class="contact-links">
-          <a href="mailto:hashirmv299@gmail.com" class="contact-link email"><i class="fas fa-envelope"></i> hashirmv299@gmail.com</a>
+          <a href="mailto:hashirmv299@gmail.com" class="contact-link email" onclick="window.location.href='mailto:hashirmv299@gmail.com'; return false;"><i class="fas fa-envelope"></i> hashirmv299@gmail.com</a>
           <a href="https://github.com/Hashirhash001" target="_blank" class="contact-link"><i class="fab fa-github"></i> GitHub</a>
           <a href="tel:+918943168933" class="contact-link"><i class="fas fa-phone"></i> +91 8943168933</a>
         </div>
