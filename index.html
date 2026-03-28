@@ -19,7 +19,6 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
 
-    /* NAV */
     nav {
       position: fixed; top: 0; width: 100%; z-index: 100;
       background: rgba(13,17,23,0.95); backdrop-filter: blur(12px);
@@ -31,7 +30,6 @@
     .nav-links a { color: var(--text2); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
     .nav-links a:hover { color: var(--accent); }
 
-    /* HERO */
     .hero {
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
       padding: 80px 2rem 2rem; text-align: center;
@@ -57,7 +55,6 @@
     .stat-num { font-size: 2rem; font-weight: 800; color: var(--accent); }
     .stat-label { font-size: 0.8rem; color: var(--text2); margin-top: 0.2rem; }
 
-    /* SECTIONS */
     section { padding: 5rem 2rem; }
     .container { max-width: 1100px; margin: 0 auto; }
     .section-header { text-align: center; margin-bottom: 3.5rem; }
@@ -65,54 +62,74 @@
     .section-title { font-size: clamp(1.8rem,4vw,2.5rem); font-weight: 700; }
     .section-sub { color: var(--text2); margin-top: 0.5rem; font-size: 0.95rem; }
 
-    /* ===================== SKILLS ===================== */
+    /* ====== SKILLS ====== */
     #skills { background: var(--bg2); }
     .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
-    .skill-card {
-      background: var(--bg3); border: 1px solid var(--border); border-radius: 14px;
-      padding: 1.4rem 1.6rem; transition: border-color 0.2s, transform 0.2s;
-    }
+    .skill-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem 1.6rem; transition: border-color 0.2s, transform 0.2s; }
     .skill-card:hover { border-color: rgba(88,166,255,0.45); transform: translateY(-2px); }
-    .skill-card-title {
-      display: flex; align-items: center; gap: 0.55rem;
-      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;
-      color: var(--accent); font-weight: 700; margin-bottom: 1.1rem;
-    }
-    .skill-card-title i { font-size: 0.9rem; }
+    .skill-card-title { display: flex; align-items: center; gap: 0.55rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 700; margin-bottom: 1.1rem; }
     .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .skill-tag {
-      background: rgba(88,166,255,0.08); border: 1px solid rgba(88,166,255,0.2);
-      color: var(--text3); padding: 0.3rem 0.75rem; border-radius: 6px;
-      font-size: 0.82rem; font-family: 'Fira Code', monospace;
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      transition: border-color 0.2s, color 0.2s;
-    }
+    .skill-tag { background: rgba(88,166,255,0.08); border: 1px solid rgba(88,166,255,0.2); color: var(--text3); padding: 0.3rem 0.75rem; border-radius: 6px; font-size: 0.82rem; font-family: 'Fira Code', monospace; display: inline-flex; align-items: center; gap: 0.4rem; transition: border-color 0.2s, color 0.2s; }
     .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
     .skill-tag i { font-size: 1rem; line-height: 1; }
     .skill-tag img { width: 15px; height: 15px; object-fit: contain; }
 
-    /* ===================== PROJECTS ===================== */
+    /* ====== PROJECTS ====== */
     #projects { background: var(--bg); }
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
-    .project-card {
-      background: var(--bg2); border: 1px solid var(--border); border-radius: 14px;
-      overflow: hidden; display: flex; flex-direction: column;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-    }
+    .project-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
     .project-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 8px 30px rgba(88,166,255,0.08); }
-    .project-screenshot {
-      width: 100%; height: 200px; object-fit: cover; object-position: top;
-      display: block; border-bottom: 1px solid var(--border); background: var(--bg3);
-      transition: transform 0.4s ease;
+
+    /* --- IMAGE SLIDER --- */
+    .slider {
+      position: relative; width: 100%; height: 210px;
+      overflow: hidden; border-bottom: 1px solid var(--border);
+      background: var(--bg3); flex-shrink: 0;
     }
-    .project-card:hover .project-screenshot { transform: scale(1.03); }
+    .slider-track {
+      display: flex; height: 100%;
+      transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+    }
+    .slider-track img {
+      min-width: 100%; width: 100%; height: 100%;
+      object-fit: cover; object-position: top;
+      display: block; flex-shrink: 0;
+    }
+    .slider-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(13,17,23,0.75); border: 1px solid var(--border);
+      color: var(--text3); width: 30px; height: 30px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 0.7rem; transition: background 0.2s, color 0.2s;
+      z-index: 5; user-select: none; backdrop-filter: blur(4px);
+    }
+    .slider-btn:hover { background: var(--accent); color: #0d1117; border-color: var(--accent); }
+    .slider-btn.prev { left: 8px; }
+    .slider-btn.next { right: 8px; }
+    .slider-dots {
+      position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 5px; z-index: 5;
+    }
+    .slider-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.35); cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .slider-dot.active { background: var(--accent); transform: scale(1.3); }
+    .slider-counter {
+      position: absolute; top: 8px; right: 10px;
+      font-family: 'Fira Code', monospace; font-size: 0.65rem;
+      background: rgba(13,17,23,0.7); color: var(--text2);
+      padding: 2px 7px; border-radius: 10px; z-index: 5;
+      backdrop-filter: blur(4px);
+    }
+    /* static placeholder (for ZWebCart / Circuitil) */
     .project-img-placeholder {
-      width: 100%; height: 200px;
+      width: 100%; height: 210px;
       display: flex; align-items: center; justify-content: center;
       border-bottom: 1px solid var(--border);
     }
-    /* screenshot wrapper clips the zoom effect */
-    .project-screenshot-wrap { overflow: hidden; display: block; }
+
     .project-body { padding: 1.3rem 1.4rem; display: flex; flex-direction: column; flex: 1; }
     .project-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.5rem; }
     .project-icon { font-size: 1.4rem; }
@@ -125,43 +142,24 @@
     .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; }
     .tech-badge { background: rgba(63,185,80,0.1); border: 1px solid rgba(63,185,80,0.25); color: var(--accent2); padding: 0.18rem 0.55rem; border-radius: 4px; font-size: 0.73rem; font-family: 'Fira Code', monospace; }
     .tech-badge.api { background: rgba(210,168,255,0.1); border-color: rgba(210,168,255,0.25); color: var(--accent4); }
-    .tech-badge.blue { background: rgba(88,166,255,0.1); border-color: rgba(88,166,255,0.25); color: var(--accent); }
     .tech-badge.orange { background: rgba(247,129,102,0.1); border-color: rgba(247,129,102,0.25); color: var(--accent3); }
 
-    /* ===================== INTEGRATIONS ===================== */
+    /* ====== INTEGRATIONS ====== */
     #integrations { background: var(--bg2); }
     .integrations-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px,1fr)); gap: 1rem; }
-    .integration-card {
-      background: var(--bg3); border: 1px solid var(--border); border-radius: 14px;
-      padding: 1.4rem 0.8rem; text-align: center;
-      display: flex; flex-direction: column; align-items: center; gap: 0.55rem;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-    }
+    .integration-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem 0.8rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.55rem; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
     .integration-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 6px 20px rgba(88,166,255,0.1); }
-    .int-icon-wrap {
-      width: 52px; height: 52px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--bg2); border: 1px solid var(--border);
-      font-size: 1.6rem;
-    }
-    .int-icon-wrap img { width: 28px; height: 28px; object-fit: contain; }
+    .int-icon-wrap { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--bg2); border: 1px solid var(--border); overflow: hidden; }
+    .int-icon-wrap img { width: 32px; height: 32px; object-fit: contain; }
     .integration-name { font-size: 0.82rem; font-weight: 700; color: var(--text3); }
     .integration-desc { font-size: 0.7rem; color: var(--text2); line-height: 1.4; }
 
-    /* ===================== EXPERIENCE ===================== */
+    /* ====== EXPERIENCE ====== */
     #experience { background: var(--bg); }
     .exp-grid { display: flex; flex-direction: column; gap: 1.5rem; }
-    .exp-card {
-      background: var(--bg2); border: 1px solid var(--border); border-radius: 16px;
-      overflow: hidden; display: grid; grid-template-columns: 220px 1fr;
-      transition: border-color 0.2s, transform 0.2s;
-    }
+    .exp-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: 220px 1fr; transition: border-color 0.2s, transform 0.2s; }
     .exp-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .exp-sidebar {
-      padding: 1.8rem 1.4rem;
-      background: var(--bg3); border-right: 1px solid var(--border);
-      display: flex; flex-direction: column; gap: 0.5rem;
-    }
+    .exp-sidebar { padding: 1.8rem 1.4rem; background: var(--bg3); border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.5rem; }
     .exp-period { font-family: 'Fira Code', monospace; font-size: 0.73rem; color: var(--accent); display: flex; align-items: center; gap: 0.4rem; }
     .exp-period::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; flex-shrink: 0; }
     .exp-role { font-size: 1rem; font-weight: 700; margin: 0.3rem 0 0.1rem; color: var(--text); }
@@ -176,18 +174,13 @@
     .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
     .exp-tag { background: rgba(88,166,255,0.07); border: 1px solid rgba(88,166,255,0.15); color: var(--text2); padding: 0.15rem 0.55rem; border-radius: 4px; font-size: 0.7rem; font-family: 'Fira Code', monospace; }
 
-    /* ===================== CONTACT ===================== */
+    /* ====== CONTACT ====== */
     #contact { background: var(--bg2); }
     .contact-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 20px; padding: 3rem; text-align: center; max-width: 620px; margin: 0 auto; }
     .contact-card h3 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem; }
     .contact-card p { color: var(--text2); margin-bottom: 2rem; font-size: 0.95rem; }
     .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .contact-link {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.75rem 1.4rem; border-radius: 8px; text-decoration: none;
-      font-size: 0.9rem; font-weight: 500; border: 1px solid var(--border);
-      color: var(--text3); transition: all 0.2s;
-    }
+    .contact-link { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.4rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 500; border: 1px solid var(--border); color: var(--text3); transition: all 0.2s; }
     .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
     .contact-link.email { background: var(--accent); color: #0d1117; border-color: var(--accent); font-weight: 600; }
     .contact-link.email:hover { background: #79b8ff; color: #0d1117; }
@@ -195,18 +188,8 @@
     footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--text2); font-size: 0.85rem; }
     footer span { color: var(--accent3); }
 
-    /* ===================== RESPONSIVE ===================== */
-    @media (max-width: 900px) {
-      .exp-card { grid-template-columns: 1fr; }
-      .exp-sidebar { border-right: none; border-bottom: 1px solid var(--border); }
-    }
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hero-stats { gap: 2rem; }
-      .contact-card { padding: 2rem 1.5rem; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .skills-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 900px) { .exp-card { grid-template-columns: 1fr; } .exp-sidebar { border-right: none; border-bottom: 1px solid var(--border); } }
+    @media (max-width: 768px) { .nav-links { display: none; } .hero-stats { gap: 2rem; } .contact-card { padding: 2rem 1.5rem; } .projects-grid { grid-template-columns: 1fr; } .skills-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -222,16 +205,12 @@
     </ul>
   </nav>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-badge">&#x1F4CD; Available for opportunities</div>
       <h1>Hi, I'm <span>Hashir MV</span></h1>
       <p class="hero-role">Full-Stack Developer &nbsp;<span>3.5+ years</span></p>
-      <p class="hero-desc">
-        Experienced in building scalable web applications &mdash; from e-commerce platforms
-        and CRM systems to RESTful APIs and HRM software. Passionate about clean code and seamless integrations.
-      </p>
+      <p class="hero-desc">Experienced in building scalable web applications &mdash; from e-commerce platforms and CRM systems to RESTful APIs and HRM software. Passionate about clean code and seamless integrations.</p>
       <div class="hero-btns">
         <a href="#projects" class="btn btn-primary"><i class="fas fa-code"></i> View Projects</a>
         <a href="https://github.com/Hashirhash001" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> GitHub</a>
@@ -255,7 +234,6 @@
         <p class="section-sub">Tools and technologies I work with daily</p>
       </div>
       <div class="skills-grid">
-
         <div class="skill-card">
           <div class="skill-card-title"><i class="fas fa-server"></i> Backend</div>
           <div class="skill-tags">
@@ -266,7 +244,6 @@
             <span class="skill-tag"><i class="fas fa-project-diagram" style="color:var(--accent)"></i> REST APIs</span>
           </div>
         </div>
-
         <div class="skill-card">
           <div class="skill-card-title"><i class="fas fa-palette"></i> Frontend</div>
           <div class="skill-tags">
@@ -278,7 +255,6 @@
             <span class="skill-tag"><i class="devicon-bootstrap-plain colored"></i> Bootstrap</span>
           </div>
         </div>
-
         <div class="skill-card">
           <div class="skill-card-title"><i class="fas fa-database"></i> Database &amp; ORM</div>
           <div class="skill-tags">
@@ -288,7 +264,6 @@
             <span class="skill-tag"><i class="fas fa-table" style="color:var(--accent2)"></i> Eloquent ORM</span>
           </div>
         </div>
-
         <div class="skill-card">
           <div class="skill-card-title"><i class="fas fa-plug"></i> Integrations</div>
           <div class="skill-tags">
@@ -302,7 +277,6 @@
             <span class="skill-tag"><i class="devicon-firebase-plain colored"></i> Firebase</span>
           </div>
         </div>
-
         <div class="skill-card">
           <div class="skill-card-title"><i class="fas fa-tools"></i> Tools &amp; DevOps</div>
           <div class="skill-tags">
@@ -314,7 +288,6 @@
             <span class="skill-tag"><i class="devicon-wordpress-plain" style="color:#21759b"></i> WordPress</span>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -329,32 +302,30 @@
       </div>
       <div class="projects-grid">
 
-        <!-- Celestea eCommerce -->
+        <!-- Celestea -->
         <div class="project-card">
-          <div class="project-screenshot-wrap">
-            <img
-              src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen1.png"
-              alt="Celestea eCommerce Screenshot"
-              class="project-screenshot"
-              onerror="this.parentElement.style.display='none'; document.getElementById('celestea-fallback').style.display='flex';"
-            />
-          </div>
-          <div id="celestea-fallback" class="project-img-placeholder" style="display:none; background:linear-gradient(135deg,#1a0d2e 0%,#0d1117 100%);">
-            <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
-              <circle cx="45" cy="35" r="18" stroke="#d2a8ff" stroke-width="2" fill="rgba(210,168,255,0.07)"/>
-              <circle cx="45" cy="35" r="9" stroke="#d2a8ff" stroke-width="1.5" fill="rgba(210,168,255,0.15)"/>
-              <circle cx="45" cy="35" r="3" fill="#d2a8ff" opacity="0.8"/>
-              <path d="M28 60 Q45 48 62 60" stroke="#d2a8ff" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.6"/>
-              <rect x="20" y="62" width="50" height="10" rx="5" fill="rgba(210,168,255,0.1)" stroke="#d2a8ff" stroke-width="1"/>
-              <text x="45" y="71" text-anchor="middle" font-family="monospace" font-size="6" fill="#d2a8ff">CELESTEA</text>
-            </svg>
+          <div class="slider" id="slider-celestea">
+            <div class="slider-track" id="track-celestea">
+              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen1.png" alt="Celestea 1" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen2.png" alt="Celestea 2" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen3.png" alt="Celestea 3" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen4.png" alt="Celestea 4" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen5.png" alt="Celestea 5" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen6.png" alt="Celestea 6" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen7.png" alt="Celestea 7" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen8.png" alt="Celestea 8" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen9.png" alt="Celestea 9" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen10.png" alt="Celestea 10" loading="lazy" />
+            </div>
+            <button class="slider-btn prev" onclick="slide('celestea',-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-btn next" onclick="slide('celestea',1)"><i class="fas fa-chevron-right"></i></button>
+            <div class="slider-dots" id="dots-celestea"></div>
+            <div class="slider-counter" id="counter-celestea">1 / 10</div>
           </div>
           <div class="project-body">
             <div class="project-header">
               <span class="project-icon">&#x2728;</span>
-              <div class="project-links">
-                <a href="https://github.com/Hashirhash001/celestea" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-              </div>
+              <div class="project-links"><a href="https://github.com/Hashirhash001/celestea" target="_blank"><i class="fab fa-github"></i></a></div>
             </div>
             <div class="project-title">Celestea &mdash; eCommerce Platform</div>
             <div class="project-type">// Full-Stack Web App</div>
@@ -371,72 +342,72 @@
 
         <!-- Unique Foods -->
         <div class="project-card">
-          <div class="project-screenshot-wrap">
-            <img
-              src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/screen1.png"
-              alt="Unique Foods Screenshot"
-              class="project-screenshot"
-              onerror="this.parentElement.style.display='none'; document.getElementById('uniquefoods-fallback').style.display='flex';"
-            />
-          </div>
-          <div id="uniquefoods-fallback" class="project-img-placeholder" style="display:none; background:linear-gradient(135deg,#1a2a3a 0%,#0d1117 100%);">
-            <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
-              <rect x="10" y="20" width="70" height="50" rx="8" stroke="#58a6ff" stroke-width="2" fill="rgba(88,166,255,0.06)"/>
-              <circle cx="30" cy="38" r="8" fill="rgba(247,129,102,0.3)" stroke="#f78166" stroke-width="1.5"/>
-              <rect x="44" y="30" width="26" height="4" rx="2" fill="#3fb950" opacity="0.7"/>
-              <rect x="44" y="38" width="18" height="3" rx="1.5" fill="#8b949e"/>
-              <rect x="15" y="55" width="60" height="1.5" rx="1" fill="#30363d"/>
-              <rect x="15" y="62" width="20" height="6" rx="3" fill="#58a6ff" opacity="0.8"/>
-              <rect x="40" y="62" width="14" height="6" rx="3" fill="rgba(88,166,255,0.2)" stroke="#58a6ff" stroke-width="1"/>
-            </svg>
+          <div class="slider" id="slider-uniquefoods">
+            <div class="slider-track" id="track-uniquefoods">
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/shop.png" alt="Shop" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/cart.png" alt="Cart" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/checkout.png" alt="Checkout" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/dashboard.png" alt="Admin Dashboard" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/offers1%20(1).png" alt="Offers" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/offers2.png" alt="Offers 2" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/categories.png" alt="Categories" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/orders.png" alt="Orders" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/customers.png" alt="Customers" loading="lazy" />
+            </div>
+            <button class="slider-btn prev" onclick="slide('uniquefoods',-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-btn next" onclick="slide('uniquefoods',1)"><i class="fas fa-chevron-right"></i></button>
+            <div class="slider-dots" id="dots-uniquefoods"></div>
+            <div class="slider-counter" id="counter-uniquefoods">1 / 9</div>
           </div>
           <div class="project-body">
             <div class="project-header">
               <span class="project-icon">&#x1F6D2;</span>
-              <div class="project-links">
-                <a href="https://github.com/Hashirhash001/Uniquefoods" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-              </div>
+              <div class="project-links"><a href="https://github.com/Hashirhash001/Uniquefoods" target="_blank"><i class="fab fa-github"></i></a></div>
             </div>
             <div class="project-title">Unique Foods &mdash; eCommerce Platform</div>
             <div class="project-type">// Full-Stack Web App</div>
-            <div class="project-desc">Full-featured food e-commerce platform with product catalog, cart/checkout, order management, admin panel, referral system, and Shiprocket delivery integration.</div>
+            <div class="project-desc">Full-featured food e-commerce platform with product catalog, cart/checkout, order management, admin panel, customer groups with exclusive pricing, time-limited offers, and Shiprocket delivery integration.</div>
             <div class="project-tech">
               <span class="tech-badge">Laravel</span>
               <span class="tech-badge">MySQL</span>
               <span class="tech-badge">Stripe</span>
               <span class="tech-badge">Shiprocket</span>
-              <span class="tech-badge">Blade</span>
+              <span class="tech-badge">Tailwind CSS</span>
             </div>
           </div>
         </div>
 
         <!-- CRM Cleaning Company -->
         <div class="project-card">
-          <div class="project-screenshot-wrap">
-            <img
-              src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen1.png"
-              alt="CRM Cleaning Company Screenshot"
-              class="project-screenshot"
-              onerror="this.parentElement.style.display='none'; document.getElementById('crm-fallback').style.display='flex';"
-            />
-          </div>
-          <div id="crm-fallback" class="project-img-placeholder" style="display:none; background:linear-gradient(135deg,#0d1f12 0%,#0d1117 100%);">
-            <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
-              <rect x="8" y="15" width="74" height="55" rx="8" stroke="#3fb950" stroke-width="2" fill="rgba(63,185,80,0.05)"/>
-              <rect x="16" y="24" width="58" height="8" rx="3" fill="rgba(63,185,80,0.15)" stroke="#3fb950" stroke-width="1"/>
-              <rect x="16" y="36" width="36" height="3" rx="1.5" fill="#8b949e" opacity="0.6"/>
-              <rect x="16" y="43" width="28" height="3" rx="1.5" fill="#8b949e" opacity="0.4"/>
-              <rect x="16" y="50" width="32" height="3" rx="1.5" fill="#8b949e" opacity="0.5"/>
-              <circle cx="64" cy="45" r="12" fill="rgba(88,166,255,0.1)" stroke="#58a6ff" stroke-width="1.5"/>
-              <path d="M59 45l3 3 6-6" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          <div class="slider" id="slider-crm">
+            <div class="slider-track" id="track-crm">
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen1.png" alt="CRM 1" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen2.png" alt="CRM 2" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen3.png" alt="CRM 3" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen4.png" alt="CRM 4" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen5.png" alt="CRM 5" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen6.png" alt="CRM 6" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen7.png" alt="CRM 7" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen8.png" alt="CRM 8" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen9.png" alt="CRM 9" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen10.png" alt="CRM 10" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen11.png" alt="CRM 11" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen12.png" alt="CRM 12" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen13.png" alt="CRM 13" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen14.png" alt="CRM 14" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen15.png" alt="CRM 15" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen16.png" alt="CRM 16" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen17.png" alt="CRM 17" loading="lazy" />
+            </div>
+            <button class="slider-btn prev" onclick="slide('crm',-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-btn next" onclick="slide('crm',1)"><i class="fas fa-chevron-right"></i></button>
+            <div class="slider-dots" id="dots-crm"></div>
+            <div class="slider-counter" id="counter-crm">1 / 17</div>
           </div>
           <div class="project-body">
             <div class="project-header">
               <span class="project-icon">&#x1F9F9;</span>
-              <div class="project-links">
-                <a href="https://github.com/Hashirhash001/crm-cleaning-company" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-              </div>
+              <div class="project-links"><a href="https://github.com/Hashirhash001/crm-cleaning-company" target="_blank"><i class="fab fa-github"></i></a></div>
             </div>
             <div class="project-title">CRM &mdash; Cleaning Company</div>
             <div class="project-type">// CRM System</div>
@@ -450,31 +421,25 @@
           </div>
         </div>
 
-        <!-- Voltronix HRM 1 -->
+        <!-- Voltronix HRM -->
         <div class="project-card">
-          <div class="project-screenshot-wrap">
-            <img
-              src="https://raw.githubusercontent.com/Hashirhash001/voltronix/master/docs/screens/screen1.png"
-              alt="Workforce & Attendance Manager Screenshot"
-              class="project-screenshot"
-              onerror="this.parentElement.style.display='none'; document.getElementById('voltronix-fallback').style.display='flex';"
-            />
-          </div>
-          <div id="voltronix-fallback" class="project-img-placeholder" style="display:none; background:linear-gradient(135deg,#0f1124 0%,#0d1117 100%);">
-            <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
-              <circle cx="45" cy="30" r="14" stroke="#58a6ff" stroke-width="2" fill="rgba(88,166,255,0.08)"/>
-              <circle cx="45" cy="30" r="6" fill="#58a6ff" opacity="0.5"/>
-              <path d="M20 70c0-13.8 11.2-25 25-25s25 11.2 25 25" stroke="#3fb950" stroke-width="2" stroke-linecap="round" fill="none"/>
-              <rect x="30" y="58" width="30" height="3" rx="1.5" fill="rgba(63,185,80,0.3)"/>
-              <rect x="34" y="64" width="22" height="3" rx="1.5" fill="rgba(88,166,255,0.3)"/>
-            </svg>
+          <div class="slider" id="slider-voltronix">
+            <div class="slider-track" id="track-voltronix">
+              <img src="https://raw.githubusercontent.com/Hashirhash001/voltronix/master/docs/screens/screen1.png" alt="Voltronix 1" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/voltronix/master/docs/screens/screen2.png" alt="Voltronix 2" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/voltronix/master/docs/screens/screen3.png" alt="Voltronix 3" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/voltronix/master/docs/screens/screen4.png" alt="Voltronix 4" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/voltronix/master/docs/screens/screen5.png" alt="Voltronix 5" loading="lazy" />
+            </div>
+            <button class="slider-btn prev" onclick="slide('voltronix',-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-btn next" onclick="slide('voltronix',1)"><i class="fas fa-chevron-right"></i></button>
+            <div class="slider-dots" id="dots-voltronix"></div>
+            <div class="slider-counter" id="counter-voltronix">1 / 5</div>
           </div>
           <div class="project-body">
             <div class="project-header">
               <span class="project-icon">&#x1F465;</span>
-              <div class="project-links">
-                <a href="https://github.com/Hashirhash001/voltronix" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-              </div>
+              <div class="project-links"><a href="https://github.com/Hashirhash001/voltronix" target="_blank"><i class="fab fa-github"></i></a></div>
             </div>
             <div class="project-title">Workforce &amp; Attendance Manager</div>
             <div class="project-type">// HRM System</div>
@@ -488,31 +453,29 @@
           </div>
         </div>
 
-        <!-- StaffOps HRM 2 -->
+        <!-- StaffOps HRM -->
         <div class="project-card">
-          <div class="project-screenshot-wrap">
-            <img
-              src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen1.png"
-              alt="StaffOps HR & Fleet Manager Screenshot"
-              class="project-screenshot"
-              onerror="this.parentElement.style.display='none'; document.getElementById('staffops-fallback').style.display='flex';"
-            />
-          </div>
-          <div id="staffops-fallback" class="project-img-placeholder" style="display:none; background:linear-gradient(135deg,#1c0f0f 0%,#0d1117 100%);">
-            <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
-              <rect x="10" y="28" width="30" height="36" rx="5" stroke="#f78166" stroke-width="1.8" fill="rgba(247,129,102,0.08)"/>
-              <rect x="50" y="20" width="30" height="18" rx="5" stroke="#58a6ff" stroke-width="1.8" fill="rgba(88,166,255,0.08)"/>
-              <rect x="50" y="44" width="30" height="18" rx="5" stroke="#3fb950" stroke-width="1.8" fill="rgba(63,185,80,0.08)"/>
-              <path d="M40 40h10" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="2 2"/>
-              <path d="M40 52h10" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="2 2"/>
-            </svg>
+          <div class="slider" id="slider-staffops">
+            <div class="slider-track" id="track-staffops">
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen1.png" alt="StaffOps 1" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen2.png" alt="StaffOps 2" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen3.png" alt="StaffOps 3" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen4.png" alt="StaffOps 4" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen5.png" alt="StaffOps 5" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen6.png" alt="StaffOps 6" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen7.png" alt="StaffOps 7" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen8.png" alt="StaffOps 8" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/Hashirhash001/Voltronix-hrm/master/docs/screens/screen9.png" alt="StaffOps 9" loading="lazy" />
+            </div>
+            <button class="slider-btn prev" onclick="slide('staffops',-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-btn next" onclick="slide('staffops',1)"><i class="fas fa-chevron-right"></i></button>
+            <div class="slider-dots" id="dots-staffops"></div>
+            <div class="slider-counter" id="counter-staffops">1 / 9</div>
           </div>
           <div class="project-body">
             <div class="project-header">
               <span class="project-icon">&#x1F4CA;</span>
-              <div class="project-links">
-                <a href="https://github.com/Hashirhash001/Voltronix-hrm" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-              </div>
+              <div class="project-links"><a href="https://github.com/Hashirhash001/Voltronix-hrm" target="_blank"><i class="fab fa-github"></i></a></div>
             </div>
             <div class="project-title">StaffOps &mdash; HR &amp; Fleet Manager</div>
             <div class="project-type">// HRM + Fleet System</div>
@@ -526,24 +489,20 @@
           </div>
         </div>
 
-        <!-- ZWebCart — REST API (custom SVG panel, no screenshot) -->
+        <!-- ZWebCart — custom SVG (no real screenshots) -->
         <div class="project-card">
           <div class="project-img-placeholder" style="display:flex; background:linear-gradient(135deg,#061528 0%,#0d1117 100%);">
             <svg width="110" height="110" viewBox="0 0 110 110" fill="none">
               <rect x="10" y="18" width="90" height="62" rx="8" stroke="#58a6ff" stroke-width="2" fill="rgba(88,166,255,0.04)"/>
-              <circle cx="22" cy="28" r="3" fill="#f78166"/>
-              <circle cx="32" cy="28" r="3" fill="#e3b341"/>
-              <circle cx="42" cy="28" r="3" fill="#3fb950"/>
+              <circle cx="22" cy="28" r="3" fill="#f78166"/><circle cx="32" cy="28" r="3" fill="#e3b341"/><circle cx="42" cy="28" r="3" fill="#3fb950"/>
               <rect x="50" y="23" width="44" height="10" rx="3" fill="rgba(88,166,255,0.1)" stroke="rgba(88,166,255,0.3)" stroke-width="1"/>
               <line x1="10" y1="36" x2="100" y2="36" stroke="#30363d" stroke-width="1"/>
               <rect x="16" y="42" width="20" height="3" rx="1.5" fill="rgba(88,166,255,0.5)"/>
               <rect x="16" y="49" width="16" height="3" rx="1.5" fill="rgba(88,166,255,0.25)"/>
               <rect x="16" y="56" width="18" height="3" rx="1.5" fill="rgba(88,166,255,0.25)"/>
-              <rect x="16" y="63" width="14" height="3" rx="1.5" fill="rgba(88,166,255,0.2)"/>
               <rect x="44" y="42" width="50" height="28" rx="4" fill="rgba(88,166,255,0.07)" stroke="rgba(88,166,255,0.2)" stroke-width="1"/>
               <rect x="49" y="47" width="28" height="4" rx="2" fill="rgba(63,185,80,0.6)"/>
               <rect x="49" y="55" width="36" height="3" rx="1.5" fill="rgba(139,148,158,0.4)"/>
-              <rect x="49" y="61" width="22" height="3" rx="1.5" fill="rgba(139,148,158,0.3)"/>
               <rect x="28" y="86" width="54" height="18" rx="9" fill="rgba(88,166,255,0.12)" stroke="#58a6ff" stroke-width="1.5"/>
               <text x="55" y="99" text-anchor="middle" font-family="monospace" font-size="9" fill="#58a6ff" font-weight="bold">REST API</text>
             </svg>
@@ -551,9 +510,7 @@
           <div class="project-body">
             <div class="project-header">
               <span class="project-icon">&#x1F310;</span>
-              <div class="project-links">
-                <a href="https://github.com/Hashirhash001/ZWebCart" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-              </div>
+              <div class="project-links"><a href="https://github.com/Hashirhash001/ZWebCart" target="_blank"><i class="fab fa-github"></i></a></div>
             </div>
             <div class="project-title">ZWebCart &mdash; No-Code Website Builder</div>
             <div class="project-type">// REST API &middot; NestJS</div>
@@ -568,7 +525,7 @@
           </div>
         </div>
 
-        <!-- Circuitil — REST API (custom SVG panel, no screenshot) -->
+        <!-- Circuitil — custom SVG (no real screenshots) -->
         <div class="project-card">
           <div class="project-img-placeholder" style="display:flex; background:linear-gradient(135deg,#12082a 0%,#0d1117 100%);">
             <svg width="110" height="110" viewBox="0 0 110 110" fill="none">
@@ -580,7 +537,6 @@
               <circle cx="88" cy="74" r="4" fill="#58a6ff" opacity="0.6"/>
               <path d="M44 54 L30 65" stroke="#d2a8ff" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
               <path d="M66 54 L80 65" stroke="#d2a8ff" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
-              <path d="M33 74 L77 74" stroke="#30363d" stroke-width="1.5" stroke-dasharray="3 3"/>
               <text x="22" y="92" text-anchor="middle" font-family="monospace" font-size="7" fill="#3fb950">Influencer</text>
               <text x="88" y="92" text-anchor="middle" font-family="monospace" font-size="7" fill="#58a6ff">Brand</text>
               <rect x="28" y="6" width="54" height="16" rx="8" fill="rgba(210,168,255,0.12)" stroke="#d2a8ff" stroke-width="1.5"/>
@@ -590,9 +546,7 @@
           <div class="project-body">
             <div class="project-header">
               <span class="project-icon">&#x1F4F1;</span>
-              <div class="project-links">
-                <a href="https://github.com/Hashirhash001/Circuitil" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-              </div>
+              <div class="project-links"><a href="https://github.com/Hashirhash001/Circuitil" target="_blank"><i class="fab fa-github"></i></a></div>
             </div>
             <div class="project-title">Circuitil &mdash; Influencer &amp; Brand Platform</div>
             <div class="project-type">// REST API &middot; Laravel</div>
@@ -621,117 +575,100 @@
       </div>
       <div class="integrations-grid">
 
+        <!-- Stripe -->
         <div class="integration-card">
           <div class="int-icon-wrap" style="background:#0a2540;border-color:#1a3a5c;">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <path d="M3 14C3 8 8 3 14 3s11 5 11 11-5 11-11 11S3 20 3 14z" fill="#635bff"/>
-              <path d="M11.5 10.5c0-1.4 1.1-2 2.5-2 1.8 0 3.5.9 4.5 2.3l2.7-2.4C19.5 6.5 17.2 5 14 5c-3.6 0-6.5 2-6.5 5.5 0 6.4 8.5 4.8 8.5 8 0 1.5-1.2 2.2-2.8 2.2-2.1 0-3.9-1-5-2.7l-2.7 2.5c1.7 2.2 4.2 3.5 7.6 3.5 3.7 0 6.9-2 6.9-5.7 0-6.8-8.5-5-8.5-7.8z" fill="white"/>
-            </svg>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" alt="Stripe" style="width:44px;height:auto;" />
           </div>
           <div class="integration-name">Stripe</div>
           <div class="integration-desc">Card payments, webhooks &amp; order confirmation</div>
         </div>
 
+        <!-- Razorpay -->
         <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#003087;border-color:#004ab3;">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <rect width="28" height="28" rx="6" fill="#003087"/>
-              <text x="14" y="19" text-anchor="middle" font-family="Arial" font-size="9" font-weight="bold" fill="#3395ff">Rzrpay</text>
-            </svg>
+          <div class="int-icon-wrap" style="background:#fff;border-color:#ddd;">
+            <img src="https://razorpay.com/favicon.png" alt="Razorpay" style="width:32px;height:32px;" />
           </div>
           <div class="integration-name">Razorpay</div>
           <div class="integration-desc">UPI, cards &amp; netbanking gateway</div>
         </div>
 
+        <!-- Zoho CRM -->
         <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#e8a84c22;border-color:#e8a84c44;">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <rect x="3" y="8" width="22" height="14" rx="3" stroke="#e8a84c" stroke-width="1.8" fill="none"/>
-              <path d="M3 13h22" stroke="#e8a84c" stroke-width="1.2"/>
-              <circle cx="8" cy="10.5" r="1.2" fill="#e8a84c"/>
-              <circle cx="12" cy="10.5" r="1.2" fill="#e8a84c"/>
-              <text x="14" y="21" text-anchor="middle" font-family="monospace" font-size="5" fill="#e8a84c">CRM</text>
-            </svg>
+          <div class="int-icon-wrap" style="background:#fff;border-color:#ddd;">
+            <img src="https://www.zoho.com/branding/images/zoho-logo-512px.png" alt="Zoho CRM" style="width:32px;height:32px;object-fit:contain;" />
           </div>
           <div class="integration-name">Zoho CRM</div>
           <div class="integration-desc">Lead sync, contact &amp; deal automation</div>
         </div>
 
+        <!-- Zoho Books -->
         <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#3fb95022;border-color:#3fb95044;">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <rect x="4" y="5" width="20" height="18" rx="3" stroke="#3fb950" stroke-width="1.8" fill="none"/>
-              <path d="M8 10h12M8 14h9M8 18h6" stroke="#3fb950" stroke-width="1.4" stroke-linecap="round"/>
-              <text x="14" y="26" text-anchor="middle" font-family="monospace" font-size="4.5" fill="#3fb950">BOOKS</text>
-            </svg>
+          <div class="int-icon-wrap" style="background:#fff;border-color:#ddd;">
+            <img src="https://www.zoho.com/branding/images/zoho-logo-512px.png" alt="Zoho Books" style="width:32px;height:32px;object-fit:contain;" />
           </div>
           <div class="integration-name">Zoho Books</div>
           <div class="integration-desc">Invoice, payment &amp; accounting automation</div>
         </div>
 
+        <!-- Shiprocket -->
         <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#3fb95018;border-color:#3fb95030;">&#x1F69A;</div>
+          <div class="int-icon-wrap" style="background:#fff;border-color:#ddd;">
+            <img src="https://www.shiprocket.in/wp-content/uploads/2021/07/sr-logo.svg" alt="Shiprocket" style="width:36px;height:auto;" />
+          </div>
           <div class="integration-name">Shiprocket</div>
           <div class="integration-desc">Shipment creation, AWB &amp; live tracking</div>
         </div>
 
+        <!-- WhatsApp -->
         <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#25d36618;border-color:#25d36630;">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <path d="M14 3C8 3 3 7.9 3 14c0 2 .5 3.8 1.4 5.4L3 25l5.8-1.5A11 11 0 0014 25c6 0 11-4.9 11-11S20 3 14 3z" fill="#25d366"/>
-              <path d="M19.5 16.8c-.3-.1-1.7-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.2-.7.9-.9 1-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.2-.5 0-.2-.5-1.2-.7-1.6-.2-.4-.3-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.1 0 1.3.9 2.5 1 2.6.1.2 1.8 2.7 4.3 3.8 2.5 1 2.5.7 2.9.7.5 0 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.1-.5-.2z" fill="white"/>
-            </svg>
+          <div class="int-icon-wrap" style="background:#075e54;border-color:#128c7e;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width:30px;height:30px;" />
           </div>
           <div class="integration-name">WhatsApp API</div>
           <div class="integration-desc">Lead notifications &amp; automated messaging</div>
         </div>
 
+        <!-- Firebase -->
         <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#ffca2822;border-color:#ffca2844;">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase" width="28" height="28" />
+          <div class="int-icon-wrap" style="background:#1a1200;border-color:#ffca28;">
+            <img src="https://www.gstatic.com/devrel-devsite/prod/v0e0f589edd85502a40d78d7d0825db8ea5ef3b99ab4070381ee86977c9168730/firebase/images/touchicon-180.png" alt="Firebase" style="width:30px;height:30px;" />
           </div>
           <div class="integration-name">Firebase</div>
           <div class="integration-desc">Push notifications &amp; real-time data</div>
         </div>
 
+        <!-- Pusher -->
         <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#7c4dff22;border-color:#7c4dff44;">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <circle cx="14" cy="14" r="9" stroke="#7c4dff" stroke-width="2" fill="rgba(124,77,255,0.15)"/>
-              <path d="M9 14 Q14 8 19 14 Q14 20 9 14z" fill="#7c4dff" opacity="0.8"/>
-              <circle cx="14" cy="14" r="2.5" fill="white" opacity="0.9"/>
-            </svg>
+          <div class="int-icon-wrap" style="background:#300d4f;border-color:#7c4dff;">
+            <img src="https://pusher.com/static/favicon/favicon-32x32.png" alt="Pusher" style="width:28px;height:28px;" />
           </div>
           <div class="integration-name">Pusher</div>
           <div class="integration-desc">Real-time chat &amp; event broadcasting</div>
         </div>
 
+        <!-- Google OAuth -->
         <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#fff3;border-color:#fff2;">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google OAuth" width="26" height="26" />
+          <div class="int-icon-wrap" style="background:#fff;border-color:#ddd;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google OAuth" style="width:28px;height:28px;" />
           </div>
           <div class="integration-name">Google OAuth</div>
           <div class="integration-desc">Social sign-in &amp; authentication</div>
         </div>
 
+        <!-- Instagram OAuth -->
         <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#e1306c22;border-color:#e1306c44;">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <rect x="4" y="4" width="20" height="20" rx="6" stroke="#e1306c" stroke-width="2" fill="none"/>
-              <circle cx="14" cy="14" r="5" stroke="#e1306c" stroke-width="1.8" fill="none"/>
-              <circle cx="20" cy="8" r="1.5" fill="#e1306c"/>
-            </svg>
+          <div class="int-icon-wrap" style="background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);border-color:#e1306c;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width:28px;height:28px;" />
           </div>
           <div class="integration-name">Instagram OAuth</div>
           <div class="integration-desc">Influencer social login &amp; profile data</div>
         </div>
 
+        <!-- AWS S3 -->
         <div class="integration-card">
-          <div class="int-icon-wrap" style="background:#ff990022;border-color:#ff990044;">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <path d="M4 20l6-12 4 8 3-5 7 9H4z" fill="none" stroke="#ff9900" stroke-width="1.8" stroke-linejoin="round"/>
-              <text x="14" y="27" text-anchor="middle" font-family="Arial" font-size="5" fill="#ff9900" font-weight="bold">AWS S3</text>
-            </svg>
+          <div class="int-icon-wrap" style="background:#1a0a00;border-color:#ff9900;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/AWS_Simple_Icons_Storage_Amazon_S3.svg" alt="AWS S3" style="width:30px;height:30px;" />
           </div>
           <div class="integration-name">AWS S3</div>
           <div class="integration-desc">Cloud file &amp; media storage</div>
@@ -750,7 +687,6 @@
         <p class="section-sub">My professional journey across companies</p>
       </div>
       <div class="exp-grid">
-
         <div class="exp-card">
           <div class="exp-sidebar">
             <div>
@@ -776,7 +712,6 @@
             </div>
           </div>
         </div>
-
         <div class="exp-card">
           <div class="exp-sidebar">
             <div>
@@ -800,7 +735,6 @@
             </div>
           </div>
         </div>
-
         <div class="exp-card">
           <div class="exp-sidebar">
             <div>
@@ -823,7 +757,6 @@
             </div>
           </div>
         </div>
-
         <div class="exp-card">
           <div class="exp-sidebar">
             <div>
@@ -845,7 +778,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -872,6 +804,56 @@
   <footer>
     <p>Built with <span>&#x2665;</span> by Hashir MV &mdash; &copy; 2026</p>
   </footer>
+
+  <script>
+    // ===== IMAGE SLIDER ENGINE =====
+    const sliders = {};
+
+    function initSlider(id, total) {
+      sliders[id] = { current: 0, total };
+      const dotsEl = document.getElementById('dots-' + id);
+      for (let i = 0; i < total; i++) {
+        const d = document.createElement('div');
+        d.className = 'slider-dot' + (i === 0 ? ' active' : '');
+        d.onclick = () => goTo(id, i);
+        dotsEl.appendChild(d);
+      }
+      // hide dots if too many (show counter instead)
+      if (total > 8) dotsEl.style.display = 'none';
+    }
+
+    function goTo(id, index) {
+      const s = sliders[id];
+      if (!s) return;
+      s.current = (index + s.total) % s.total;
+      document.getElementById('track-' + id).style.transform = 'translateX(-' + (s.current * 100) + '%)';
+      document.getElementById('counter-' + id).textContent = (s.current + 1) + ' / ' + s.total;
+      const dots = document.querySelectorAll('#dots-' + id + ' .slider-dot');
+      dots.forEach((d, i) => d.classList.toggle('active', i === s.current));
+    }
+
+    function slide(id, dir) {
+      const s = sliders[id];
+      if (s) goTo(id, s.current + dir);
+    }
+
+    // Init all sliders on load
+    document.addEventListener('DOMContentLoaded', () => {
+      initSlider('celestea', 10);
+      initSlider('uniquefoods', 9);
+      initSlider('crm', 17);
+      initSlider('voltronix', 5);
+      initSlider('staffops', 9);
+    });
+
+    // Auto-advance sliders
+    setInterval(() => {
+      ['celestea','uniquefoods','crm','voltronix','staffops'].forEach(id => {
+        if (document.hidden) return;
+        slide(id, 1);
+      });
+    }, 4000);
+  </script>
 
 </body>
 </html>
