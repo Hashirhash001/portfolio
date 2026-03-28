@@ -12,7 +12,8 @@
     :root {
       --bg: #0d1117; --bg2: #161b22; --bg3: #21262d;
       --border: #30363d; --accent: #58a6ff; --accent2: #3fb950;
-      --accent3: #f78166; --text: #e6edf3; --text2: #8b949e; --text3: #c9d1d9;
+      --accent3: #f78166; --accent4: #d2a8ff;
+      --text: #e6edf3; --text2: #8b949e; --text3: #c9d1d9;
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
@@ -84,56 +85,82 @@
     }
     .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
 
-    /* IMAGE SLIDESHOW */
-    .project-slides { position: relative; width: 100%; height: 200px; overflow: hidden; background: var(--bg3); }
-    .project-slides img {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      object-fit: cover; opacity: 0; transition: opacity 0.6s ease;
-    }
+    /* SLIDESHOW */
+    .project-slides { position: relative; width: 100%; height: 200px; overflow: hidden; background: var(--bg3); cursor: pointer; }
+    .project-slides img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease; }
     .project-slides img.active { opacity: 1; }
-    .slide-dots {
-      position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
-      display: flex; gap: 5px;
-    }
-    .slide-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: rgba(255,255,255,0.4); cursor: pointer; transition: background 0.2s;
-    }
+    .slide-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; z-index: 2; }
+    .slide-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.35); cursor: pointer; transition: background 0.2s; }
     .slide-dot.active { background: var(--accent); }
-    .slide-btn {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      background: rgba(0,0,0,0.5); color: #fff; border: none;
-      width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
-      font-size: 0.7rem; display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity 0.2s;
-    }
+    .slide-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.55); color: #fff; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 0.65rem; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; z-index: 2; }
     .project-slides:hover .slide-btn { opacity: 1; }
     .slide-btn.prev { left: 8px; }
     .slide-btn.next { right: 8px; }
+    .slide-count { position: absolute; top: 8px; right: 10px; background: rgba(0,0,0,0.6); color: #fff; font-size: 0.7rem; padding: 2px 7px; border-radius: 10px; z-index: 2; font-family: 'Fira Code', monospace; }
 
     .project-body { padding: 1.2rem; display: flex; flex-direction: column; flex: 1; }
-    .project-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.6rem; }
+    .project-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.5rem; }
     .project-icon { font-size: 1.4rem; }
     .project-links { display: flex; gap: 0.5rem; }
     .project-links a { color: var(--text2); font-size: 1rem; transition: color 0.2s; text-decoration: none; }
     .project-links a:hover { color: var(--accent); }
     .project-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
     .project-desc { color: var(--text2); font-size: 0.87rem; line-height: 1.6; flex: 1; margin-bottom: 1rem; }
-    .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; }
     .tech-badge { background: rgba(63,185,80,0.1); border: 1px solid rgba(63,185,80,0.2); color: var(--accent2); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-family: 'Fira Code', monospace; }
 
-    /* EXPERIENCE */
-    #experience { background: var(--bg2); }
-    .timeline { position: relative; padding-left: 2rem; }
-    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), transparent); }
-    .timeline-item { position: relative; margin-bottom: 2.5rem; padding-left: 1.5rem; }
-    .timeline-item::before { content: ''; position: absolute; left: -2.4rem; top: 0.4rem; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; border: 2px solid var(--bg2); }
-    .timeline-period { font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--accent); margin-bottom: 0.3rem; }
-    .timeline-role { font-size: 1.1rem; font-weight: 700; }
-    .timeline-company { color: var(--text2); font-size: 0.9rem; margin-bottom: 0.8rem; }
-    .timeline-points { list-style: none; }
-    .timeline-points li { color: var(--text3); font-size: 0.88rem; padding: 0.3rem 0; padding-left: 1rem; position: relative; }
-    .timeline-points li::before { content: '&#9656;'; position: absolute; left: 0; color: var(--accent2); }
+    /* INTEGRATIONS */
+    #integrations { background: var(--bg2); }
+    .integrations-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1.2rem; }
+    .integration-card {
+      background: var(--bg3); border: 1px solid var(--border); border-radius: 14px;
+      padding: 1.5rem 1rem; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 0.7rem;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+    }
+    .integration-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .integration-logo { width: 44px; height: 44px; object-fit: contain; border-radius: 8px; }
+    .integration-logo-icon { font-size: 2rem; line-height: 1; }
+    .integration-name { font-size: 0.85rem; font-weight: 600; color: var(--text3); }
+    .integration-desc { font-size: 0.73rem; color: var(--text2); line-height: 1.4; }
+
+    /* EXPERIENCE — redesigned */
+    #experience { background: var(--bg); }
+    .exp-grid { display: grid; gap: 1.5rem; }
+    .exp-card {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 16px;
+      padding: 0; overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      display: grid; grid-template-columns: 220px 1fr;
+    }
+    .exp-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .exp-sidebar {
+      padding: 1.8rem 1.5rem;
+      background: var(--bg3);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .exp-period {
+      font-family: 'Fira Code', monospace; font-size: 0.75rem;
+      color: var(--accent); margin-bottom: 0.8rem;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .exp-period::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; flex-shrink: 0; }
+    .exp-role { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .exp-company { color: var(--accent2); font-size: 0.88rem; font-weight: 600; margin-bottom: 1rem; }
+    .exp-badge {
+      display: inline-block; font-size: 0.68rem; font-family: 'Fira Code', monospace;
+      padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 500;
+    }
+    .exp-badge.current { background: rgba(63,185,80,0.15); border: 1px solid rgba(63,185,80,0.35); color: var(--accent2); }
+    .exp-badge.past { background: rgba(139,148,158,0.12); border: 1px solid rgba(139,148,158,0.25); color: var(--text2); }
+    .exp-content { padding: 1.8rem; }
+    .exp-points { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .exp-points li { color: var(--text3); font-size: 0.875rem; padding-left: 1.2rem; position: relative; line-height: 1.5; }
+    .exp-points li::before { content: '▸'; position: absolute; left: 0; color: var(--accent2); font-size: 0.75rem; top: 0.15rem; }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .exp-tag { background: rgba(88,166,255,0.07); border: 1px solid rgba(88,166,255,0.15); color: var(--text2); padding: 0.15rem 0.55rem; border-radius: 4px; font-size: 0.72rem; font-family: 'Fira Code', monospace; }
 
     /* CONTACT */
     .contact-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 3rem; text-align: center; max-width: 600px; margin: 0 auto; }
@@ -148,10 +175,15 @@
     footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--text2); font-size: 0.85rem; }
     footer span { color: var(--accent3); }
 
+    @media (max-width: 900px) {
+      .exp-card { grid-template-columns: 1fr; }
+      .exp-sidebar { border-right: none; border-bottom: 1px solid var(--border); }
+    }
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hero-stats { gap: 2rem; }
       .contact-card { padding: 2rem 1.5rem; }
+      .integrations-grid { grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); }
     }
   </style>
 </head>
@@ -162,6 +194,7 @@
     <ul class="nav-links">
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#integrations">Integrations</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -181,9 +214,8 @@
       </div>
       <div class="hero-stats">
         <div class="stat"><div class="stat-num">3.5+</div><div class="stat-label">Years Experience</div></div>
-        <div class="stat"><div class="stat-num">7</div><div class="stat-label">Projects Built</div></div>
+        <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Projects Built</div></div>
         <div class="stat"><div class="stat-num">4</div><div class="stat-label">Companies</div></div>
-        <div class="stat"><div class="stat-num">8</div><div class="stat-label">Integrations</div></div>
       </div>
     </div>
   </section>
@@ -254,11 +286,12 @@
         <!-- Celestea -->
         <div class="project-card">
           <div class="project-slides" id="slides-celestea">
-            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen1.png" class="active" alt="Celestea screen 1" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen2.png" alt="Celestea screen 2" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen3.png" alt="Celestea screen 3" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen4.png" alt="Celestea screen 4" />
-            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen5.png" alt="Celestea screen 5" />
+            <span class="slide-count" id="count-celestea">1 / 5</span>
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen1.png" class="active" alt="Celestea" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen2.png" alt="Celestea" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen3.png" alt="Celestea" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen4.png" alt="Celestea" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/celestea/master/docs/screens/screen5.png" alt="Celestea" />
             <button class="slide-btn prev" onclick="slideProject('celestea',-1)"><i class="fas fa-chevron-left"></i></button>
             <button class="slide-btn next" onclick="slideProject('celestea',1)"><i class="fas fa-chevron-right"></i></button>
             <div class="slide-dots" id="dots-celestea">
@@ -272,60 +305,85 @@
           <div class="project-body">
             <div class="project-header">
               <span class="project-icon">&#x1F6CD;&#xFE0F;</span>
-              <div class="project-links">
-                <a href="https://github.com/Hashirhash001/celestea" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-              </div>
+              <div class="project-links"><a href="https://github.com/Hashirhash001/celestea" target="_blank"><i class="fab fa-github"></i></a></div>
             </div>
             <div class="project-title">Celestea &mdash; eCommerce Platform</div>
             <div class="project-desc">Laravel-based eCommerce app with product listing, cart, checkout, wishlist, referral system, and a full admin panel for orders, users, transactions, and verification workflows.</div>
             <div class="project-tech">
-              <span class="tech-badge">Laravel</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">Razorpay</span>
-              <span class="tech-badge">Shiprocket</span>
-              <span class="tech-badge">Bootstrap</span>
-              <span class="tech-badge">jQuery</span>
+              <span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span>
+              <span class="tech-badge">Razorpay</span><span class="tech-badge">Shiprocket</span>
+              <span class="tech-badge">Bootstrap</span><span class="tech-badge">jQuery</span>
             </div>
           </div>
         </div>
 
         <!-- Unique Foods -->
         <div class="project-card">
-          <div class="project-body" style="padding:1.5rem">
+          <div class="project-slides" id="slides-uniquefoods">
+            <span class="slide-count" id="count-uniquefoods">1 / 6</span>
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/shop.png" class="active" alt="Unique Foods Shop" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/cart.png" alt="Cart" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/checkout.png" alt="Checkout" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/dashboard.png" alt="Admin Dashboard" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/orders.png" alt="Orders" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/Uniquefoods/master/docs/screens/offers2.png" alt="Offers" />
+            <button class="slide-btn prev" onclick="slideProject('uniquefoods',-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="slide-btn next" onclick="slideProject('uniquefoods',1)"><i class="fas fa-chevron-right"></i></button>
+            <div class="slide-dots" id="dots-uniquefoods">
+              <div class="slide-dot active" onclick="goSlide('uniquefoods',0)"></div>
+              <div class="slide-dot" onclick="goSlide('uniquefoods',1)"></div>
+              <div class="slide-dot" onclick="goSlide('uniquefoods',2)"></div>
+              <div class="slide-dot" onclick="goSlide('uniquefoods',3)"></div>
+              <div class="slide-dot" onclick="goSlide('uniquefoods',4)"></div>
+              <div class="slide-dot" onclick="goSlide('uniquefoods',5)"></div>
+            </div>
+          </div>
+          <div class="project-body">
             <div class="project-header">
               <span class="project-icon">&#x1F6D2;</span>
-              <div class="project-links">
-                <a href="https://github.com/Hashirhash001/Uniquefoods" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-              </div>
+              <div class="project-links"><a href="https://github.com/Hashirhash001/Uniquefoods" target="_blank"><i class="fab fa-github"></i></a></div>
             </div>
             <div class="project-title">Unique Foods &mdash; eCommerce Platform</div>
-            <div class="project-desc">Food e-commerce platform with product catalog, cart/checkout, order management, admin panel, referral system, and Stripe payment integration.</div>
+            <div class="project-desc">Food e-commerce with product catalog, cart, checkout, customer groups with exclusive pricing, time-limited offers, discount management, and Stripe payment integration.</div>
             <div class="project-tech">
-              <span class="tech-badge">Laravel</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">Stripe</span>
-              <span class="tech-badge">Blade</span>
-              <span class="tech-badge">jQuery</span>
+              <span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span>
+              <span class="tech-badge">Stripe</span><span class="tech-badge">Tailwind CSS</span>
+              <span class="tech-badge">jQuery</span><span class="tech-badge">AJAX</span>
             </div>
           </div>
         </div>
 
-        <!-- CRM -->
+        <!-- CRM Cleaning -->
         <div class="project-card">
-          <div class="project-body" style="padding:1.5rem">
+          <div class="project-slides" id="slides-crm">
+            <span class="slide-count" id="count-crm">1 / 6</span>
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen1.png" class="active" alt="CRM" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen2.png" alt="CRM" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen3.png" alt="CRM" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen5.png" alt="CRM" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen9.png" alt="CRM" />
+            <img src="https://raw.githubusercontent.com/Hashirhash001/crm-cleaning-company/master/docs/screens/screen13.png" alt="CRM" />
+            <button class="slide-btn prev" onclick="slideProject('crm',-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="slide-btn next" onclick="slideProject('crm',1)"><i class="fas fa-chevron-right"></i></button>
+            <div class="slide-dots" id="dots-crm">
+              <div class="slide-dot active" onclick="goSlide('crm',0)"></div>
+              <div class="slide-dot" onclick="goSlide('crm',1)"></div>
+              <div class="slide-dot" onclick="goSlide('crm',2)"></div>
+              <div class="slide-dot" onclick="goSlide('crm',3)"></div>
+              <div class="slide-dot" onclick="goSlide('crm',4)"></div>
+              <div class="slide-dot" onclick="goSlide('crm',5)"></div>
+            </div>
+          </div>
+          <div class="project-body">
             <div class="project-header">
               <span class="project-icon">&#x1F4CB;</span>
-              <div class="project-links">
-                <a href="https://github.com/Hashirhash001/crm-cleaning-company" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-              </div>
+              <div class="project-links"><a href="https://github.com/Hashirhash001/crm-cleaning-company" target="_blank"><i class="fab fa-github"></i></a></div>
             </div>
             <div class="project-title">CRM &mdash; Cleaning Company</div>
             <div class="project-desc">CRM with lead-to-job conversion, bulk lead import, role-based access (super admin, lead manager, telecaller), call/notes/follow-up tracking, and WhatsApp/Google Ads lead filters.</div>
             <div class="project-tech">
-              <span class="tech-badge">Laravel</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">WhatsApp API</span>
-              <span class="tech-badge">Blade</span>
+              <span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span>
+              <span class="tech-badge">WhatsApp API</span><span class="tech-badge">Blade</span>
               <span class="tech-badge">jQuery</span>
             </div>
           </div>
@@ -336,17 +394,13 @@
           <div class="project-body" style="padding:1.5rem">
             <div class="project-header">
               <span class="project-icon">&#x1F465;</span>
-              <div class="project-links">
-                <a href="https://github.com/Hashirhash001/voltronix" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-              </div>
+              <div class="project-links"><a href="https://github.com/Hashirhash001/voltronix" target="_blank"><i class="fab fa-github"></i></a></div>
             </div>
             <div class="project-title">HRM Software 1</div>
-            <div class="project-desc">Role-based HRM system with employee management, attendance tracking, leave request workflows, project management modules, and activity logging with pagination and filters.</div>
+            <div class="project-desc">Role-based HRM with employee management, attendance tracking, leave request workflows, project management modules, and activity logging with pagination and filters.</div>
             <div class="project-tech">
-              <span class="tech-badge">Laravel</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">Blade</span>
-              <span class="tech-badge">jQuery</span>
+              <span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span>
+              <span class="tech-badge">Blade</span><span class="tech-badge">jQuery</span>
               <span class="tech-badge">PDF Export</span>
             </div>
           </div>
@@ -357,17 +411,13 @@
           <div class="project-body" style="padding:1.5rem">
             <div class="project-header">
               <span class="project-icon">&#x1F4CA;</span>
-              <div class="project-links">
-                <a href="https://github.com/Hashirhash001/Voltronix-hrm" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-              </div>
+              <div class="project-links"><a href="https://github.com/Hashirhash001/Voltronix-hrm" target="_blank"><i class="fab fa-github"></i></a></div>
             </div>
             <div class="project-title">HRM Software 2</div>
-            <div class="project-desc">HRM application with attendance, overtime tracking, document expiry alerts, vehicle management, PDF report generation, and employee profile management with role-based access control.</div>
+            <div class="project-desc">HRM with attendance, overtime tracking, document expiry alerts, vehicle management, PDF report generation, and employee profile management with role-based access control.</div>
             <div class="project-tech">
-              <span class="tech-badge">Laravel</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">Blade</span>
-              <span class="tech-badge">JavaScript</span>
+              <span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span>
+              <span class="tech-badge">Blade</span><span class="tech-badge">JavaScript</span>
               <span class="tech-badge">PDF</span>
             </div>
           </div>
@@ -378,17 +428,13 @@
           <div class="project-body" style="padding:1.5rem">
             <div class="project-header">
               <span class="project-icon">&#x1F310;</span>
-              <div class="project-links">
-                <a href="https://github.com/Hashirhash001/ZWebCart" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-              </div>
+              <div class="project-links"><a href="https://github.com/Hashirhash001/ZWebCart" target="_blank"><i class="fab fa-github"></i></a></div>
             </div>
             <div class="project-title">ZWebCart &mdash; No-Code Website Builder</div>
             <div class="project-desc">RESTful APIs for a multi-store no-code platform with dynamic theme customization, JWT authentication with encrypted store DB URL resolution, and role-based guards.</div>
             <div class="project-tech">
-              <span class="tech-badge">NestJS</span>
-              <span class="tech-badge">PostgreSQL</span>
-              <span class="tech-badge">Prisma</span>
-              <span class="tech-badge">TypeScript</span>
+              <span class="tech-badge">NestJS</span><span class="tech-badge">PostgreSQL</span>
+              <span class="tech-badge">Prisma</span><span class="tech-badge">TypeScript</span>
               <span class="tech-badge">JWT</span>
             </div>
           </div>
@@ -399,20 +445,103 @@
           <div class="project-body" style="padding:1.5rem">
             <div class="project-header">
               <span class="project-icon">&#x1F4F1;</span>
-              <div class="project-links">
-                <a href="https://github.com/Hashirhash001/Circuitil" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-              </div>
+              <div class="project-links"><a href="https://github.com/Hashirhash001/Circuitil" target="_blank"><i class="fab fa-github"></i></a></div>
             </div>
             <div class="project-title">Circuitil &mdash; Influencer &amp; Brand Platform</div>
-            <div class="project-desc">REST API for Android app connecting influencers and brands with real-time chat, Firebase notifications, Google/Instagram OAuth, OTP auth, and automated matching via Laravel Observers.</div>
+            <div class="project-desc">REST API for Android app connecting influencers and brands with real-time chat (Pusher), Firebase push notifications, Google/Instagram OAuth, OTP auth, and automated matching via Laravel Observers.</div>
             <div class="project-tech">
-              <span class="tech-badge">Laravel</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">Pusher</span>
-              <span class="tech-badge">Firebase</span>
+              <span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span>
+              <span class="tech-badge">Pusher</span><span class="tech-badge">Firebase</span>
               <span class="tech-badge">OAuth</span>
             </div>
           </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- INTEGRATIONS -->
+  <section id="integrations">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">// third-party</div>
+        <h2 class="section-title">Integrations</h2>
+        <p class="section-sub">Third-party services and APIs I've integrated in production projects</p>
+      </div>
+      <div class="integrations-grid">
+
+        <div class="integration-card">
+          <img class="integration-logo" src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" alt="Stripe" />
+          <div class="integration-name">Stripe</div>
+          <div class="integration-desc">Payment processing, webhooks &amp; card checkout</div>
+        </div>
+
+        <div class="integration-card">
+          <img class="integration-logo" src="https://razorpay.com/favicon.png" alt="Razorpay" />
+          <div class="integration-name">Razorpay</div>
+          <div class="integration-desc">UPI, cards &amp; netbanking payment gateway</div>
+        </div>
+
+        <div class="integration-card">
+          <img class="integration-logo" src="https://www.zohowebstatic.com/sites/zweb/images/favicon.ico" alt="Zoho CRM" />
+          <div class="integration-name">Zoho CRM</div>
+          <div class="integration-desc">Lead sync, contact &amp; deal automation</div>
+        </div>
+
+        <div class="integration-card">
+          <img class="integration-logo" src="https://www.zohowebstatic.com/sites/zweb/images/favicon.ico" alt="Zoho Books" />
+          <div class="integration-name">Zoho Books</div>
+          <div class="integration-desc">Invoice, payment &amp; accounting automation</div>
+        </div>
+
+        <div class="integration-card">
+          <img class="integration-logo" src="https://www.shiprocket.in/favicon.ico" alt="Shiprocket" />
+          <div class="integration-name">Shiprocket</div>
+          <div class="integration-desc">Shipment creation, AWB &amp; order tracking</div>
+        </div>
+
+        <div class="integration-card">
+          <span class="integration-logo-icon">&#x1F4AC;</span>
+          <div class="integration-name">WhatsApp API</div>
+          <div class="integration-desc">Lead notifications &amp; automated messaging</div>
+        </div>
+
+        <div class="integration-card">
+          <img class="integration-logo" src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_96dp.png" alt="Firebase" />
+          <div class="integration-name">Firebase</div>
+          <div class="integration-desc">Push notifications &amp; real-time data</div>
+        </div>
+
+        <div class="integration-card">
+          <img class="integration-logo" src="https://pusher.com/static/favicon.ico" alt="Pusher" />
+          <div class="integration-name">Pusher</div>
+          <div class="integration-desc">Real-time chat &amp; live event broadcasting</div>
+        </div>
+
+        <div class="integration-card">
+          <img class="integration-logo" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_"Guava"_Logo.svg" alt="Google OAuth" onerror="this.style.display='none';this.nextSibling.style.display='block'" />
+          <span class="integration-logo-icon" style="display:none">&#x1F511;</span>
+          <div class="integration-name">Google OAuth</div>
+          <div class="integration-desc">Social sign-in &amp; authentication</div>
+        </div>
+
+        <div class="integration-card">
+          <img class="integration-logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram OAuth" />
+          <div class="integration-name">Instagram OAuth</div>
+          <div class="integration-desc">Influencer social login &amp; profile data</div>
+        </div>
+
+        <div class="integration-card">
+          <img class="integration-logo" src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS S3" />
+          <div class="integration-name">AWS S3</div>
+          <div class="integration-desc">Cloud file storage &amp; media management</div>
+        </div>
+
+        <div class="integration-card">
+          <span class="integration-logo-icon">&#x1F4E7;</span>
+          <div class="integration-name">SMTP Mail</div>
+          <div class="integration-desc">Transactional emails &amp; notifications</div>
         </div>
 
       </div>
@@ -427,49 +556,103 @@
         <h2 class="section-title">Experience</h2>
         <p class="section-sub">My professional journey across companies</p>
       </div>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-period">08/2024 &mdash; Present</div>
-          <div class="timeline-role">Full-Stack Developer</div>
-          <div class="timeline-company">Zenerom Creative Lab</div>
-          <ul class="timeline-points">
-            <li>Designed and developed custom CRM &amp; HRM systems using PHP Laravel</li>
-            <li>Developed Job Management Software integrated with Zoho CRM (CodeIgniter)</li>
-            <li>Built and deployed eCommerce platforms using PHP Laravel</li>
-            <li>Customized Zoho CRM &amp; Zoho Books workflows for clients</li>
-            <li>Built RESTful APIs for a no-code website builder using NestJS &amp; PostgreSQL</li>
-          </ul>
+      <div class="exp-grid">
+
+        <div class="exp-card">
+          <div class="exp-sidebar">
+            <div>
+              <div class="exp-period">08/2024 &mdash; Present</div>
+              <div class="exp-role">Full-Stack Developer</div>
+              <div class="exp-company">Zenerom Creative Lab</div>
+            </div>
+            <span class="exp-badge current">&#x25CF; Current</span>
+          </div>
+          <div class="exp-content">
+            <ul class="exp-points">
+              <li>Designed and developed custom CRM &amp; HRM systems using PHP Laravel</li>
+              <li>Developed Job Management Software integrated with Zoho CRM (CodeIgniter)</li>
+              <li>Built and deployed eCommerce platforms with Stripe &amp; Razorpay payments</li>
+              <li>Customized Zoho CRM &amp; Zoho Books workflows and automation for clients</li>
+              <li>Built RESTful APIs for a no-code website builder using NestJS &amp; PostgreSQL</li>
+            </ul>
+            <div class="exp-tags">
+              <span class="exp-tag">Laravel</span><span class="exp-tag">NestJS</span>
+              <span class="exp-tag">Zoho CRM</span><span class="exp-tag">Zoho Books</span>
+              <span class="exp-tag">CodeIgniter</span><span class="exp-tag">MySQL</span>
+              <span class="exp-tag">Stripe</span><span class="exp-tag">AWS</span>
+            </div>
+          </div>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-period">05/2023 &mdash; 07/2024</div>
-          <div class="timeline-role">Back-End Developer</div>
-          <div class="timeline-company">Sysitco Technologies</div>
-          <ul class="timeline-points">
-            <li>Developed and optimized RESTful APIs for a social commerce platform (Laravel)</li>
-            <li>Created comprehensive Postman collections for API documentation</li>
-            <li>Collaborated with cross-location frontend teams via Agile sprints</li>
-          </ul>
+
+        <div class="exp-card">
+          <div class="exp-sidebar">
+            <div>
+              <div class="exp-period">05/2023 &mdash; 07/2024</div>
+              <div class="exp-role">Back-End Developer</div>
+              <div class="exp-company">Sysitco Technologies</div>
+            </div>
+            <span class="exp-badge past">Completed</span>
+          </div>
+          <div class="exp-content">
+            <ul class="exp-points">
+              <li>Developed and optimized RESTful APIs for a social commerce platform</li>
+              <li>Built real-time chat features with Pusher and Firebase push notifications</li>
+              <li>Created comprehensive Postman collections for API documentation</li>
+              <li>Collaborated with cross-location frontend teams via Agile sprints</li>
+            </ul>
+            <div class="exp-tags">
+              <span class="exp-tag">Laravel</span><span class="exp-tag">MySQL</span>
+              <span class="exp-tag">Pusher</span><span class="exp-tag">Firebase</span>
+              <span class="exp-tag">Postman</span><span class="exp-tag">REST APIs</span>
+            </div>
+          </div>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-period">12/2022 &mdash; 04/2023</div>
-          <div class="timeline-role">Full-Stack Developer</div>
-          <div class="timeline-company">Saportika</div>
-          <ul class="timeline-points">
-            <li>Developed dynamic websites with full CRUD-based admin panels (Core PHP)</li>
-            <li>Collaborated directly with clients to deliver tailored solutions</li>
-            <li>Updated and maintained WordPress websites</li>
-          </ul>
+
+        <div class="exp-card">
+          <div class="exp-sidebar">
+            <div>
+              <div class="exp-period">12/2022 &mdash; 04/2023</div>
+              <div class="exp-role">Full-Stack Developer</div>
+              <div class="exp-company">Saportika</div>
+            </div>
+            <span class="exp-badge past">Completed</span>
+          </div>
+          <div class="exp-content">
+            <ul class="exp-points">
+              <li>Developed dynamic websites with full CRUD-based admin panels (Core PHP)</li>
+              <li>Collaborated directly with clients to deliver tailored web solutions</li>
+              <li>Updated and maintained WordPress websites with custom plugins &amp; themes</li>
+            </ul>
+            <div class="exp-tags">
+              <span class="exp-tag">PHP</span><span class="exp-tag">MySQL</span>
+              <span class="exp-tag">WordPress</span><span class="exp-tag">JavaScript</span>
+              <span class="exp-tag">HTML/CSS</span>
+            </div>
+          </div>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-period">09/2022 &mdash; 11/2022</div>
-          <div class="timeline-role">Full-Stack Developer</div>
-          <div class="timeline-company">Tapclone</div>
-          <ul class="timeline-points">
-            <li>Built user-friendly interfaces using HTML, CSS, and JavaScript</li>
-            <li>Created dynamic websites using Core PHP</li>
-            <li>Implemented Razorpay payment gateway integration</li>
-          </ul>
+
+        <div class="exp-card">
+          <div class="exp-sidebar">
+            <div>
+              <div class="exp-period">09/2022 &mdash; 11/2022</div>
+              <div class="exp-role">Full-Stack Developer</div>
+              <div class="exp-company">Tapclone</div>
+            </div>
+            <span class="exp-badge past">Completed</span>
+          </div>
+          <div class="exp-content">
+            <ul class="exp-points">
+              <li>Built user-friendly interfaces using HTML, CSS, and JavaScript</li>
+              <li>Created dynamic web applications using Core PHP</li>
+              <li>Implemented Razorpay payment gateway integration for online transactions</li>
+            </ul>
+            <div class="exp-tags">
+              <span class="exp-tag">PHP</span><span class="exp-tag">Razorpay</span>
+              <span class="exp-tag">JavaScript</span><span class="exp-tag">HTML/CSS</span>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -517,10 +700,14 @@
       const container = document.getElementById('slides-' + id);
       const imgs = container.querySelectorAll('img');
       const dots = document.getElementById('dots-' + id);
+      const counter = document.getElementById('count-' + id);
       imgs.forEach((img, i) => img.classList.toggle('active', i === s.current));
       if (dots) dots.querySelectorAll('.slide-dot').forEach((d, i) => d.classList.toggle('active', i === s.current));
+      if (counter) counter.textContent = (s.current + 1) + ' / ' + s.total;
     }
     initSlide('celestea', 5);
+    initSlide('uniquefoods', 6);
+    initSlide('crm', 6);
   </script>
 
 </body>
