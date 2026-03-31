@@ -201,6 +201,7 @@
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#integrations">Integrations</a></li>
+    <li><a href="#tools">Tools</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -222,7 +223,7 @@
     </div>
     <div class="hero-stats">
       <div class="stat"><div class="stat-num" data-target="4">0</div><div class="stat-label">Years Experience</div></div>
-      <div class="stat"><div class="stat-num" data-target="20">0</div><div class="stat-label">Projects Built</div></div>
+      <div class="stat"><div class="stat-num" data-target="30" data-plus="true">0</div><div class="stat-label">Projects Built</div></div>
       <div class="stat"><div class="stat-num" data-target="4">0</div><div class="stat-label">Companies</div></div>
     </div>
   </div>
@@ -850,7 +851,8 @@ function animateCounter(el, target) {
     if (!start) start = ts;
     const p = Math.min((ts - start) / duration, 1);
     const ease = 1 - Math.pow(1 - p, 3);
-    el.textContent = isFloat ? (ease * target).toFixed(1) : Math.floor(ease * target);
+    const val = isFloat ? (ease * target).toFixed(1) : Math.floor(ease * target);
+    el.textContent = el.dataset.plus ? val + '+' : val;
     if (p < 1) requestAnimationFrame(step);
   })(performance.now());
 }
